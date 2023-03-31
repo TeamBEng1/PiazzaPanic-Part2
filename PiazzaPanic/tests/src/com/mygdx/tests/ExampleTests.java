@@ -12,5 +12,5 @@ public class ExampleTests {
     public void alwaysTrueTest() {
         assertTrue(true);
     }
-    
+
 }
