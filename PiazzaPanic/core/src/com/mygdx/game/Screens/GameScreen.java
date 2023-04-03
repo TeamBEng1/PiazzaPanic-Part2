@@ -77,7 +77,7 @@ public class GameScreen implements Screen {
     int selected = 0;
     ArrayList<Integer> stationSelected = new ArrayList<>();
     // control the number of cooks
-    int cookCount = 2; // control how many cooks spawn -> update to allow for the value to increase
+    int cookCount = 3; // control how many cooks spawn -> update to allow for the value to increase
     // take the time at the start of the game to display the time taken to complete the round
     Instant gameTime = Instant.now();
     // list of active orders
