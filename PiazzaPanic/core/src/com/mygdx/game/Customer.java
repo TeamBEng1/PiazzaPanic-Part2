@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.Food.Burger;
 import com.mygdx.game.Food.Order;
 import com.mygdx.game.Food.Salad;
+import com.mygdx.game.Food.Pizza;
 
 import java.util.ArrayList;
 
@@ -38,6 +39,7 @@ public class Customer {
         // TODO add all possible orders here
         orderOptions.add(new Order("burger", new Texture("orderBurger.png"), new Burger()));
         orderOptions.add(new Order("salad", new Texture("orderSalad.png"), new Salad()));
+        orderOptions.add(new Order("pizza", new Texture("orderPizza.png"), new Pizza()));
 
         this.customerOrder = generateOrder();
     }
