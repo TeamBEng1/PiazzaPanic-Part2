@@ -43,6 +43,9 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The class GameScreen represents the screen and all displayed assets within the game, which inherits from the Screen interface
+ */
 public class GameScreen implements Screen {
     
     private final int customerNumber = 5;
