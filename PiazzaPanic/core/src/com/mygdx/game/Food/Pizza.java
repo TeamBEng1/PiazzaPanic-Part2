@@ -26,25 +26,28 @@ public class Pizza implements Recipe{
         Ingredient cheese = new Ingredient("cheese", new Texture("cheese.png"), new Texture("cheese.png"));
         cheese.prepare();
         pizzaRecipe.add(cheese);
+
         Ingredient tomato = new Ingredient("tomato", new Texture("tomato.png"), new Texture("prepdTomato.png"));
         tomato.prepare();
         pizzaRecipe.add(tomato);
+
         Ingredient base = new Ingredient("pizzaBase", new Texture("pizzaBase.png"), new Texture("pizzaBase.png"));
         base.prepare();
         pizzaRecipe.add(base);
+
         this.pizzaTexture = new Texture("pizza.png");
         this.speechBubble = new Texture("orderPizzaBubble.png");
     }
 
     /**
-     * Getter function for burgerRecipe
+     * Getter function for pizzaRecipe
      * @return recipe array
      */
     @Override
     public ArrayList<Ingredient> getRecipe() { return pizzaRecipe; }
 
     /**
-     * Setter for burgerTexture
+     * Setter for pizzaTexture
      * @return texture
      */
 
@@ -69,6 +72,7 @@ public class Pizza implements Recipe{
         boolean foundCheese = false;
         boolean foundTomato = false;
         boolean foundBase = false;
+
         Ingredient cheese = new Ingredient("cheese", null, null);
         cheese.prepare();
         Ingredient tomato = new Ingredient("tomato", null, null);

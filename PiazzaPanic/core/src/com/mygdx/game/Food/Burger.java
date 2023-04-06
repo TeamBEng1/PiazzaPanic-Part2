@@ -21,12 +21,15 @@ public class Burger implements Recipe {
         Ingredient patty = new Ingredient("patty", new Texture("rawPatty.png"), new Texture("prepdPatty.png"));
         patty.prepare();
         burgerRecipe.add(patty);
+
         Ingredient buns = new Ingredient("buns", new Texture("buns.png"), new Texture("buns.png"));
         buns.prepare();
         burgerRecipe.add(buns);
+
         Ingredient lettuce = new Ingredient("lettuce", new Texture("lettuce.png"), new Texture("prepdLettuce.png"));
         lettuce.prepare();
         burgerRecipe.add(lettuce);
+
         this.burgerTexture = new Texture("burger.png");
         this.speechBubble = new Texture("orderBurgerBubble.png");
     }

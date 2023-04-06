@@ -5,9 +5,12 @@ Guide to adding food, because there's many steps
     - (I copied the Burger one, replacing words where necessary)
 
 2) EDIT CUSTOMER
+    - Import new food class
     - From about line39, add a new orderOption for the customer
 
 3) EDIT GAMESCREEN
+    - Import food class
+
     - From about line 108, add a new clickable for each new ingredient and finished recipe
     - (don't worry about the orderTextures at ~line155, those aren't used and are vestigial)
     - If necessary, add preparation code:

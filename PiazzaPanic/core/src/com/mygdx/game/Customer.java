@@ -8,6 +8,7 @@ import com.mygdx.game.Food.Burger;
 import com.mygdx.game.Food.Order;
 import com.mygdx.game.Food.Salad;
 import com.mygdx.game.Food.Pizza;
+import com.mygdx.game.Food.JacketPotato;
 
 import java.util.ArrayList;
 
@@ -36,10 +37,10 @@ public class Customer {
         this.body.setX(144);
         this.body.setY(80);
 
-        // TODO add all possible orders here
         orderOptions.add(new Order("burger", new Texture("orderBurger.png"), new Burger()));
         orderOptions.add(new Order("salad", new Texture("orderSalad.png"), new Salad()));
         orderOptions.add(new Order("pizza", new Texture("orderPizza.png"), new Pizza()));
+        orderOptions.add(new Order("jacketPotato", new Texture("orderJacketPotato.png"), new JacketPotato()));
 
         this.customerOrder = generateOrder();
     }
@@ -75,6 +76,6 @@ public class Customer {
  * @return the random number
  */
     private Order generateOrder() {
-        return orderOptions.get(MathUtils.random(0, 1));
+        return orderOptions.get(MathUtils.random(0, orderOptions.size() - 1));
     }
 }

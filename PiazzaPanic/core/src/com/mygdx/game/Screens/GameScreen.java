@@ -33,11 +33,17 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.Cook;
 import com.mygdx.game.Customer;
+
 import com.mygdx.game.Food.Burger;
 import com.mygdx.game.Food.Ingredient;
 import com.mygdx.game.Food.Order;
 import com.mygdx.game.Food.Salad;
+import com.mygdx.game.Food.Pizza;
+import com.mygdx.game.Food.JacketPotato;
+
 import com.mygdx.game.PiazzaPanic;
+import jdk.internal.net.http.common.SequentialScheduler;
+
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -111,11 +117,15 @@ public class GameScreen implements Screen {
     ImageButton tomatoClickable;
     ImageButton bunsClickable;
     ImageButton pattyClickable;
-    ImageButton burgerClickable;
-    ImageButton saladClickable;
     ImageButton cheeseClickable;
     ImageButton baseClickable;
+    ImageButton potatoClickable;
+
+    ImageButton burgerClickable;
+    ImageButton saladClickable;
     ImageButton pizzaClickable;
+    ImageButton jacketPotatoClickable;
+
     //when you hover over a clickable it changes the cursor to a hand
     //this listener is added to all clickables
     ClickListener cursorHovering = new ClickListener() {
@@ -133,9 +143,9 @@ public class GameScreen implements Screen {
     Texture plateTex = new Texture("plate.png");
     Texture cookStackTitle = new Texture("cookStackTitle.png");
     Texture selectedCook = new Texture("selected.png");
-    //Order Textures
-    Texture burgerOrderTexture = new Texture("orderBurger.png");
-    Texture saladOrderTexture = new Texture("orderSalad.png");
+    //Order Textures (unused)
+//    Texture burgerOrderTexture = new Texture("orderBurger.png");
+//    Texture saladOrderTexture = new Texture("orderSalad.png");
     Boolean showPantryScreen = false;
     Boolean showServingScreen = false;
     private int customerCount = 0;
@@ -265,6 +275,32 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 stationSelected.set(selected, 2);
+
+                Ingredient cookedPotato = new Ingredient("potato", new Texture("rawPotato.png"), new Texture("prepdPotato.png"));
+                cookedPotato.prepare();
+                cookedPotato.updateCurrentTexture();
+
+                if ((Math.abs(cooks.get(selected).CookBody.getY() - 64f) < 2) && (Math.abs(cooks.get(selected).CookBody.getX() - 64f) < 2)) {
+                    // limit only preparing one ingredient per click
+                    boolean ingredientDone = false;
+                    Ingredient selectedIngredient = null;
+
+                    // prepares first valid thing in cuurent cook's stack after clicking station
+                    // while busy creates status bar
+                    for (Ingredient ingredient : cooks.get(selected).CookStack) {
+                        if ((ingredient.name == "potato") && (!ingredient.getState()) && (!ingredientDone)) {
+                            selectedIngredient = ingredient;
+                        }
+                    }
+
+                    if(!(selectedIngredient == null)) {
+                        cooks.get(selected).isBusy = true;
+                        createProgressBar(64, 86, cooks.get(selected));
+                        selectedIngredient.prepare();
+                        selectedIngredient.updateCurrentTexture();
+                        ingredientDone = true;
+                    }
+                }
             }
         });
         gameStage.addActor(bakingClickable);
@@ -440,6 +476,17 @@ public class GameScreen implements Screen {
             }
         });
 
+        // unprepared potato button
+        potatoClickable = createImageClickable(new Texture("rawPotato.png"), 24, 24);
+        potatoClickable.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (cooks.get(selected).CookStack.size() < 5) {
+                    cooks.get(selected).CookStack.push(new Ingredient("potato", new Texture("rawPotato.png"), new Texture("prepdPotato.png")));
+                }
+            }
+        });
+
         // serving screen frame
         servingScreenFrameRegion = new TextureRegion(new Texture("servingFrame.png"));
         servingScreenFrame = new ImageButton(new TextureRegionDrawable(servingScreenFrameRegion));
@@ -490,6 +537,60 @@ public class GameScreen implements Screen {
                     if (customers.get(customerCount).customerOrder.getName() == "salad") {
                         cooks.get(selected).CookStack.remove(tomato);
                         cooks.get(selected).CookStack.remove(lettuce);
+                        customers.get(customerCount).orderComplete = true;
+                        hideServingScreen();
+                        cooks.get(selected).isBusy = false;
+                    }
+                } else {
+                    // some or all ingredients are not in the current cook's stack
+                }
+            }
+        });
+
+        // pizza button
+        pizzaClickable = createImageClickable(new Texture("pizza.png"), 24, 24);
+        pizzaClickable.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Pizza recipe = new Pizza();
+                Ingredient tomato = new Ingredient("tomato", null, null);
+                tomato.prepare();
+                Ingredient cheese = new Ingredient("cheese", null, null);
+                cheese.prepare();
+                Ingredient base = new Ingredient("base", null, null);
+                base.prepare();
+                if (recipe.has(cooks.get(selected).CookStack)) {
+                    if (customers.get(customerCount).customerOrder.getName() == "pizza") {
+                        cooks.get(selected).CookStack.remove(tomato);
+                        cooks.get(selected).CookStack.remove(cheese);
+                        cooks.get(selected).CookStack.remove(base);
+                        customers.get(customerCount).orderComplete = true;
+                        hideServingScreen();
+                        cooks.get(selected).isBusy = false;
+                    }
+                } else {
+                    // some or all ingredients are not in the current cook's stack
+                }
+            }
+        });
+
+
+        // jacket potato button
+        jacketPotatoClickable = createImageClickable(new Texture("jacketPotato.png"), 24, 24);
+        jacketPotatoClickable.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                JacketPotato recipe = new JacketPotato();
+                Ingredient potato = new Ingredient("potato", null, null);
+                potato.prepare();
+                Ingredient cheese = new Ingredient("cheese", null, null);
+                cheese.prepare();
+
+                if (recipe.has(cooks.get(selected).CookStack)) {
+                    if (customers.get(customerCount).customerOrder.getName() == "jacketPotato") {
+                        cooks.get(selected).CookStack.remove(potato);
+                        cooks.get(selected).CookStack.remove(cheese);
+
                         customers.get(customerCount).orderComplete = true;
                         hideServingScreen();
                         cooks.get(selected).isBusy = false;
@@ -629,10 +730,10 @@ public class GameScreen implements Screen {
         } else if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
             selected = 1;
         }
-        // TODO add statements for adding more cooks here
         if (cookCount > 2 && Gdx.input.isKeyPressed(Input.Keys.NUM_3)) {
             selected = 2;
         }
+
         for (int i = 0; i < cooks.size; i++) {
             if (cooks.get(i).CookBody.isTouchFocusTarget()) {
                 selected = i;
@@ -741,10 +842,16 @@ public class GameScreen implements Screen {
             XbtnClickable.toFront();
             gameStage.addActor(burgerClickable);
             gameStage.addActor(saladClickable);
+            gameStage.addActor(pizzaClickable);
+            gameStage.addActor(jacketPotatoClickable);
+
             servingScreenFrame.setPosition(10, 10);
             XbtnClickable.setPosition(7, 88);
             burgerClickable.setPosition(25, 66);
             saladClickable.setPosition(53, 66);
+            pizzaClickable.setPosition(25, 36);
+            jacketPotatoClickable.setPosition(53, 40);
+
             showServingScreen = false;
         }
     }
@@ -760,6 +867,7 @@ public class GameScreen implements Screen {
             gameStage.addActor(pattyClickable);
             gameStage.addActor(cheeseClickable);
             gameStage.addActor(baseClickable);
+            gameStage.addActor(potatoClickable);
 
             pantryScreenFrame.setPosition(10, 10);
             XbtnClickable.setPosition(7, 88);
@@ -769,6 +877,7 @@ public class GameScreen implements Screen {
             pattyClickable.setPosition(110, 72);
             cheeseClickable.setPosition(25, 34);
             baseClickable.setPosition(53, 34);
+            potatoClickable.setPosition(81, 34);
 
             showPantryScreen = false;
         }
@@ -784,6 +893,7 @@ public class GameScreen implements Screen {
         pattyClickable.setPosition(10000, -1);
         cheeseClickable.setPosition(10000, -1);
         baseClickable.setPosition(10000, -1);
+        potatoClickable.setPosition(10000, -1);
     }
 
     private void hideServingScreen() {
@@ -792,6 +902,8 @@ public class GameScreen implements Screen {
         XbtnClickable.setPosition(10000, -1);
         burgerClickable.setPosition(10000, -1);
         saladClickable.setPosition(10000, -1);
+        pizzaClickable.setPosition(10000, -1);
+        jacketPotatoClickable.setPosition(10000, -1);
     }
 
     public void createProgressBar(float x, float y, Cook selectedCook) {

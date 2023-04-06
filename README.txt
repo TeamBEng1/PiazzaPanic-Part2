@@ -1,6 +1,4 @@
-ENG1 Team 21
-
-Thanks for playing Piazza Panic by Generic Games!
+Thanks for playing Piazza Panic by TeamB!
 
 INSTRUCTIONS:
 You select a cook with the number keys 1, 2 or 3.
@@ -22,7 +20,7 @@ If the countdown of the order finishes the player loses a reputation point, howe
 KEYBINDS:
 1 - Select cook 1.
 2 - Select cook 2.
-3 - Select cook 3 (non-functional).
+3 - Select cook 3.
 Escape - Return to main menu.
 DEBUG KEYS:
 Enter - Skip current customer
