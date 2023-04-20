@@ -685,16 +685,19 @@ public class GameScreen implements Screen {
             if (customers.get(customerCount).body.getX() > 148) {
                 customers.get(customerCount).body.remove();
                 if (customerNumber != 0) {
+
                     // check if the game is in endless mode or not
                     if (customerCount != customerNumber - 1) {
                         // spawn new customer
                         customers.add(new Customer(new Actor()));
                         customerCount += 1;
+
                     } else {
                         // end game by taking the time at the game end and going to the time screen
                         Duration timeTaken = Duration.between(gameTime, Instant.now());
                         alienJazz.stop();
                         game.setScreen(new EndGameScreen(game, timeTaken,Rep));
+
                     }
                 } else {
                     // TODO endless mode
@@ -787,6 +790,13 @@ public class GameScreen implements Screen {
                     timeCount = 0;
                     if (customer.customerOrder.getOrderTime() == 0) {
                         Rep--;
+                        customers.get(customerCount).orderComplete = true;
+
+                        if (Rep == 0) {
+                            alienJazz.stop();
+                            Duration timeSurvived = Duration.between(gameTime, Instant.now());
+                            game.setScreen(new EndGameScreen(game, timeSurvived,Rep));
+                        }
                     }
                 }
             }
