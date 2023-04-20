@@ -775,42 +775,46 @@ public class GameScreen implements Screen {
         game.batch.end();
     }
 
+
+    public void updateOrders(float dt) {
+        for (Customer customer : customers) {
+            if ((customer.atCounter) && (!customer.orderComplete)) {
+                timeCount += dt;
+                if (timeCount >= 1) {
+                    if (customer.customerOrder.getOrderTime() >= 0) {
+                        customer.customerOrder.orderTime--;
+                    }
+                    timeCount = 0;
+                    if (customer.customerOrder.getOrderTime() == 0) {
+                        Rep--;
+                    }
+                }
+            }
+        }
+    }
+
     private void showOrders(float dt) {
-        // displays the orders at the top of the screen
+        updateOrders(dt);
+
         int x = 1;
         int y = 112;
         for (Customer customer : customers) {
             if ((customer.atCounter) && (!customer.orderComplete)) {
-                timeCount += dt;
-                //one second has passed
-                if(timeCount >= 1){
-                    //update order timer
-                    if(customer.customerOrder.getOrderTime() >= 0){
-                        customer.customerOrder.orderTime --;
-                    }
-                    timeCount = 0;
-                    if(customer.customerOrder.getOrderTime()==0){
-                        //Uncomment line below if you want the customer to leave after the order timer is gone
-                        //customer.orderComplete = true;
-                        Rep--;
-                    }
-                }
                 game.batch.begin();
                 game.batch.draw(customer.customerOrder.getOrderTexture(), x, y);
                 game.batch.draw(customer.customerOrder.getRecipe().getSpeechBubbleTexture(), customer.body.getX() - 10, customer.body.getY() + 17);
-                //order timer sets to 0 when it reaches -1
-                if(customer.customerOrder.getOrderTime()>-1){
-                    font.draw(game.batch, Integer.toString(customer.customerOrder.getOrderTime()), x+30, y+10);
+                if (customer.customerOrder.getOrderTime() > -1) {
+                    font.draw(game.batch, Integer.toString(customer.customerOrder.getOrderTime()), x + 30, y + 10);
                 } else {
-                    font.draw(game.batch, "0", x+30, y+10);
+                    font.draw(game.batch, "0", x + 30, y + 10);
                 }
-                
                 game.batch.end();
-                // increase x value if there is more than one current order
+
                 x += 41;
             }
         }
     }
+
 
     private void showCookStack() {
         // display the stack of ingredients being held by the current cook

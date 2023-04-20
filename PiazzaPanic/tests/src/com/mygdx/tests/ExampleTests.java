@@ -22,7 +22,7 @@ public class ExampleTests {
      * This test checks for the cooked patty asset in the assets folder
      */
     @Test
-    public void cookedPattyAssetTest(){
+    public void cookedPattyAssetTest() {
         assertTrue(Gdx.files.internal("../assets/prepdPatty.png").exists());
     }
 
@@ -30,8 +30,8 @@ public class ExampleTests {
      * This test checks for all assets (ingredients and final) related to salad
      */
     @Test
-    public void SaladTest(){
-        String[] saladAssetPaths = {"lettuce", "prepdLettuce", "tomato", "prepdTomato", "salad" };
+    public void SaladTest() {
+        String[] saladAssetPaths = {"lettuce", "prepdLettuce", "tomato", "prepdTomato", "salad"};
         boolean saladAssetsExist = true;
         for (String path : saladAssetPaths) {
             if (!Gdx.files.internal("../assets/" + path + ".png").exists()) {
@@ -46,8 +46,8 @@ public class ExampleTests {
      * This test checks for all assets (ingredients and final) related to burger
      */
     @Test
-    public void BurgerTest(){
-        String[] burgerAssetPaths = {"lettuce", "prepdLettuce", "buns", "rawPatty", "prepdPatty", "burger" };
+    public void BurgerTest() {
+        String[] burgerAssetPaths = {"lettuce", "prepdLettuce", "buns", "rawPatty", "prepdPatty", "burger"};
         boolean burgerAssetsExist = true;
         for (String path : burgerAssetPaths) {
             if (!Gdx.files.internal("../assets/" + path + ".png").exists()) {
@@ -57,5 +57,5 @@ public class ExampleTests {
         }
         assertTrue(burgerAssetsExist);
     }
-
 }
+
