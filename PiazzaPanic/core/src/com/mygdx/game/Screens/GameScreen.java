@@ -48,6 +48,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * The class GameScreen represents the screen and all displayed assets within the game, which inherits from the Screen interface
@@ -254,9 +255,13 @@ public class GameScreen implements Screen {
                         } else {
                             // create message to indicate that there are no ingredients in the current cook's stack to be prepared
                             if (pattyAtFrying) {
+                                //throw new InterruptedException("IE error");
+                                System.out.println("Patty flipped!");
+
                                 cooks.get(selected).isBusy = true;
                                 createProgressBar(24, 86, cooks.get(selected));
                                 fryingClicked++;
+
                                 cooks.get(selected).CookStack.push(cookedPatty);
                                 pattyAtFrying = false;
                             }
@@ -699,6 +704,7 @@ public class GameScreen implements Screen {
                         game.setScreen(new EndGameScreen(game, timeTaken,Rep));
 
                     }
+
                 } else {
                     // TODO endless mode
                     customers.add(new Customer(new Actor()));
@@ -940,6 +946,37 @@ public class GameScreen implements Screen {
             for (ProgressBar bar : bars.keySet()) {
                 bar.setValue(bar.getValue() - 0.05f);
                 if (bar.getValue() == 0) {
+
+//                    if (pattyAtFrying) {
+//                        // If the timer goes to 0, AND patty hasn't
+//                        // been flipped, AND flip button hasn't been pressed
+//                        // fast enough, patty burns
+//
+//                        // what's fun here is that the button doesn't matter what MATTERS
+//                        // is clicking the frying station twice
+//                        // so clicking the station a second time needs to cause IE exception
+//
+//                        try {
+//
+//
+//                            if (fryingClicked % 2 == 0) {
+//                                throw new InterruptedException();
+//                            }
+//                            TimeUnit.SECONDS.sleep(1);
+//
+//                            pattyAtFrying = false;
+//                            fryingClicked = 0;
+//
+//                            cooks.get(selected).isBusy = false;
+//                            //cooks.get(selected).CookStack.remove();
+//
+//                            System.out.println("Patty burnt!");
+//
+//                        } catch (InterruptedException ie) {
+//                            System.out.println("Sleep interrupted");
+//                        }
+//                      }
+
                     gameStage.getActors().removeValue(bar, false);
                     //unbusy the cook
                     bars.get(bar).isBusy = false;

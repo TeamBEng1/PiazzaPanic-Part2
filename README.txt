@@ -8,6 +8,7 @@ Each meal consists of ingredients which must be prepared before being served:
 	Patties must be fried and flipped
 	Lettuce must be cut
 	Tomatoes must be cut
+	Potatoes must be baked
 In order to prepare an ingredient, you must carry it to the correct preparation station.
 Once the cook is at the station, click the station again to start preparing the ingredient.
 A green progress bar will appear, in this time the cook cannot move.
@@ -15,7 +16,8 @@ Once the bar disappears, the cook can now move again.
 Once all the ingredients have been prepped, the cook must be moved to the serving bench on the right side of the kitchen.
 Here you can give a customer their order only if the selected cook is carrying all of the correct ingredients.
 Click on the dish you wish to serve and the customer will automatically take it and leave!
-If the countdown of the order finishes the player loses a reputation point, however the customer still waits to be served.
+If the countdown of the order finishes the player loses a reputation point and the customer leaves in anger
+    If you lose all reputation points, your restaurant will close!
 
 KEYBINDS:
 1 - Select cook 1.
