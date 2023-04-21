@@ -352,6 +352,10 @@ public class GameScreen implements Screen {
                             } else if ((ingredient.name == "tomato") && (!ingredient.getState()) && (!ingredientDone)) {
                                 selectedIngredient = ingredient;
                             }
+                            //Oli- so I can find this again easily
+                            else if ((ingredient.name == "cheese")&&(!ingredient.getState())&&(!ingredientDone)){
+                                selectedIngredient = ingredient;
+                            }
                         }
                         if (!(selectedIngredient == null)) {
                             cooks.get(selected).isBusy = true;
@@ -465,7 +469,7 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (cooks.get(selected).CookStack.size() < 5) {
-                    cooks.get(selected).CookStack.push(new Ingredient("cheese", new Texture("cheese.png"), new Texture("cheese.png")));
+                    cooks.get(selected).CookStack.push(new Ingredient("cheese", new Texture("cheese.png"), new Texture("prepdCheese.png")));
                 }
             }
         });
@@ -476,7 +480,9 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 if (cooks.get(selected).CookStack.size() < 5){
-                    cooks.get(selected).CookStack.push(new Ingredient("pizzaBase", new Texture("pizzaBase.png"), new Texture("pizzaBase.png")));
+                    Ingredient base = new Ingredient("pizzaBase", new Texture("pizzaBase.png"), new Texture("pizzaBase.png"));
+                    base.prepare();
+                    cooks.get(selected).CookStack.push(base);
                 }
             }
         });
@@ -562,7 +568,7 @@ public class GameScreen implements Screen {
                 tomato.prepare();
                 Ingredient cheese = new Ingredient("cheese", null, null);
                 cheese.prepare();
-                Ingredient base = new Ingredient("base", null, null);
+                Ingredient base = new Ingredient("pizzaBase", null, null);
                 base.prepare();
                 if (recipe.has(cooks.get(selected).CookStack)) {
                     if (customers.get(customerCount).customerOrder.getName() == "pizza") {
