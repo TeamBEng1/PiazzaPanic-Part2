@@ -17,15 +17,6 @@ public class AssetTests {
         assertTrue(true);
     }
 
-
-    /**
-     * This test checks for the cooked patty asset in the assets folder
-     */
-    @Test
-    public void cookedPattyAssetTest() {
-        assertTrue(Gdx.files.internal("../assets/prepdPatty.png").exists());
-    }
-
     /**
      * This test checks for all assets (ingredients and final) related to salad
      */
@@ -57,5 +48,55 @@ public class AssetTests {
         }
         assertTrue(burgerAssetsExist);
     }
+
+    /**
+     * This test checks for all assets (ingredients and final) related to pizza
+     */
+    @Test
+    public void PizzaTest() {
+        String[] pizzaAssetPaths = {"tomato", "prepdTomato", "cheese", "prepdCheese", "pizzaBase", "pizza"};
+        boolean pizzaAssetsExist = true;
+        for (String path : pizzaAssetPaths) {
+            if (!Gdx.files.internal("../assets/" + path + ".png").exists()) {
+                pizzaAssetsExist = false;
+                break;
+            }
+        }
+        assertTrue(pizzaAssetsExist);
+    }
+
+    /**
+     * This test checks for all assets (ingredients and final) related to jacket potato
+     */
+    @Test
+    public void JacketPotatoTest() {
+        String[] jacketPotatoAssetPaths = {"cheese", "prepdCheese", "rawPotato", "prepdPotato", "jacketPotato"};
+        boolean jacketPotatoAssetsExist = true;
+        for (String path : jacketPotatoAssetPaths) {
+            if (!Gdx.files.internal("../assets/" + path + ".png").exists()) {
+                jacketPotatoAssetsExist = false;
+                break;
+            }
+        }
+        assertTrue(jacketPotatoAssetsExist);
+    }
+
+
+    /**
+     * This test checks for all assets relating to ordering any of the above items
+     */
+    @Test
+    public void orderAssetTest() {
+        String[] orderAssetPaths = {"Burger", "BurgerBubble", "JacketPotato", "JacketPotatoBubble", "Pizza", "PizzaBubble", "Salad", "SaladBubble"};
+        boolean orderAssetsExist = true;
+        for (String path : orderAssetPaths) {
+            if (!Gdx.files.internal("../assets/order" + path + ".png").exists()) {
+                orderAssetsExist = false;
+                break;
+            }
+        }
+        assertTrue(orderAssetsExist);
+    }
 }
+
 
