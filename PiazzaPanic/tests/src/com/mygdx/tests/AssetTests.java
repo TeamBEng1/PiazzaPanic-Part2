@@ -7,7 +7,7 @@ import org.junit.runner.RunWith;
 import static org.junit.Assert.*;
 
 @RunWith(GdxTestRunner.class)
-public class ExampleTests {
+public class AssetTests {
 
     /**
      * This test is always true

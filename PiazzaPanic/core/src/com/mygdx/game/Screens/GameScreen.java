@@ -48,8 +48,6 @@ import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
-import java.util.Random;
 
 /**
  * The class GameScreen represents the screen and all displayed assets within the game, which inherits from the Screen interface
@@ -122,18 +120,6 @@ public class GameScreen implements Screen {
     ImageButton cheeseClickable;
     ImageButton baseClickable;
     ImageButton potatoClickable;
-
-    //powerup clickables - Oli
-    ImageButton powerupBlue;
-    ImageButton powerupGreen;
-    ImageButton powerupPurple;
-    ImageButton powerupRed;
-    ImageButton powerupRed2;
-    ImageButton powerupYellow;
-    ImageButton[] powerups = {powerupBlue, powerupGreen, powerupPurple, powerupRed, powerupRed2, powerupYellow};
-    Random rand = new Random();
-    int upperbound = 15;
-    
 
     ImageButton burgerClickable;
     ImageButton saladClickable;
@@ -211,65 +197,6 @@ public class GameScreen implements Screen {
         // array of all progressbars created (used to update all of them in updateProgressBars function)
         bars = new HashMap<ProgressBar, Cook>();
 
-        //powerups - Oli
-        powerupBlue = createImageClickable(new Texture("powerupBlue.png"),24, 24);
-        powerupGreen = createImageClickable(new Texture("powerupGreen.png"),24, 24);
-        powerupPurple = createImageClickable(new Texture("powerupPurple.png"), 24, 24);
-        powerupRed = createImageClickable(new Texture("powerupRed.png"),24, 24);
-        powerupRed2 = createImageClickable(new Texture("powerupRed2.png"),24, 24);
-        powerupYellow = createImageClickable(new Texture("powerupYellow.png"),24, 24);
-
-        powerupBlue.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                hidePowerup(powerupBlue);
-            }
-        });
-        gameStage.addActor(powerupBlue);
-
-        powerupGreen.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                hidePowerup(powerupGreen);
-            }
-        });
-        gameStage.addActor(powerupGreen);
-
-        powerupPurple.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                hidePowerup(powerupPurple);
-            }
-        });
-        gameStage.addActor(powerupPurple);
-
-        powerupRed.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                hidePowerup(powerupRed);
-            }
-        });
-        gameStage.addActor(powerupRed);
-
-        powerupRed2.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                hidePowerup(powerupRed2);
-            }
-        });
-        gameStage.addActor(powerupRed2);
-
-        powerupYellow.addListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y){
-                hidePowerup(powerupYellow);
-            }
-        });
-        gameStage.addActor(powerupYellow);
-
-        
-        // - Oli
-
         // pantry station
         pantryClickable = createImageClickable(32, 32);
         // function exectutes when you press on the pantry on screen
@@ -327,13 +254,9 @@ public class GameScreen implements Screen {
                         } else {
                             // create message to indicate that there are no ingredients in the current cook's stack to be prepared
                             if (pattyAtFrying) {
-                                //throw new InterruptedException("IE error");
-                                System.out.println("Patty flipped!");
-
                                 cooks.get(selected).isBusy = true;
                                 createProgressBar(24, 86, cooks.get(selected));
                                 fryingClicked++;
-
                                 cooks.get(selected).CookStack.push(cookedPatty);
                                 pattyAtFrying = false;
                             }
@@ -424,9 +347,6 @@ public class GameScreen implements Screen {
                             } else if ((ingredient.name == "tomato") && (!ingredient.getState()) && (!ingredientDone)) {
                                 selectedIngredient = ingredient;
                             }
-                            else if ((ingredient.name == "cheese")&&(!ingredient.getState())&&(!ingredientDone)){
-                                selectedIngredient = ingredient;
-                            }
                         }
                         if (!(selectedIngredient == null)) {
                             cooks.get(selected).isBusy = true;
@@ -465,14 +385,6 @@ public class GameScreen implements Screen {
         binClickable.setPosition(0, 0);
         cuttingClickable.setPosition(32, 0);
         servingClickable.setPosition(96, 16);
-        
-        // adding powerups to the screen - Oli
-        powerupBlue.setPosition(0, 120);
-        powerupGreen.setPosition(24,120);
-        powerupPurple.setPosition(48,120);
-        powerupRed.setPosition(72,120);
-        powerupRed2.setPosition(96,120);
-        powerupYellow.setPosition(130,120);
 
         // close button for station pop ups
         XbtnClickable = createImageClickable(new Texture("Xbtn.png"), 16, 16);
@@ -548,7 +460,7 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (cooks.get(selected).CookStack.size() < 5) {
-                    cooks.get(selected).CookStack.push(new Ingredient("cheese", new Texture("cheese.png"), new Texture("prepdCheese.png")));
+                    cooks.get(selected).CookStack.push(new Ingredient("cheese", new Texture("cheese.png"), new Texture("cheese.png")));
                 }
             }
         });
@@ -559,9 +471,7 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 if (cooks.get(selected).CookStack.size() < 5){
-                    Ingredient base = new Ingredient("pizzaBase", new Texture("pizzaBase.png"), new Texture("pizzaBase.png"));
-                    base.prepare();
-                    cooks.get(selected).CookStack.push(base);
+                    cooks.get(selected).CookStack.push(new Ingredient("pizzaBase", new Texture("pizzaBase.png"), new Texture("pizzaBase.png")));
                 }
             }
         });
@@ -647,7 +557,7 @@ public class GameScreen implements Screen {
                 tomato.prepare();
                 Ingredient cheese = new Ingredient("cheese", null, null);
                 cheese.prepare();
-                Ingredient base = new Ingredient("pizzaBase", null, null);
+                Ingredient base = new Ingredient("base", null, null);
                 base.prepare();
                 if (recipe.has(cooks.get(selected).CookStack)) {
                     if (customers.get(customerCount).customerOrder.getName() == "pizza") {
@@ -775,21 +685,17 @@ public class GameScreen implements Screen {
             if (customers.get(customerCount).body.getX() > 148) {
                 customers.get(customerCount).body.remove();
                 if (customerNumber != 0) {
-
                     // check if the game is in endless mode or not
                     if (customerCount != customerNumber - 1) {
                         // spawn new customer
                         customers.add(new Customer(new Actor()));
                         customerCount += 1;
-
                     } else {
                         // end game by taking the time at the game end and going to the time screen
                         Duration timeTaken = Duration.between(gameTime, Instant.now());
                         alienJazz.stop();
                         game.setScreen(new EndGameScreen(game, timeTaken,Rep));
-
                     }
-
                 } else {
                     // TODO endless mode
                     customers.add(new Customer(new Actor()));
@@ -869,53 +775,42 @@ public class GameScreen implements Screen {
         game.batch.end();
     }
 
-
-    public void updateOrders(float dt) {
-        for (Customer customer : customers) {
-            if ((customer.atCounter) && (!customer.orderComplete)) {
-                timeCount += dt;
-                if (timeCount >= 1) {
-                    if (customer.customerOrder.getOrderTime() >= 0) {
-                        customer.customerOrder.orderTime--;
-                    }
-                    timeCount = 0;
-                    if (customer.customerOrder.getOrderTime() == 0) {
-                        Rep--;
-                        customers.get(customerCount).orderComplete = true;
-
-                        if (Rep == 0) {
-                            alienJazz.stop();
-                            Duration timeSurvived = Duration.between(gameTime, Instant.now());
-                            game.setScreen(new EndGameScreen(game, timeSurvived,Rep));
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     private void showOrders(float dt) {
-        updateOrders(dt);
-
+        // displays the orders at the top of the screen
         int x = 1;
         int y = 112;
         for (Customer customer : customers) {
             if ((customer.atCounter) && (!customer.orderComplete)) {
+                timeCount += dt;
+                //one second has passed
+                if(timeCount >= 1){
+                    //update order timer
+                    if(customer.customerOrder.getOrderTime() >= 0){
+                        customer.customerOrder.orderTime --;
+                    }
+                    timeCount = 0;
+                    if(customer.customerOrder.getOrderTime()==0){
+                        //Uncomment line below if you want the customer to leave after the order timer is gone
+                        //customer.orderComplete = true;
+                        Rep--;
+                    }
+                }
                 game.batch.begin();
                 game.batch.draw(customer.customerOrder.getOrderTexture(), x, y);
                 game.batch.draw(customer.customerOrder.getRecipe().getSpeechBubbleTexture(), customer.body.getX() - 10, customer.body.getY() + 17);
-                if (customer.customerOrder.getOrderTime() > -1) {
-                    font.draw(game.batch, Integer.toString(customer.customerOrder.getOrderTime()), x + 30, y + 10);
+                //order timer sets to 0 when it reaches -1
+                if(customer.customerOrder.getOrderTime()>-1){
+                    font.draw(game.batch, Integer.toString(customer.customerOrder.getOrderTime()), x+30, y+10);
                 } else {
-                    font.draw(game.batch, "0", x + 30, y + 10);
+                    font.draw(game.batch, "0", x+30, y+10);
                 }
+                
                 game.batch.end();
-
+                // increase x value if there is more than one current order
                 x += 41;
             }
         }
     }
-
 
     private void showCookStack() {
         // display the stack of ingredients being held by the current cook
@@ -1011,11 +906,6 @@ public class GameScreen implements Screen {
         jacketPotatoClickable.setPosition(10000, -1);
     }
 
-    public void hidePowerup(ImageButton powerup){
-        //hides powerup on click - Oli
-        powerup.setPosition(0, -1000);
-    }
-
     public void createProgressBar(float x, float y, Cook selectedCook) {
         ProgressBarStyle style = new ProgressBarStyle();
         style.background = getColoredDrawable(20, 5, Color.GREEN);
@@ -1036,37 +926,6 @@ public class GameScreen implements Screen {
             for (ProgressBar bar : bars.keySet()) {
                 bar.setValue(bar.getValue() - 0.05f);
                 if (bar.getValue() == 0) {
-
-//                    if (pattyAtFrying) {
-//                        // If the timer goes to 0, AND patty hasn't
-//                        // been flipped, AND flip button hasn't been pressed
-//                        // fast enough, patty burns
-//
-//                        // what's fun here is that the button doesn't matter what MATTERS
-//                        // is clicking the frying station twice
-//                        // so clicking the station a second time needs to cause IE exception
-//
-//                        try {
-//
-//
-//                            if (fryingClicked % 2 == 0) {
-//                                throw new InterruptedException();
-//                            }
-//                            TimeUnit.SECONDS.sleep(1);
-//
-//                            pattyAtFrying = false;
-//                            fryingClicked = 0;
-//
-//                            cooks.get(selected).isBusy = false;
-//                            //cooks.get(selected).CookStack.remove();
-//
-//                            System.out.println("Patty burnt!");
-//
-//                        } catch (InterruptedException ie) {
-//                            System.out.println("Sleep interrupted");
-//                        }
-//                      }
-
                     gameStage.getActors().removeValue(bar, false);
                     //unbusy the cook
                     bars.get(bar).isBusy = false;
