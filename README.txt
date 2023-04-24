@@ -8,6 +8,7 @@ Each meal consists of ingredients which must be prepared before being served:
 	Patties must be fried and flipped
 	Lettuce must be cut
 	Tomatoes must be cut
+	Cheese must be grated (cut)
 	Potatoes must be baked
 In order to prepare an ingredient, you must carry it to the correct preparation station.
 Once the cook is at the station, click the station again to start preparing the ingredient.

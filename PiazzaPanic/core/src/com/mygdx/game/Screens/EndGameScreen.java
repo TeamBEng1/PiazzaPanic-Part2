@@ -135,7 +135,7 @@ public class EndGameScreen implements Screen {
         screenStage.getViewport().apply();
 
         if (restartBtn.isPressed()) {
-            game.setScreen(new GameScreen(game, view));
+            game.setScreen(new SettingsScreen(game, view));
         }
 
         if (exitBtn.isPressed()) {
