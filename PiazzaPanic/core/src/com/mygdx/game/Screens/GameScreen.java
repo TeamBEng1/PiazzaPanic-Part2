@@ -222,6 +222,7 @@ public class GameScreen implements Screen {
         powerupRed = createImageClickable(new Texture("powerupRed.png"),24, 24);
         powerupRed2 = createImageClickable(new Texture("powerupRed2.png"),24, 24);
         powerupYellow = createImageClickable(new Texture("powerupYellow.png"),24, 24);
+        
 
         powerupBlue.addListener(new ClickListener(){
             @Override
@@ -853,6 +854,10 @@ public class GameScreen implements Screen {
                 ingredient.updateCurrentTexture();
             }
         }
+        if (Gdx.input.isKeyPressed(Input.Keys.N)){
+            //debug - Oli
+            spawnPowerup();
+        }
     }
 
     //update the cooks on the screen
@@ -1015,6 +1020,14 @@ public class GameScreen implements Screen {
     public void hidePowerup(ImageButton powerup){
         //hides powerup on click - Oli
         powerup.setPosition(0, -1000);
+    }
+
+    public void spawnPowerup(){
+        //spawns Powerup - Oli
+        int numberOfPowerups = powerups.length;
+        int randomInt = rand.nextInt(numberOfPowerups - 1);
+        ImageButton powerup = powerups[randomInt];
+        powerup.setPosition(48,120);
     }
 
     public void createProgressBar(float x, float y, Cook selectedCook) {
