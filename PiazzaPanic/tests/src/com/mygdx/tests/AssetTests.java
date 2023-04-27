@@ -50,7 +50,7 @@ public class AssetTests {
     }
 
     /**
-     * This test checks for all assets (ingredients and final) related to pizza
+     * This test checks for all assets (ingredients and final) related to pizza--
      */
     @Test
     public void PizzaTest() {
