@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -28,10 +27,16 @@ import java.util.concurrent.TimeUnit;
 public class SettingsScreen implements Screen {
     FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Odin Rounded - Bold.otf"));
     FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-    BitmapFont font;
-    BitmapFont smallFont;
+    BitmapFont staticFont;
+    // this font is large and doesn't change
+    BitmapFont customerFont;
+    // this font is small and *does* change depending on the number of customers chosen
+    BitmapFont diffFont;
+    // this font is large and changes based on selected difficulty
 
     int customerNum = 5;
+    int diffInt = 2;
+    String diffStr = "MED";
 
     PiazzaPanic game;
     FitViewport view;
@@ -48,6 +53,8 @@ public class SettingsScreen implements Screen {
     Texture playBtnYellowTexHover;
     Texture upBtnTex;
     Texture downBtnTex;
+    Texture rightBtnTex;
+    Texture leftBtnTex;
 
 
     // image buttons for Not hovering on them
@@ -67,6 +74,16 @@ public class SettingsScreen implements Screen {
     TextureRegionDrawable downBtnDrawable;
     ImageButton downBtn;
 
+    TextureRegion rightBtnRegion;
+    TextureRegionDrawable rightBtnDrawable;
+    ImageButton rightBtn;
+
+    TextureRegion leftBtnRegion;
+    TextureRegionDrawable leftBtnDrawable;
+    ImageButton leftBtn;
+
+
+
     // image buttons for hovering over
     TextureRegion playBtnRegionHover;
     TextureRegionDrawable playBtnDrawableHover;
@@ -82,14 +99,17 @@ public class SettingsScreen implements Screen {
 
         parameter.size = 48;
         parameter.color = Color.BLACK;
-        font = generator.generateFont(parameter);
+        staticFont = generator.generateFont(parameter);
+        diffFont = generator.generateFont(parameter);
 
         parameter.size = 24;
-        smallFont = generator.generateFont(parameter);
+        customerFont = generator.generateFont(parameter);
+
+
     }
 
     /**
-     * Creates listeners for play, playYellow, and the up+down buttons
+     * Creates listeners for play, playYellow, and the up+down+l+r buttons
      */
     @Override
     public void show() {
@@ -98,6 +118,8 @@ public class SettingsScreen implements Screen {
         playBtnYellowTex = new Texture("playBtnYellow.png");
         upBtnTex = new Texture("upBtn.png");
         downBtnTex = new Texture("downBtn.png");
+        rightBtnTex = new Texture("rightBtn.png");
+        leftBtnTex = new Texture("leftBtn.png");
 
         // Buttons being hovered over
         playBtnTexHover = new Texture("playBtn2.png");
@@ -125,6 +147,14 @@ public class SettingsScreen implements Screen {
         downBtnDrawable = new TextureRegionDrawable(downBtnRegion);
         downBtn = new ImageButton(downBtnDrawable);
 
+        rightBtnRegion = new TextureRegion(rightBtnTex);
+        rightBtnDrawable = new TextureRegionDrawable(rightBtnRegion);
+        rightBtn = new ImageButton(rightBtnDrawable);
+
+        leftBtnRegion = new TextureRegion(leftBtnTex);
+        leftBtnDrawable = new TextureRegionDrawable(leftBtnRegion);
+        leftBtn = new ImageButton(leftBtnDrawable);
+
         // as above but for hovered buttons
         playBtnRegionHover = new TextureRegion(playBtnTexHover);
         playBtnDrawableHover = new TextureRegionDrawable(playBtnRegionHover);
@@ -132,7 +162,7 @@ public class SettingsScreen implements Screen {
         playBtnYellowRegionHover = new TextureRegion(playBtnYellowTexHover);
         playBtnYellowDrawableHover = new TextureRegionDrawable(playBtnYellowRegionHover);
 
-        // listeners for hovering on buttons
+        // listeners for hovering on buttons. Some of them glow, some just make the mouse a hand
         playBtn.addListener(new ClickListener() {
             final ImageButton playNormal = new ImageButton(playBtnDrawable);
             final ImageButton playHover = new ImageButton(playBtnDrawableHover);
@@ -187,6 +217,30 @@ public class SettingsScreen implements Screen {
             }
         });
 
+        leftBtn.addListener(new ClickListener(){
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
+            }
+
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+            }
+        });
+
+        rightBtn.addListener(new ClickListener(){
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
+            }
+
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+            }
+        });
+
     }
 
     /**
@@ -194,9 +248,6 @@ public class SettingsScreen implements Screen {
      */
     @Override
     public void render(float delta) {
-        // this is the default, can be changed with
-        // up and down buttons
-
 
         settingsStage.act();
 
@@ -207,10 +258,14 @@ public class SettingsScreen implements Screen {
         game.batch.begin();
         game.batch.draw(optionsFrame, ((game.GAME_WIDTH / 2) - (optionsFrame.getWidth() / 2)), 10);
 
-        font.draw(game.batch, "ENDLESS\nMODE:", 420, 580);
-        font.draw(game.batch, "SCENARIO\nMODE:", 420, 380);
+        staticFont.draw(game.batch, "ENDLESS\nMODE:", 420, 580);
+        staticFont.draw(game.batch, "SCENARIO\nMODE:", 420, 380);
 
-        GlyphLayout sF = smallFont.draw(game.batch, "Serve           " + customerNum + " people as fast as possible!", 420, 250);
+        GlyphLayout custFont = customerFont.draw(game.batch, "Serve           " + customerNum + " people as fast as possible!", 420, 250);
+
+        GlyphLayout difficultyFont = diffFont.draw(game.batch,  diffStr, 590, 150);
+
+        // 1 = easy, 2 medium, 3 hard
 
         game.batch.end();
 
@@ -232,52 +287,97 @@ public class SettingsScreen implements Screen {
         downBtn.setHeight(30);
         downBtn.setPosition(416, 210);
 
+        settingsStage.addActor(rightBtn);
+        rightBtn.setHeight(60);
+        rightBtn.setPosition(650, 105);
+
+        settingsStage.addActor(leftBtn);
+        leftBtn.setHeight(60);
+        leftBtn.setPosition(450, 105);
+
 
         // code for rest of buttons etc
 
 
         if (playBtn.isPressed()){
             // Play endless mode
-            game.setScreen(new GameScreen(game, view, 0));
+            game.setScreen(new GameScreen(game, view, 0, diffInt));
         }
 
         if (playBtnYellow.isPressed()) {
             // play scenario mode
-            game.setScreen(new GameScreen(game, view, customerNum));
+            game.setScreen(new GameScreen(game, view, customerNum, diffInt));
         }
 
 
         if (upBtn.isPressed()) {
-
             customerNum ++;
-            sF.reset();
-
-            System.out.println("customerNum is now " + customerNum);
+            custFont.reset();
 
             try {
                 TimeUnit.MILLISECONDS.sleep(500);
             } catch (InterruptedException ie) {
                 System.out.println("oops");
             }
-
         }
 
         if (downBtn.isPressed()) {
             customerNum --;
-            sF.reset();
+            custFont.reset();
 
             if (customerNum <= 0) {
                 customerNum = 1;
             }
 
-            System.out.println("customerNum is now " + customerNum);
+            try {
+                TimeUnit.MILLISECONDS.sleep(500);
+            } catch (InterruptedException ie) {
+                System.out.println("oops");
+            }
+        }
+
+        if (rightBtn.isPressed()) {
+            diffInt ++;
+            if (diffInt > 3) {
+                diffInt = 1;
+            }
+
+            if (diffInt == 1) {
+                diffStr = "EASY";
+            } else if (diffInt == 2) {
+                diffStr = "MED";
+            } else {
+                diffStr = "HARD";
+            }
+            difficultyFont.reset();
 
             try {
                 TimeUnit.MILLISECONDS.sleep(500);
             } catch (InterruptedException ie) {
                 System.out.println("oops");
             }
+        }
 
+        if (leftBtn.isPressed()) {
+            diffInt --;
+            if (diffInt > 3) {
+                diffInt = 1;
+            }
+
+            if (diffInt == 1) {
+                diffStr = "EASY";
+            } else if (diffInt == 2) {
+                diffStr = "MED";
+            } else {
+                diffStr = "HARD";
+            }
+            difficultyFont.reset();
+
+            try {
+                TimeUnit.MILLISECONDS.sleep(500);
+            } catch (InterruptedException ie) {
+                System.out.println("oops");
+            }
         }
 
 

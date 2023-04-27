@@ -1,5 +1,6 @@
 package com.mygdx.game.Food;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.ArrayList;
@@ -87,6 +88,7 @@ public class Burger implements Recipe {
                 foundLettuce = true;
             }
         }
+        boolean BurgerMade = true;
         return foundBuns && foundLettuce && foundPatty;
     }
 }

@@ -59,6 +59,7 @@ public class GameScreen implements Screen {
 
     // if customer number = 0, then endless mode
     private final int customerNumber;
+    private final int difficulty;
     PiazzaPanic game;
     FitViewport view;
     Stage gameStage;
@@ -75,6 +76,7 @@ public class GameScreen implements Screen {
     // 0 means infinite
     private final Array<Cook> cooks;
     private final Array<Customer> customers;
+
     // sprite handling
     Sprite alex;
     Sprite amelia;
@@ -83,9 +85,11 @@ public class GameScreen implements Screen {
     Skin skin;
     Skin custSkins;
     ArrayList<Sprite> idles = new ArrayList<>();
+
     // cook and customer control variables
     int selected = 0;
     ArrayList<Integer> stationSelected = new ArrayList<>();
+
     // control the number of cooks
     int cookCount = 3; // control how many cooks spawn -> update to allow for the value to increase
     // take the time at the start of the game to display the time taken to complete the round
@@ -167,8 +171,21 @@ public class GameScreen implements Screen {
     private int customerCount = 0;
 
 
-    public GameScreen(PiazzaPanic game, FitViewport port, int customerNumber) {
+    public GameScreen(PiazzaPanic game, FitViewport port, int customerNumber, int difficulty) {
         this.customerNumber = customerNumber;
+
+        this.difficulty = difficulty;
+        if (this.difficulty == 1) {
+            // EASY MODE!
+            Rep = 4;
+        } else if (this.difficulty == 2) {
+            // MEDIUM MODE!
+            Rep = 3;
+        } else {
+            // HARD MODE!
+            Rep = 1;
+            cookCount = 2;
+        }
 
         // initialise the game
         this.game = game;
@@ -183,9 +200,11 @@ public class GameScreen implements Screen {
         view.setCamera(gameCam);
         view.setWorldSize(192, 144);
         gameCam.position.set(view.getWorldWidth() / 2, view.getWorldHeight() / 2, 0);
+
         //set order timer font color
         font.setColor(Color.BLACK);
         font.getData().setScale(0.5f);
+
         // sprite information from the texture atlas
         TextureAtlas atlasIdle = new TextureAtlas(Gdx.files.internal("charIdle.txt"));
         TextureAtlas customersLeft = new TextureAtlas(Gdx.files.internal("customersLeft.txt"));
@@ -393,6 +412,7 @@ public class GameScreen implements Screen {
         // it sets the bin station as the currently selected station - this moves the cook to the bin station
         // if the cook is by the bin and presses on the bin it deletes the top ingredient on the current cook's stack
         binClickable.addListener(new ClickListener() {
+
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
@@ -796,7 +816,6 @@ public class GameScreen implements Screen {
                     }
 
                 } else {
-                    // TODO endless mode
                     customers.add(new Customer(new Actor()));
                     customerCount += 1;
                 }
@@ -810,6 +829,7 @@ public class GameScreen implements Screen {
             Cook cook = new Cook(new Actor());
             cook.CookBody.setWidth(16);
             cook.CookBody.setHeight(23);
+
             // scale information
             cook.CookBody.setScaleX(game.GAME_WIDTH / 16f);
             cook.CookBody.setScaleY(game.GAME_HEIGHT / 23f);
@@ -883,8 +903,25 @@ public class GameScreen implements Screen {
         int x = 1;
         int y = 112;
         for (Customer customer : customers) {
+//            if(this.difficulty == 1) {
+//                // EASY
+//                customer.customerOrder.orderTime = 50;
+//            } else if (this.difficulty == 2) {
+//                // MEDIUM
+//                customer.customerOrder.orderTime += 0;
+//            } else if (this.difficulty == 3) {
+//                // HARD
+//                customer.customerOrder.orderTime = 20;
+//            } else {
+//                System.out.println("This output is not for you.");
+//            }
+
             if ((customer.atCounter) && (!customer.orderComplete)) {
                 timeCount += dt;
+
+
+
+
                 //one second has passed
                 if(timeCount >= 1){
                     //update order timer
@@ -893,8 +930,6 @@ public class GameScreen implements Screen {
                     }
                     timeCount = 0;
                     if(customer.customerOrder.getOrderTime()==0){
-                        //Uncomment line below if you want the customer to leave after the order timer is gone
-                        //customer.orderComplete = true;
                         Rep--;
                         customers.get(customerCount).orderComplete = true;
 
@@ -909,6 +944,7 @@ public class GameScreen implements Screen {
                 game.batch.draw(customer.customerOrder.getOrderTexture(), x, y);
                 game.batch.draw(customer.customerOrder.getRecipe().getSpeechBubbleTexture(), customer.body.getX() - 10, customer.body.getY() + 17);
                 //order timer sets to 0 when it reaches -1
+
                 if(customer.customerOrder.getOrderTime()>-1){
                     font.draw(game.batch, Integer.toString(customer.customerOrder.getOrderTime()), x+30, y+10);
                 } else {
@@ -1048,7 +1084,20 @@ public class GameScreen implements Screen {
     private void updateProgressBars() {
         if (!bars.isEmpty()) {
             for (ProgressBar bar : bars.keySet()) {
-                bar.setValue(bar.getValue() - 0.05f);
+
+                if (this.difficulty == 1) {
+                    // EASY
+                    bar.setValue(bar.getValue() - 0.1f);
+                } else if (this.difficulty == 2) {
+                    // MEDIUM
+                    bar.setValue(bar.getValue() - 0.05f);
+                } else if (this.difficulty == 3){
+                    // HARD
+                    bar.setValue(bar.getValue() - 0.04f);
+                } else {
+                    System.out.println("If this line printed you fucked up");
+                }
+
                 if (bar.getValue() == 0) {
 
 //                    if (pattyAtFrying) {
@@ -1070,6 +1119,7 @@ public class GameScreen implements Screen {
 //                                throw new InterruptedException();
 //                            }
 //                            TimeUnit.SECONDS.sleep(1);
+//                            // this freezes the whole game and then burns the patty after 1 second anyway
 //
 //                            pattyAtFrying = false;
 //                            fryingClicked = 0;
