@@ -59,6 +59,7 @@ public class GameScreen implements Screen {
 
     // if customer number = 0, then endless mode
     private final int customerNumber;
+    private final int difficulty;
     PiazzaPanic game;
     FitViewport view;
     Stage gameStage;
@@ -167,8 +168,20 @@ public class GameScreen implements Screen {
     private int customerCount = 0;
 
 
-    public GameScreen(PiazzaPanic game, FitViewport port, int customerNumber) {
+    public GameScreen(PiazzaPanic game, FitViewport port, int customerNumber, int difficulty) {
         this.customerNumber = customerNumber;
+
+        this.difficulty = difficulty;
+        if (this.difficulty == 1) {
+            // EASY MODE!
+            Rep = 4;
+        } else if (this.difficulty == 2) {
+            // MEDIUM MODE!
+            Rep = 3;
+        } else {
+            // HARD MODE!
+            Rep = 1;
+        }
 
         // initialise the game
         this.game = game;
@@ -1057,6 +1070,7 @@ public class GameScreen implements Screen {
 //                                throw new InterruptedException();
 //                            }
 //                            TimeUnit.SECONDS.sleep(1);
+//                            // this freezes the whole game and then burns the patty after 1 second anyway
 //
 //                            pattyAtFrying = false;
 //                            fryingClicked = 0;
