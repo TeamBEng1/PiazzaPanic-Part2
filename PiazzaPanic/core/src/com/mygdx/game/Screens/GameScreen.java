@@ -411,6 +411,7 @@ public class GameScreen implements Screen {
         // it sets the bin station as the currently selected station - this moves the cook to the bin station
         // if the cook is by the bin and presses on the bin it deletes the top ingredient on the current cook's stack
         binClickable.addListener(new ClickListener() {
+
             @Override
             public void clicked(InputEvent event, float x, float y) {
 
@@ -897,8 +898,25 @@ public class GameScreen implements Screen {
         int x = 1;
         int y = 112;
         for (Customer customer : customers) {
+//            if(this.difficulty == 1) {
+//                // EASY
+//                customer.customerOrder.orderTime = 50;
+//            } else if (this.difficulty == 2) {
+//                // MEDIUM
+//                customer.customerOrder.orderTime += 0;
+//            } else if (this.difficulty == 3) {
+//                // HARD
+//                customer.customerOrder.orderTime = 20;
+//            } else {
+//                System.out.println("This output is not for you.");
+//            }
+
             if ((customer.atCounter) && (!customer.orderComplete)) {
                 timeCount += dt;
+
+
+
+
                 //one second has passed
                 if(timeCount >= 1){
                     //update order timer
@@ -907,8 +925,6 @@ public class GameScreen implements Screen {
                     }
                     timeCount = 0;
                     if(customer.customerOrder.getOrderTime()==0){
-                        //Uncomment line below if you want the customer to leave after the order timer is gone
-                        //customer.orderComplete = true;
                         Rep--;
                         customers.get(customerCount).orderComplete = true;
 
@@ -923,6 +939,7 @@ public class GameScreen implements Screen {
                 game.batch.draw(customer.customerOrder.getOrderTexture(), x, y);
                 game.batch.draw(customer.customerOrder.getRecipe().getSpeechBubbleTexture(), customer.body.getX() - 10, customer.body.getY() + 17);
                 //order timer sets to 0 when it reaches -1
+
                 if(customer.customerOrder.getOrderTime()>-1){
                     font.draw(game.batch, Integer.toString(customer.customerOrder.getOrderTime()), x+30, y+10);
                 } else {
@@ -1054,7 +1071,20 @@ public class GameScreen implements Screen {
     private void updateProgressBars() {
         if (!bars.isEmpty()) {
             for (ProgressBar bar : bars.keySet()) {
-                bar.setValue(bar.getValue() - 0.05f);
+
+                if (this.difficulty == 1) {
+                    // EASY
+                    bar.setValue(bar.getValue() - 0.1f);
+                } else if (this.difficulty == 2) {
+                    // MEDIUM
+                    bar.setValue(bar.getValue() - 0.05f);
+                } else if (this.difficulty == 3){
+                    // HARD
+                    bar.setValue(bar.getValue() - 0.04f);
+                } else {
+                    System.out.println("If this line printed you fucked up");
+                }
+
                 if (bar.getValue() == 0) {
 
 //                    if (pattyAtFrying) {
