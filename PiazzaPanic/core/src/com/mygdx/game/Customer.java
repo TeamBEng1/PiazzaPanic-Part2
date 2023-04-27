@@ -11,6 +11,7 @@ import com.mygdx.game.Food.Pizza;
 import com.mygdx.game.Food.JacketPotato;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Customer class represents the non-playable customer character
@@ -75,7 +76,13 @@ public class Customer {
  * Generates a random number for the order
  * @return the random number
  */
-    private Order generateOrder() {
+    public Order generateOrder() {
         return orderOptions.get(MathUtils.random(0, orderOptions.size() - 1));
     }
+
+    public List<Order> getOrderOptions() {
+        return orderOptions;
+    }
 }
+
+
