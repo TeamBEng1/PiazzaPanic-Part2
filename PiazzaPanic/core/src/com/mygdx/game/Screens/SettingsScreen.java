@@ -35,8 +35,8 @@ public class SettingsScreen implements Screen {
     // this font is large and changes based on selected difficulty
 
     int customerNum = 5;
-    int diffInt = 1;
-    String diffStr = "EASY";
+    int diffInt = 2;
+    String diffStr = "MED";
 
     PiazzaPanic game;
     FitViewport view;

@@ -76,6 +76,7 @@ public class GameScreen implements Screen {
     // 0 means infinite
     private final Array<Cook> cooks;
     private final Array<Customer> customers;
+
     // sprite handling
     Sprite alex;
     Sprite amelia;
@@ -84,9 +85,11 @@ public class GameScreen implements Screen {
     Skin skin;
     Skin custSkins;
     ArrayList<Sprite> idles = new ArrayList<>();
+
     // cook and customer control variables
     int selected = 0;
     ArrayList<Integer> stationSelected = new ArrayList<>();
+
     // control the number of cooks
     int cookCount = 3; // control how many cooks spawn -> update to allow for the value to increase
     // take the time at the start of the game to display the time taken to complete the round
@@ -181,6 +184,7 @@ public class GameScreen implements Screen {
         } else {
             // HARD MODE!
             Rep = 1;
+            cookCount = 2;
         }
 
         // initialise the game
@@ -196,9 +200,11 @@ public class GameScreen implements Screen {
         view.setCamera(gameCam);
         view.setWorldSize(192, 144);
         gameCam.position.set(view.getWorldWidth() / 2, view.getWorldHeight() / 2, 0);
+
         //set order timer font color
         font.setColor(Color.BLACK);
         font.getData().setScale(0.5f);
+
         // sprite information from the texture atlas
         TextureAtlas atlasIdle = new TextureAtlas(Gdx.files.internal("charIdle.txt"));
         TextureAtlas customersLeft = new TextureAtlas(Gdx.files.internal("customersLeft.txt"));
@@ -808,7 +814,6 @@ public class GameScreen implements Screen {
                     }
 
                 } else {
-                    // TODO endless mode
                     customers.add(new Customer(new Actor()));
                     customerCount += 1;
                 }
@@ -822,6 +827,7 @@ public class GameScreen implements Screen {
             Cook cook = new Cook(new Actor());
             cook.CookBody.setWidth(16);
             cook.CookBody.setHeight(23);
+
             // scale information
             cook.CookBody.setScaleX(game.GAME_WIDTH / 16f);
             cook.CookBody.setScaleY(game.GAME_HEIGHT / 23f);
