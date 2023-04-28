@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.Food.Ingredient;
 
+import java.sql.Array;
 import java.util.ArrayList;
 import java.util.Stack;
 
@@ -17,6 +18,7 @@ public class Cook {
     public Actor CookBody;
     public float[][] locations = {{0, 64}, {32, 64}, {64, 64}, {0, 32}, {48, 28}, {80, 48}};
     public boolean isBusy = false;
+    private boolean hasReached = false;
 
     /**
      * Cook constructor
@@ -45,6 +47,7 @@ public class Cook {
                     float speed;
                     if (distance < 1) {
                         speed = 0f;
+                        //hasReached = true;
                     } else {
                         speed = 50f;
                     }
@@ -54,5 +57,8 @@ public class Cook {
                 }
             }
         }
+    }
+    public float[][] getLocations() {
+        return locations;
     }
 }
