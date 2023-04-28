@@ -68,6 +68,7 @@ public class GameScreen implements Screen {
     TiledMap map;
     OrthogonalTiledMapRenderer renderer;
     OrthographicCamera gameCam;
+
     //Start the game with 3 reputation points
     int Rep = 3;
     Texture RepLabel = new Texture("REP.png");
@@ -76,6 +77,7 @@ public class GameScreen implements Screen {
     // 0 means infinite
     private final Array<Cook> cooks;
     private final Array<Customer> customers;
+    Integer orderTime;
 
     // sprite handling
     Sprite alex;
@@ -92,8 +94,13 @@ public class GameScreen implements Screen {
 
     // control the number of cooks
     int cookCount = 3; // control how many cooks spawn -> update to allow for the value to increase
+
     // take the time at the start of the game to display the time taken to complete the round
     Instant gameTime = Instant.now();
+
+    // controls how fast the timer bar goes down (eg for chopping/baking)
+    float barStep;
+
     // list of active orders
     ArrayList<Order> orders = new ArrayList<>();
     //used to count how much time has passed after an order is placed
@@ -163,9 +170,6 @@ public class GameScreen implements Screen {
     Texture plateTex = new Texture("plate.png");
     Texture cookStackTitle = new Texture("cookStackTitle.png");
     Texture selectedCook = new Texture("selected.png");
-    //Order Textures (unused)
-//    Texture burgerOrderTexture = new Texture("orderBurger.png");
-//    Texture saladOrderTexture = new Texture("orderSalad.png");
     Boolean showPantryScreen = false;
     Boolean showServingScreen = false;
     private int customerCount = 0;
@@ -178,13 +182,19 @@ public class GameScreen implements Screen {
         if (this.difficulty == 1) {
             // EASY MODE!
             Rep = 4;
+            orderTime = 40;
+            barStep = 0.1f;
         } else if (this.difficulty == 2) {
             // MEDIUM MODE!
             Rep = 3;
+            orderTime = 30;
+            barStep = 0.05f;
         } else {
             // HARD MODE!
             Rep = 1;
             cookCount = 2;
+            orderTime = 20;
+            barStep = 0.04f;
         }
 
         // initialise the game
@@ -229,7 +239,7 @@ public class GameScreen implements Screen {
         cooks = new Array<Cook>();
         spawnCooks();
         customers = new Array<Customer>();
-        customers.add(new Customer(new Actor()));
+        customers.add(new Customer(new Actor(), orderTime));
 
         // array of all progressbars created (used to update all of them in updateProgressBars function)
         bars = new HashMap<ProgressBar, Cook>();
@@ -799,12 +809,14 @@ public class GameScreen implements Screen {
             customers.get(customerCount).move();
             if (customers.get(customerCount).body.getX() > 148) {
                 customers.get(customerCount).body.remove();
+
+
                 if (customerNumber != 0) {
 
                     // check if the game is in endless mode or not
                     if (customerCount != customerNumber - 1) {
                         // spawn new customer
-                        customers.add(new Customer(new Actor()));
+                        customers.add(new Customer(new Actor(), orderTime));
                         customerCount += 1;
 
                     } else {
@@ -816,7 +828,7 @@ public class GameScreen implements Screen {
                     }
 
                 } else {
-                    customers.add(new Customer(new Actor()));
+                    customers.add(new Customer(new Actor(), orderTime));
                     customerCount += 1;
                 }
             }
@@ -903,18 +915,7 @@ public class GameScreen implements Screen {
         int x = 1;
         int y = 112;
         for (Customer customer : customers) {
-//            if(this.difficulty == 1) {
-//                // EASY
-//                customer.customerOrder.orderTime = 50;
-//            } else if (this.difficulty == 2) {
-//                // MEDIUM
-//                customer.customerOrder.orderTime += 0;
-//            } else if (this.difficulty == 3) {
-//                // HARD
-//                customer.customerOrder.orderTime = 20;
-//            } else {
-//                System.out.println("This output is not for you.");
-//            }
+
 
             if ((customer.atCounter) && (!customer.orderComplete)) {
                 timeCount += dt;
@@ -1085,18 +1086,8 @@ public class GameScreen implements Screen {
         if (!bars.isEmpty()) {
             for (ProgressBar bar : bars.keySet()) {
 
-                if (this.difficulty == 1) {
-                    // EASY
-                    bar.setValue(bar.getValue() - 0.1f);
-                } else if (this.difficulty == 2) {
-                    // MEDIUM
-                    bar.setValue(bar.getValue() - 0.05f);
-                } else if (this.difficulty == 3){
-                    // HARD
-                    bar.setValue(bar.getValue() - 0.04f);
-                } else {
-                    System.out.println("If this line printed you fucked up");
-                }
+
+                bar.setValue((bar.getValue() - barStep));
 
                 if (bar.getValue() == 0) {
 

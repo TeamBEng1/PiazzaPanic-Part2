@@ -29,7 +29,7 @@ public class Customer {
     /**
      * Customer constructor
      */
-    public Customer(Actor skin) {
+    public Customer(Actor skin, int orderTime) {
         String[] names = {"Blue", "Red", "White", "Yellow"};
         this.name = names[MathUtils.random(0, 3)];
         this.body = skin;
@@ -38,10 +38,10 @@ public class Customer {
         this.body.setX(144);
         this.body.setY(80);
 
-        orderOptions.add(new Order("burger", new Texture("orderBurger.png"), new Burger()));
-        orderOptions.add(new Order("salad", new Texture("orderSalad.png"), new Salad()));
-        orderOptions.add(new Order("pizza", new Texture("orderPizza.png"), new Pizza()));
-        orderOptions.add(new Order("jacketPotato", new Texture("orderJacketPotato.png"), new JacketPotato()));
+        orderOptions.add(new Order("burger", new Texture("orderBurger.png"), new Burger(), orderTime));
+        orderOptions.add(new Order("salad", new Texture("orderSalad.png"), new Salad(), orderTime));
+        orderOptions.add(new Order("pizza", new Texture("orderPizza.png"), new Pizza(), orderTime));
+        orderOptions.add(new Order("jacketPotato", new Texture("orderJacketPotato.png"), new JacketPotato(), orderTime));
 
         this.customerOrder = generateOrder();
     }

@@ -7,15 +7,16 @@ public class Order {
     Recipe orderRecipe;
     String name;
     //default order time, 40 seconds
-    public Integer orderTime = 40;
+    public Integer orderTime;
 
     /**
      * Constructor for the Order class
      */
-    public Order(String name,Texture orderTexture, Recipe orderRecipe){
+    public Order(String name,Texture orderTexture, Recipe orderRecipe, Integer orderTime){
         this.name = name;
         this.orderTex = orderTexture;
         this.orderRecipe = orderRecipe;
+        this.orderTime = orderTime;
 
     }
 
