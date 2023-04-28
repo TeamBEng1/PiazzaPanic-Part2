@@ -75,7 +75,7 @@ public class GameScreen implements Screen {
     Texture RepPoint = new Texture("REPHeart.png");
     // customer number determines how many customers will spawn over the course of the game
     // 0 means infinite
-    private final Array<Cook> cooks;
+    public final Array<Cook> cooks;
     private final Array<Customer> customers;
     Integer orderTime;
 
@@ -836,7 +836,7 @@ public class GameScreen implements Screen {
     }
 
     // generate the cooks
-    private void spawnCooks() {
+    public void spawnCooks() {
         for (int i = 0; i < cookCount; i++) {
             Cook cook = new Cook(new Actor());
             cook.CookBody.setWidth(16);

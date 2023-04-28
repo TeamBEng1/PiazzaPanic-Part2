@@ -1,7 +1,6 @@
 package com.mygdx.tests.RecipeTests;
 
 import com.mygdx.game.Food.Ingredient;
-import com.mygdx.game.Food.JacketPotato;
 import com.mygdx.game.Food.Pizza;
 import com.mygdx.tests.GdxTestRunner;
 import org.junit.Test;

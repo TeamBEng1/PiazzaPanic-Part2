@@ -21,7 +21,7 @@ public class CustomerTests {
     @Before
     public void setUp() throws Exception {
         skin = new Actor();
-        customer = new Customer(skin);
+        customer = new Customer(skin,10);
     }
 
     @Test
