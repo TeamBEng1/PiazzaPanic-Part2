@@ -54,33 +54,6 @@ public class CookTests {
     }
 }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//    @Test
-//    public void testSpawnCooks() {
-//        PiazzaPanic game = new PiazzaPanic();
-//
-//        FitViewport port = new FitViewport(800,480);
-//        int customerNumber = 2;
-//
-//        GameScreen screen = new GameScreen(game,port,customerNumber);
-//        screen.spawnCooks();
-//
-//        Array<Cook> cooks = screen.cooks;
-//        //System.out.println(screen.cooks);
-//        assertEquals(2,cooks.size);
-//        }
-
-
 
 
 
