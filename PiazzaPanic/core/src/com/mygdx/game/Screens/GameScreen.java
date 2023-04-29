@@ -146,6 +146,8 @@ public class GameScreen implements Screen {
     ImageButton[] powerups = {powerupBlue, powerupGreen, powerupPurple, powerupRed, powerupRed2, powerupYellow};
     Random rand = new Random();
     int upperbound = 15;
+    float powerupDuration;
+    float powerupModifier;
 
 
     ImageButton burgerClickable;
@@ -184,17 +186,23 @@ public class GameScreen implements Screen {
             Rep = 4;
             orderTime = 40;
             barStep = 0.1f;
+            powerupDuration = 15f;
+            powerupModifier = 3;
         } else if (this.difficulty == 2) {
             // MEDIUM MODE!
             Rep = 3;
             orderTime = 30;
             barStep = 0.05f;
+            powerupDuration = 12f;
+            powerupModifier = 2;
         } else {
             // HARD MODE!
             Rep = 1;
             cookCount = 2;
             orderTime = 20;
             barStep = 0.04f;
+            powerupDuration = 8f;
+            powerupModifier = 1.5f;
         }
 
         // initialise the game
@@ -251,6 +259,12 @@ public class GameScreen implements Screen {
         powerupRed = createImageClickable(new Texture("powerupRed.png"),24, 24);
         powerupRed2 = createImageClickable(new Texture("powerupRed2.png"),24, 24);
         powerupYellow = createImageClickable(new Texture("powerupYellow.png"),24, 24);
+        powerups[0] = powerupBlue;
+        powerups[1] = powerupGreen;
+        powerups[2] = powerupPurple;
+        powerups[3] = powerupRed;
+        powerups[4] = powerupRed2;
+        powerups[5] = powerupYellow;
         
 
         powerupBlue.addListener(new ClickListener(){
@@ -1060,7 +1074,7 @@ public class GameScreen implements Screen {
     }
 
     public void spawnPowerup(){
-        //spawns Powerup - Oli
+        //spawns Powerup
         int numberOfPowerups = powerups.length;
         int randomInt = rand.nextInt(numberOfPowerups - 1);
         ImageButton powerup = powerups[randomInt];
