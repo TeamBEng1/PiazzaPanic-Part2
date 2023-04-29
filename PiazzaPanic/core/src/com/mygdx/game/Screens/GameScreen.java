@@ -148,6 +148,11 @@ public class GameScreen implements Screen {
     int upperbound = 15;
     float powerupDuration;
     float powerupModifier;
+    Boolean bonusMS;
+    Boolean bonusPoints;
+    Boolean freezeActive;
+    Boolean bonusHaste;
+    Boolean Invulnerability;
 
 
     ImageButton burgerClickable;
@@ -302,7 +307,11 @@ public class GameScreen implements Screen {
         powerupRed2.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
+                //When clicked gives rep to a max of 4
                 hidePowerup(powerupRed2);
+                if(Rep<4){
+                    Rep+=1;
+                }
             }
         });
         gameStage.addActor(powerupRed2);
