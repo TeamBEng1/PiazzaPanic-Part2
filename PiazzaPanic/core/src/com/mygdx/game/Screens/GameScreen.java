@@ -41,6 +41,7 @@ import com.mygdx.game.Food.Salad;
 import com.mygdx.game.Food.Pizza;
 import com.mygdx.game.Food.JacketPotato;
 
+import com.mygdx.game.GameManager;
 import com.mygdx.game.PiazzaPanic;
 import jdk.internal.net.http.common.SequentialScheduler;
 
@@ -56,7 +57,7 @@ import java.util.Random;
  */
 public class GameScreen implements Screen {
 
-
+    public GameManager manager;
     // if customer number = 0, then endless mode
     private final int customerNumber;
     private final int difficulty;
@@ -85,7 +86,7 @@ public class GameScreen implements Screen {
     Sprite adam;
     FileHandle charIdles;
     Skin skin;
-    Skin custSkins;
+    Skin customerSkins;
     ArrayList<Sprite> idles = new ArrayList<>();
 
     // cook and customer control variables
@@ -160,8 +161,9 @@ public class GameScreen implements Screen {
     ImageButton pizzaClickable;
     ImageButton jacketPotatoClickable;
 
-    //when you hover over a clickable it changes the cursor to a hand
-    //this listener is added to all clickables
+    /**
+     * when you hover over a clickable it changes the cursor to a hand this listener is added to all clickables
+     */
     ClickListener cursorHovering = new ClickListener() {
         @Override
         public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
@@ -181,7 +183,11 @@ public class GameScreen implements Screen {
     Boolean showServingScreen = false;
     private int customerCount = 0;
 
-
+    /**
+     * The initialiser and loader for the game
+     * @param game the file to initialise the game window
+     * @param port the viewport within the window to fit the game to the window size
+     */
     public GameScreen(PiazzaPanic game, FitViewport port, int customerNumber, int difficulty) {
         this.customerNumber = customerNumber;
 
@@ -233,8 +239,8 @@ public class GameScreen implements Screen {
         TextureAtlas customersLeft = new TextureAtlas(Gdx.files.internal("customersLeft.txt"));
         skin = new Skin();
         skin.addRegions(atlasIdle);
-        custSkins = new Skin();
-        custSkins.addRegions(customersLeft);
+        customerSkins = new Skin();
+        customerSkins.addRegions(customersLeft);
         charIdles = Gdx.files.internal("charIdle.txt");
         adam = skin.getSprite("Adam");
         alex = skin.getSprite("Alex");
@@ -270,7 +276,7 @@ public class GameScreen implements Screen {
         powerups[3] = powerupRed;
         powerups[4] = powerupRed2;
         powerups[5] = powerupYellow;
-        
+
 
         powerupBlue.addListener(new ClickListener(){
             @Override
@@ -329,7 +335,7 @@ public class GameScreen implements Screen {
 
         // pantry station
         pantryClickable = createImageClickable(32, 32);
-        // function exectutes when you press on the pantry on screen
+        // function executes when you press on the pantry on screen
         // it sets the pantry as the currently selected station - this moves the cook to the pantry
         // when the cook arrives the pantry screen is shown
         pantryClickable.addListener(new ClickListener() {
@@ -346,7 +352,7 @@ public class GameScreen implements Screen {
 
         // frying station
         fryingClickable = createImageClickable(32, 32);
-        // function exectutes when you press on the frying station on screen
+        // function executes when you press on the frying station on screen
         // it sets the frying station as the currently selected station - this moves the cook to the frying station
         fryingClickable.addListener(new ClickListener() {
             @Override
@@ -403,7 +409,7 @@ public class GameScreen implements Screen {
 
         // baking station
         bakingClickable = createImageClickable(32, 32);
-        // function exectutes when you press on the baking station on screen
+        // function executes when you press on the baking station on screen
         // it sets the baking station as the currently selected station - this moves the cook to the baking station
         bakingClickable.addListener(new ClickListener() {
             @Override
@@ -898,7 +904,11 @@ public class GameScreen implements Screen {
             customers.get(customerCount).orderComplete = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-            // return to main menu
+              // return to main menu
+            /**
+             * zac fix this
+             * manager.setSaveGame(this);
+             **/
             game.setScreen(new MainMenuScreen(game));
         }
         if (Gdx.input.isKeyPressed(Input.Keys.M)) {
@@ -928,7 +938,7 @@ public class GameScreen implements Screen {
         game.batch.draw(plateTex, 164, 25);
         game.batch.draw(cookStackTitle, 164, 120);
         game.batch.draw(idles.get(selected), 168, 1);
-        game.batch.draw(custSkins.getSprite(customers.get(customerCount).name), customers.get(customerCount).body.getX(), customers.get(customerCount).body.getY());
+        game.batch.draw(customerSkins.getSprite(customers.get(customerCount).name), customers.get(customerCount).body.getX(), customers.get(customerCount).body.getY());
         game.batch.draw(selectedCook, cooks.get(selected).CookBody.getX(), cooks.get(selected).CookBody.getY() + 26);
         game.batch.end();
     }
