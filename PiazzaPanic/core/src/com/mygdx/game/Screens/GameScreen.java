@@ -157,6 +157,10 @@ public class GameScreen implements Screen {
     Boolean Invulnerability = false;
     float powerupLeft= 0;
 
+    //points
+    int money = 0;
+    int earnings;
+
 
     ImageButton burgerClickable;
     ImageButton saladClickable;
@@ -201,6 +205,7 @@ public class GameScreen implements Screen {
             barStep = 0.1f;
             powerupDuration = 15f;
             powerupModifier = 3f;
+            earnings = 8;
         } else if (this.difficulty == 2) {
             // MEDIUM MODE!
             Rep = 3;
@@ -208,6 +213,7 @@ public class GameScreen implements Screen {
             barStep = 0.05f;
             powerupDuration = 12f;
             powerupModifier = 2f;
+            earnings = 6;
         } else {
             // HARD MODE!
             Rep = 1;
@@ -216,6 +222,7 @@ public class GameScreen implements Screen {
             barStep = 0.04f;
             powerupDuration = 8f;
             powerupModifier = 1.5f;
+            earnings = 4;
         }
 
         // initialise the game
@@ -280,10 +287,13 @@ public class GameScreen implements Screen {
         powerups[5] = powerupYellow;
 
 
+
         powerupBlue.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y){
                 hidePowerup(powerupBlue);
+                freezeActive = true;
+                powerupLeft = 15f;
             }
         });
         gameStage.addActor(powerupBlue);
@@ -292,6 +302,8 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 hidePowerup(powerupGreen);
+                bonusPoints = true;
+                powerupLeft = 15f;
             }
         });
         gameStage.addActor(powerupGreen);
@@ -310,6 +322,8 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 hidePowerup(powerupRed);
+                bonusHaste = true;
+                powerupLeft = 15f;
             }
         });
         gameStage.addActor(powerupRed);
@@ -330,6 +344,8 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 hidePowerup(powerupYellow);
+                Invulnerability = true;
+                powerupLeft = 15f;
             }
         });
         gameStage.addActor(powerupYellow);
@@ -534,12 +550,12 @@ public class GameScreen implements Screen {
         servingClickable.setPosition(96, 16);
 
         // adding powerups to the screen - Oli
-        powerupBlue.setPosition(0, 120);
-        powerupGreen.setPosition(24,120);
-        powerupPurple.setPosition(48,120);
-        powerupRed.setPosition(72,120);
-        powerupRed2.setPosition(96,120);
-        powerupYellow.setPosition(130,120);
+        powerupBlue.setPosition(0, -1200);
+        powerupGreen.setPosition(24,-1200);
+        powerupPurple.setPosition(48,-1020);
+        powerupRed.setPosition(72,-1020);
+        powerupRed2.setPosition(96,-1020);
+        powerupYellow.setPosition(130,-1020);
 
         // close button for station pop ups
         XbtnClickable = createImageClickable(new Texture("Xbtn.png"), 16, 16);
@@ -967,8 +983,8 @@ public class GameScreen implements Screen {
 
                 //one second has passed
                 if(timeCount >= 1){
-                    //update order timer
-                    if(customer.customerOrder.getOrderTime() >= 0){
+                    //update order timer - Oliver
+                    if(customer.customerOrder.getOrderTime() >= 0 && freezeActive == false){
                         customer.customerOrder.orderTime --;
                     }
                     timeCount = 0;
