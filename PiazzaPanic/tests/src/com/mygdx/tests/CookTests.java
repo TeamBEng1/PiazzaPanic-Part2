@@ -38,10 +38,13 @@ public class CookTests {
         actor.setX(5);
         actor.setY(5);
 
+        //set speedmodifier
+        Float speedmodifier = 1F;
+
         //move the cook towards target station
         boolean hasReached = false;
         while (!hasReached) {
-            cook.move(index,actor,stations);
+            cook.move(index,actor,stations,speedmodifier);
             if (Math.abs(actor.getX() - cook.getLocations()[index][0]) <= 0.5 &&
                 Math.abs(actor.getY() - cook.getLocations()[index][1]) <= 0.5) {
                 hasReached = true;
