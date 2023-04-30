@@ -687,6 +687,7 @@ public class GameScreen implements Screen {
                         cooks.get(selected).CookStack.remove(patty);
                         cooks.get(selected).CookStack.remove(lettuce);
                         customers.get(customerCount).orderComplete = true;
+                        awardMoney();
                         hideServingScreen();
                         cooks.get(selected).isBusy = false;
                     }
@@ -711,6 +712,7 @@ public class GameScreen implements Screen {
                         cooks.get(selected).CookStack.remove(tomato);
                         cooks.get(selected).CookStack.remove(lettuce);
                         customers.get(customerCount).orderComplete = true;
+                        awardMoney();
                         hideServingScreen();
                         cooks.get(selected).isBusy = false;
                     }
@@ -738,6 +740,7 @@ public class GameScreen implements Screen {
                         cooks.get(selected).CookStack.remove(cheese);
                         cooks.get(selected).CookStack.remove(base);
                         customers.get(customerCount).orderComplete = true;
+                        awardMoney();
                         hideServingScreen();
                         cooks.get(selected).isBusy = false;
                     }
@@ -763,6 +766,8 @@ public class GameScreen implements Screen {
                     if (customers.get(customerCount).customerOrder.getName() == "jacketPotato") {
                         cooks.get(selected).CookStack.remove(potato);
                         cooks.get(selected).CookStack.remove(cheese);
+                        awardMoney();
+                        
 
                         customers.get(customerCount).orderComplete = true;
                         hideServingScreen();
@@ -1144,6 +1149,16 @@ public class GameScreen implements Screen {
             clearPowerups();
             //im like 99% convinced this is possibly the worst way of doing this but oh well
         }
+    }
+
+    public void awardMoney(){
+        if(bonusPoints){
+            money += earnings * powerupModifier;
+        }
+        else{
+            money += earnings;
+        }
+        System.out.println(money);
     }
 
     public void createProgressBar(float x, float y, Cook selectedCook) {
