@@ -1121,7 +1121,7 @@ public class GameScreen implements Screen {
     public void updatePowerups(){
         if (powerupLeft > 0){
             powerupLeft = powerupLeft - 0.017f;
-            System.out.println(String.valueOf(powerupLeft));
+            //System.out.println(String.valueOf(powerupLeft));
         }
         else{
             clearPowerups();
