@@ -45,6 +45,7 @@ import com.mygdx.game.GameManager;
 import com.mygdx.game.PiazzaPanic;
 import jdk.internal.net.http.common.SequentialScheduler;
 
+import java.io.Console;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -149,11 +150,12 @@ public class GameScreen implements Screen {
     int upperbound = 15;
     float powerupDuration;
     float powerupModifier;
-    Boolean bonusMS;
-    Boolean bonusPoints;
-    Boolean freezeActive;
-    Boolean bonusHaste;
-    Boolean Invulnerability;
+    Boolean bonusMS = false;
+    Boolean bonusPoints = false;
+    Boolean freezeActive = false;
+    Boolean bonusHaste = false;
+    Boolean Invulnerability = false;
+    float powerupLeft= 0;
 
 
     ImageButton burgerClickable;
@@ -198,14 +200,14 @@ public class GameScreen implements Screen {
             orderTime = 40;
             barStep = 0.1f;
             powerupDuration = 15f;
-            powerupModifier = 3;
+            powerupModifier = 3f;
         } else if (this.difficulty == 2) {
             // MEDIUM MODE!
             Rep = 3;
             orderTime = 30;
             barStep = 0.05f;
             powerupDuration = 12f;
-            powerupModifier = 2;
+            powerupModifier = 2f;
         } else {
             // HARD MODE!
             Rep = 1;
@@ -298,6 +300,8 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 hidePowerup(powerupPurple);
+                bonusMS = true;
+                powerupLeft = 15f;
             }
         });
         gameStage.addActor(powerupPurple);
@@ -331,7 +335,6 @@ public class GameScreen implements Screen {
         gameStage.addActor(powerupYellow);
 
 
-        // - Oli
 
         // pantry station
         pantryClickable = createImageClickable(32, 32);
@@ -798,6 +801,7 @@ public class GameScreen implements Screen {
         // call functions which determine key gameplay elements
         gameStage.act();
         updateProgressBars();
+        updatePowerups();
         updateBatch();
         showCookStack();
         showStationScreens();
@@ -815,7 +819,12 @@ public class GameScreen implements Screen {
 
         for (int i = 0; i < cookCount; i++) {
             if (!cooks.get(i).isBusy) {
-                cooks.get(i).move(stationSelected.get(i), cooks.get(i).CookBody, stationSelected);
+                if(bonusMS){
+                    cooks.get(i).move(stationSelected.get(i), cooks.get(i).CookBody, stationSelected, powerupModifier);
+                }
+                else{
+                cooks.get(i).move(stationSelected.get(i), cooks.get(i).CookBody, stationSelected, 1f);
+            }
             }
         }
     }
@@ -1098,6 +1107,26 @@ public class GameScreen implements Screen {
         int randomInt = rand.nextInt(numberOfPowerups - 1);
         ImageButton powerup = powerups[randomInt];
         powerup.setPosition(48,120);
+    }
+
+    public void clearPowerups(){
+        //clears all powerup effects in one because im lazy
+        bonusMS = false;
+        bonusPoints = false;
+        freezeActive = false;
+        bonusHaste = false;
+        Invulnerability = false;
+    }
+
+    public void updatePowerups(){
+        if (powerupLeft > 0){
+            powerupLeft = powerupLeft - 0.017f;
+            System.out.println(String.valueOf(powerupLeft));
+        }
+        else{
+            clearPowerups();
+            //im like 99% convinced this is possibly the worst way of doing this but oh well
+        }
     }
 
     public void createProgressBar(float x, float y, Cook selectedCook) {

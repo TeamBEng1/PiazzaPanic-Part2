@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.mygdx.game.Food.Ingredient;
+import com.mygdx.game.Screens.GameScreen;
 
 import java.sql.Array;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class Cook {
     /**
      * move method moves the cook between the workstations
      */
-    public void move(int index, Actor cook, ArrayList<Integer> stations) {
+    public void move(int index, Actor cook, ArrayList<Integer> stations, Float speedModifier) {
         for (int station : stations) {
             if (index != station) {
                 // method to move a cook from their current position to a station
@@ -48,8 +49,9 @@ public class Cook {
                     if (distance < 1) {
                         speed = 0f;
                         //hasReached = true;
-                    } else {
-                        speed = 50f;
+                    }
+                    else {
+                        speed = 50f * speedModifier;
                     }
 
                     cook.setX(cook.getX() + directionX * (speed * Gdx.graphics.getDeltaTime()));
