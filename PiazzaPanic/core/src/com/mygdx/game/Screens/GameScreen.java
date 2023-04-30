@@ -148,6 +148,7 @@ public class GameScreen implements Screen {
     ImageButton[] powerups = {powerupBlue, powerupGreen, powerupPurple, powerupRed, powerupRed2, powerupYellow};
     Random rand = new Random();
     int upperbound = 15;
+    int randomSpawnNumber;
     float powerupDuration;
     float powerupModifier;
     Boolean bonusMS = false;
@@ -156,6 +157,8 @@ public class GameScreen implements Screen {
     Boolean bonusHaste = false;
     Boolean Invulnerability = false;
     float powerupLeft= 0;
+    Boolean powerupSpawned = false;
+    float powerupSpawnTime = 30f;
 
     //points
     int money = 0;
@@ -823,6 +826,7 @@ public class GameScreen implements Screen {
         gameStage.act();
         updateProgressBars();
         updatePowerups();
+        powerupSpawnTimer();
         updateBatch();
         showCookStack();
         showStationScreens();
@@ -1119,12 +1123,15 @@ public class GameScreen implements Screen {
     }
 
     public void hidePowerup(ImageButton powerup){
-        //hides powerup on click - Oli
+        //hides powerup on click and starts timer for the next one to spawn - Oli
         powerup.setPosition(0, -1000);
+        powerupSpawnTime = rand.nextInt(upperbound) + 15;
+        powerupSpawned = false;
     }
 
     public void spawnPowerup(){
         //spawns Powerup
+        powerupSpawned = true;
         int numberOfPowerups = powerups.length;
         int randomInt = rand.nextInt(numberOfPowerups - 1);
         ImageButton powerup = powerups[randomInt];
@@ -1159,6 +1166,15 @@ public class GameScreen implements Screen {
             money += earnings;
         }
         System.out.println(money);
+    }
+
+    public void powerupSpawnTimer(){
+        if (powerupSpawnTime> 0){
+            powerupSpawnTime = powerupSpawnTime - 0.017f;
+        }
+        else if(!powerupSpawned){
+            spawnPowerup();
+        }
     }
 
     public void createProgressBar(float x, float y, Cook selectedCook) {
