@@ -935,6 +935,7 @@ public class GameScreen implements Screen {
              * manager.setSaveGame(this);
              **/
             game.setScreen(new MainMenuScreen(game));
+            alienJazz.dispose();
         }
         if (Gdx.input.isKeyPressed(Input.Keys.M)) {
             // used for debugging
@@ -983,7 +984,7 @@ public class GameScreen implements Screen {
 
                 //one second has passed
                 if(timeCount >= 1){
-                    //update order timer - Oliver
+                    //update order timer
                     if(customer.customerOrder.getOrderTime() >= 0 && freezeActive == false){
                         customer.customerOrder.orderTime --;
                     }
@@ -1164,8 +1165,11 @@ public class GameScreen implements Screen {
         if (!bars.isEmpty()) {
             for (ProgressBar bar : bars.keySet()) {
 
-
-                bar.setValue((bar.getValue() - barStep));
+                if(bonusHaste){
+                    bar.setValue((bar.getValue() - barStep * powerupModifier));
+                }
+                else{
+                bar.setValue((bar.getValue() - barStep));}
 
                 if (bar.getValue() == 0) {
 
