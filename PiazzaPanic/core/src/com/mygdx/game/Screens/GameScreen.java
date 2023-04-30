@@ -196,6 +196,8 @@ public class GameScreen implements Screen {
      * The initialiser and loader for the game
      * @param game the file to initialise the game window
      * @param port the viewport within the window to fit the game to the window size
+     * @param  customerNumber
+     * @param difficulty
      */
     public GameScreen(PiazzaPanic game, FitViewport port, int customerNumber, int difficulty) {
         this.customerNumber = customerNumber;
@@ -938,7 +940,7 @@ public class GameScreen implements Screen {
             customers.get(customerCount).orderComplete = true;
         }
         if (Gdx.input.isKeyPressed(Input.Keys.ESCAPE)) {
-              // return to main menu
+              // return to main menu and save game
             /**
              * zac fix this
              * manager.setSaveGame(this);
