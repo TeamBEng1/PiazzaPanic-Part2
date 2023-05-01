@@ -158,6 +158,8 @@ public class GameScreen implements Screen {
     Boolean bonusHaste = false;
     Boolean Invulnerability = false;
     boolean burgerFlipped = false;
+
+    //Texture ashes = new Texture("ashes.png");
     float powerupLeft= 0;
     Boolean powerupSpawned = false;
     float powerupSpawnTime = 30f;
@@ -429,7 +431,7 @@ public class GameScreen implements Screen {
                             // create message to indicate that there are no ingredients in the current cook's stack to be prepared
 
                             if (pattyAtFrying) {
-                                //throw new InterruptedException("IE error");
+                                flippedTwice = true;
                                 //System.out.println("Patty flipped!");
                                 burgerFlipped = true;
 
@@ -1233,18 +1235,22 @@ public class GameScreen implements Screen {
 
         if (!flippedinTime && !flippedTwice) {
             System.out.println("Burger burnt! In theory it is removed");
-//            pattyAtFrying = false;
-//            fryingClicked = 0;
-//            cooks.get(selected).isBusy = false;
-//
-//            for (Ingredient ingredient : cooks.get(selected).CookStack) {
-//                if (ingredient.name.equals("patty")) {
-//                    System.out.println("Burger removed from inventory");
-//                    cooks.get(selected).CookStack.remove(ingredient);
-//                }
-//            }
 
-            //cooks.get(selected).CookStack.remove();
+            Ingredient ashes = new Ingredient("ashes", new Texture("ashes.png"), new Texture("ashes.png"));
+
+            for (Ingredient ingredient : cooks.get(selected).CookStack) {
+                if (ingredient.name.equals("patty")) {
+                    System.out.println("Burger removed from inventory");
+                    cooks.get(selected).CookStack.remove(ingredient);
+                    //cooks.get(selected).CookStack.add(ashes);
+                }
+            }
+
+            cooks.get(selected).isBusy = false;
+            pattyAtFrying = false;
+            fryingClicked++;
+
+            cooks.get(selected).CookStack.add(ashes);
         }
     }
 
