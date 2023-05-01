@@ -1311,11 +1311,11 @@ public class GameScreen implements Screen {
     public void burnTimer(){
         if(flipTimer > 0 && burning){
             flipTimer -= 0.017f;
-            System.out.println(flipTimer);
+            //System.out.println(flipTimer);
         }
         else if(burning){
             burning = false;
-            System.out.println("Add ashes to inventory");
+            //System.out.println("Add ashes to inventory");
             Ingredient ashes = new Ingredient("ashes", new Texture("ashes.png"), new Texture("ashes.png"));
                     cooks.get(selected).isBusy = false;
                     pattyAtFrying = false;
@@ -1323,7 +1323,7 @@ public class GameScreen implements Screen {
         
                     cooks.get(selected).CookStack.add(ashes);}} 
 
-                    
+
     public void createProgressBar(float x, float y, Cook selectedCook) {
         ProgressBarStyle style = new ProgressBarStyle();
         style.background = getColoredDrawable(20, 5, Color.GREEN);
