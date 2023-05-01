@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
 
 /**
  * This test class will test all methods in GameScreen class
+ * @Author - Muaz
  */
 @RunWith(GdxTestRunner.class)
 public class GameScreenTests {
@@ -58,6 +59,10 @@ public class GameScreenTests {
     }
 
 
+    /**
+     * This test checks the input to see how to change the cook selected
+     * Once again this code will not work due to lack of lazy evaluation and inability to run in headless
+     */
     @Test
     public void testProcessInput() {
         // Test selecting cook 1 with number key 1

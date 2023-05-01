@@ -11,19 +11,24 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.PiazzaPanic;
 import com.mygdx.game.Screens.SettingsScreen;
 import com.mygdx.tests.GdxTestRunner;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 
 
-import java.util.concurrent.TimeUnit;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
+/**
+ * This class will test any methods in the settings screen class
+ */
 @RunWith(GdxTestRunner.class)
 public class SettingsScreenTests {
+
+    /**
+     * This test checks for the difference in buttons on the settings screen (once hovered upon)
+     * @Author - Muaz
+     */
     @Test
     public void testPlayBtnClickListener() {
         //Create the play button and its drawables
@@ -33,9 +38,13 @@ public class SettingsScreenTests {
         final ImageButton playNormal = new ImageButton(playBtnDrawable);
         final ImageButton playHover = new ImageButton(playBtnDrawableHover);
 
-        assertNotEquals(playNormal,playHover);
+        assertNotEquals("Test passes if after you hover on button, it lights up" , playNormal,playHover);
     }
 
+    /**
+     * This test checks for the difference in buttons on the settings screen (once hovered upon)
+     * @Author - Muaz
+     */
     @Test
     public void testPlayBtnYellowClickListener() {
         //Create the play button yellow and its drawables
@@ -45,16 +54,15 @@ public class SettingsScreenTests {
         final ImageButton playYellowNormal = new ImageButton(playBtnYellowDrawable);
         final ImageButton playYellowHover = new ImageButton(playBtnYellowDrawableHover);
 
-        assertNotEquals(playYellowNormal,playYellowHover);
+        assertNotEquals("Test passes if after you hover on button, it lights up" , playYellowNormal,playYellowHover);
     }
     private SettingsScreen settingsScreen;
-    @Before
-    public void setUp() {
-        PiazzaPanic game = new PiazzaPanic();
-        FitViewport view = new FitViewport(game.GAME_WIDTH, game.GAME_HEIGHT);
-        settingsScreen = new SettingsScreen(game, view);
-    }
 
+
+    /**
+     * This test tests if the game mode buttons are working properly
+     * @Author - Teddy
+     */
     @Test
     public void testGameModeButtons() {
         //Create a mock game instance and view instance
@@ -80,10 +88,17 @@ public class SettingsScreenTests {
 
         //Click the play yellow button
         playBtnYellow.getClickListener().clicked(new InputEvent(), 0, 0);
-
     }
+
+    /**
+     * This test checks whether the difficulty buttons are working
+     * @Author - Teddy
+     */
     @Test
     public void testDifficultyButtons() {
+        PiazzaPanic game = new PiazzaPanic();
+        FitViewport view = new FitViewport(game.GAME_WIDTH, game.GAME_HEIGHT);
+        settingsScreen = new SettingsScreen(game, view);
         int diffInt = 1;
         String diffStr = "EASY";
 
@@ -109,7 +124,5 @@ public class SettingsScreenTests {
 
         // Verify that the difficulty font is reset after each difficulty change
         Mockito.verify(settingsScreen.diffFont, Mockito.times(3)).dispose();
-
     }
-
 }

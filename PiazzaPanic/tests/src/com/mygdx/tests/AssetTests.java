@@ -93,7 +93,7 @@ public class AssetTests {
         String[] orderAssetPaths = {"Burger", "BurgerBubble", "JacketPotato", "JacketPotatoBubble", "Pizza", "PizzaBubble", "Salad", "SaladBubble"};
         boolean orderAssetsExist = true;
         for (String path : orderAssetPaths) {
-            if (!Gdx.files.internal(path + ".png").exists()) {
+            if (!Gdx.files.internal("order" + path + ".png").exists()) {
                 orderAssetsExist = false;
                 break;
             }

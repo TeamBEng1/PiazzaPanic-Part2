@@ -27,7 +27,7 @@ public class EndGameScreen implements Screen {
     FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Odin Rounded - Bold.otf"));
     FreeTypeFontParameter parameter = new FreeTypeFontParameter();
     BitmapFont font;
-    PiazzaPanic game;
+    public PiazzaPanic game;
     FitViewport view;
     Stage screenStage;
     Texture levelCompleteFrame = new Texture("LevelCompleteFrame.png");
