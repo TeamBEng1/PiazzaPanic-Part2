@@ -9,11 +9,19 @@ import com.mygdx.tests.GdxTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
+
+/**
+ * This class will test any methods in the end screen class
+ * @Author - Muaz
+ */
 @RunWith(GdxTestRunner.class)
 public class EndGameScreenTests {
 
+    /**
+     * This test checks for the difference in buttons on the end screen (once hovered upon)
+     */
     @Test
     public void testExitBtnClickListener() {
         //Create the exit button and its drawables
@@ -23,9 +31,12 @@ public class EndGameScreenTests {
         final ImageButton exitNormal = new ImageButton(exitBtnDrawable);
         final ImageButton exitHover = new ImageButton(exitBtnDrawableHover);
 
-        assertNotEquals(exitNormal,exitHover);
+        assertNotEquals("Test passes if after you hover on button, it lights up" , exitNormal,exitHover);
     }
 
+    /**
+     * This test checks for the difference in buttons on the end screen (once hovered upon)
+     */
     @Test
     public void testRestartBtnClickListener() {
         //Create the restart button and its drawables
@@ -35,6 +46,6 @@ public class EndGameScreenTests {
         final ImageButton restartNormal = new ImageButton(restartBtnDrawable);
         final ImageButton restartHover = new ImageButton(restartBtnDrawableHover);
 
-        assertNotEquals(restartNormal,restartHover);
+        assertNotEquals("Test passes if after you hover on button, it lights up" , restartNormal,restartHover);
     }
 }

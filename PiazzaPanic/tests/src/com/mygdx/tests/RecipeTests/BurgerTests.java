@@ -12,7 +12,8 @@ import static org.junit.Assert.*;
 
 /**
  * These tests check for everything to do with the Burger class
- */
+ * @Author - Muaz
+ * */
 @RunWith(GdxTestRunner.class)
 public class BurgerTests {
 
