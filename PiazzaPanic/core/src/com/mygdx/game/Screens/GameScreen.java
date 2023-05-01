@@ -182,6 +182,10 @@ public class GameScreen implements Screen {
     // displayed using moneyFont
     int earnings;
 
+    //timer for flips
+    float flipTimer = 0;
+    float burnTime;
+    boolean burning = false;
 
     ImageButton burgerClickable;
     ImageButton saladClickable;
@@ -231,6 +235,7 @@ public class GameScreen implements Screen {
             powerupDuration = 15f;
             powerupModifier = 3f;
             earnings = 8;
+            burnTime = 5f;
         } else if (this.difficulty == 2) {
             // MEDIUM MODE!
             Rep = 3;
@@ -239,6 +244,7 @@ public class GameScreen implements Screen {
             powerupDuration = 12f;
             powerupModifier = 2f;
             earnings = 6;
+            burnTime = 3f;
         } else {
             // HARD MODE!
             Rep = 1;
@@ -248,6 +254,7 @@ public class GameScreen implements Screen {
             powerupDuration = 8f;
             powerupModifier = 1.5f;
             earnings = 4;
+            burnTime = 1f;
         }
 
         // initialise the game
@@ -470,6 +477,7 @@ public class GameScreen implements Screen {
                                 flippedTwice = true;
                                 //System.out.println("Patty flipped!");
                                 burgerFlipped = true;
+                                burning = false;
 
                                 cooks.get(selected).isBusy = true;
                                 createProgressBar(24, 86, cooks.get(selected));
@@ -904,6 +912,7 @@ public class GameScreen implements Screen {
         if (pattyAtFrying) {
             game.batch.begin();
             game.batch.draw(flipBtn, 30, 80);
+            burnTimer();
             game.batch.end();
         }
 
@@ -1301,6 +1310,22 @@ public class GameScreen implements Screen {
         }
     }
 
+    public void burnTimer(){
+        if(flipTimer > 0 && burning){
+            flipTimer -= 0.017f;
+            System.out.println(flipTimer);
+        }
+        else if(burning){
+            burning = false;
+            System.out.println("Add ashes to inventory");
+            Ingredient ashes = new Ingredient("ashes", new Texture("ashes.png"), new Texture("ashes.png"));
+                    cooks.get(selected).isBusy = false;
+                    pattyAtFrying = false;
+                    fryingClicked++;
+        
+                    cooks.get(selected).CookStack.add(ashes);}} 
+
+                    
     public void createProgressBar(float x, float y, Cook selectedCook) {
         ProgressBarStyle style = new ProgressBarStyle();
         style.background = getColoredDrawable(20, 5, Color.GREEN);
@@ -1315,12 +1340,12 @@ public class GameScreen implements Screen {
         gameStage.addActor(bar);
         bars.put(bar, selectedCook);
     }
-
+/*
     private void checkBurning() {
-        float flipTimer = 1;
         boolean flippedinTime = false;
 
         System.out.println("FlipTimerStart");
+        
         while (flipTimer > 0f) {
             if (burgerFlipped) {
                 System.out.println("Flipped!");
@@ -1331,7 +1356,8 @@ public class GameScreen implements Screen {
                 flipTimer -= 0.0000001f;
                 //System.out.println(flipTimer);
             }
-        }
+            
+    }
 
         if (!flippedinTime && !flippedTwice) {
             System.out.println("Burger burnt! In theory it is removed");
@@ -1353,7 +1379,7 @@ public class GameScreen implements Screen {
             cooks.get(selected).CookStack.add(ashes);
         }
     }
-
+*/
     private void updateProgressBars() {
         if (!bars.isEmpty()) {
             for (ProgressBar bar : bars.keySet()) {
@@ -1367,8 +1393,10 @@ public class GameScreen implements Screen {
                 if (bar.getValue() == 0) {
 
                     if (pattyAtFrying && !Invulnerability) {
-                        System.out.println("Checking burning");
-                        checkBurning();
+                        //oli
+                        flipTimer = burnTime;
+                        burning = true;
+                        
                     }
 
                     gameStage.getActors().removeValue(bar, false);
