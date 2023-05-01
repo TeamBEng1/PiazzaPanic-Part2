@@ -60,6 +60,11 @@ public class CookTests {
         assertEquals(0f,actor.getX(),1f);
     }
 
+
+    /**
+     * This test does not work. It is meant to test whether the flip button on the frying station works
+     * This is due to deprecated Gradle features
+     */
 //    @Test
 //    public void testFlipButton() {
 //        // set up the cook and frying station

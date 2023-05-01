@@ -1,13 +1,17 @@
 package com.mygdx.tests.ScreenTests;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.Cook;
 import com.mygdx.game.PiazzaPanic;
 import com.mygdx.game.Screens.GameScreen;
+import com.mygdx.game.Screens.MainMenuScreen;
 import com.mygdx.tests.GdxTestRunner;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.*;
 
@@ -52,4 +56,25 @@ public class GameScreenTests {
             assertEquals(23,cook.CookBody.getHeight(),0.0);
         }
     }
+
+
+    @Test
+    public void testProcessInput() {
+        // Test selecting cook 1 with number key 1
+        Gdx.input = Mockito.mock(Input.class);
+        Mockito.when(Gdx.input.isKeyPressed(Input.Keys.NUM_1)).thenReturn(true);
+        gameScreen.processInput();
+        assert(gameScreen.getSelected() == 0);
+
+        // Test selecting cook 2 with number key 2
+        Mockito.when(Gdx.input.isKeyPressed(Input.Keys.NUM_2)).thenReturn(true);
+        gameScreen.processInput();
+        assert(gameScreen.getSelected() == 1);
+
+        // Test selecting cook 3 with number key 3 when cookCount > 2
+        Mockito.when(Gdx.input.isKeyPressed(Input.Keys.NUM_3)).thenReturn(true);
+        gameScreen.processInput();
+        assert(gameScreen.getSelected() == 2);
+    }
 }
+

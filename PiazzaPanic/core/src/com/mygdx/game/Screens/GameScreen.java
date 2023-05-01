@@ -944,7 +944,7 @@ public class GameScreen implements Screen {
     }
 
     //process user input
-    private void processInput() {
+    public void processInput() {
         // number keys are used to select which cook is being controlled currently
         if (Gdx.input.isKeyPressed(Input.Keys.NUM_1)) {
             selected = 0;
@@ -1283,6 +1283,10 @@ public class GameScreen implements Screen {
 
     public int getCookCount() {
         return cookCount;
+    }
+
+    public int getSelected() {
+        return selected;
     }
 
     @Override
