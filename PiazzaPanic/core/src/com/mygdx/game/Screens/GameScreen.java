@@ -1281,6 +1281,10 @@ public class GameScreen implements Screen {
 
     }
 
+    public int getCookCount() {
+        return cookCount;
+    }
+
     @Override
     public void resize(int width, int height) {
         view.update(width, height);
