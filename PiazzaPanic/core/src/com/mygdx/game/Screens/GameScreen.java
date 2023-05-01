@@ -127,7 +127,7 @@ public class GameScreen implements Screen {
     // stations
     ImageButton pantryClickable;
     ImageButton fryingClickable;
-    int fryingClicked = 0;
+    public static int fryingClicked = 0;
     boolean pattyAtFrying = false;
     boolean flippedTwice = false;
     Texture flipBtn = new Texture("flipBtn.png");
@@ -962,8 +962,6 @@ public class GameScreen implements Screen {
 
 
                 if (customerNumber != 0) {
-
-
 
                     // check if the game is not in endless mode
                     if (customerCount != customerNumber - 1) {
