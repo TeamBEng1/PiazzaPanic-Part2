@@ -13,8 +13,16 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
+/**
+ * This class will test any methods in the main menu screen class
+ * @Author - Muaz
+ */
 @RunWith(GdxTestRunner.class)
 public class MainMenuScreenTests {
+
+    /**
+     * This test checks for the difference in buttons on the main menu screen (once hovered upon)
+     */
     @Test
     public void testPlayBtnClickListener() {
         //Create the play button and its drawables
@@ -24,9 +32,12 @@ public class MainMenuScreenTests {
         final ImageButton playNormal = new ImageButton(playBtnDrawable);
         final ImageButton playHover = new ImageButton(playBtnDrawableHover);
 
-        assertNotEquals(playNormal,playHover);
+        assertNotEquals("Test passes if after you hover on button, it lights up" , playNormal,playHover);
     }
 
+    /**
+     * This test checks for the difference in buttons on the main menu screen (once hovered upon)
+     */
     @Test
     public void testExitBtnClickListener() {
         //Create the exit button and its drawables
@@ -36,9 +47,12 @@ public class MainMenuScreenTests {
         final ImageButton exitNormal = new ImageButton(exitBtnDrawable);
         final ImageButton exitHover = new ImageButton(exitBtnDrawableHover);
 
-        assertNotEquals(exitNormal,exitHover);
+        assertNotEquals("Test passes if after you hover on button, it lights up" , exitNormal,exitHover);
     }
 
+    /**
+     * This test checks for the difference in buttons on the main menu screen (once hovered upon)
+     */
     @Test
     public void testInfoBtnClickListener() {
         //Create the info button and its drawables
@@ -48,7 +62,9 @@ public class MainMenuScreenTests {
         final ImageButton infoNormal = new ImageButton(infoBtnDrawable);
         final ImageButton infoHover = new ImageButton(infoBtnDrawableHover);
 
-        assertNotEquals(infoNormal,infoHover);
+        assertNotEquals("Test passes if after you hover on button, it lights up" , infoNormal,infoHover);
     }
+
+
 }
 

@@ -83,14 +83,14 @@ public class GameScreen implements Screen {
     // font for money earnt from serving food
 
     //Start the game with 3 reputation points
-    int Rep = 3;
+    public int Rep = 3;
     Texture RepLabel = new Texture("REP.png");
     Texture RepPoint = new Texture("REPHeart.png");
 
     Texture Money = new Texture("money.png");
     public final Array<Cook> cooks;
     private final Array<Customer> customers;
-    Integer orderTime;
+    public Integer orderTime;
 
     // sprite handling
     Sprite alex;
@@ -112,7 +112,7 @@ public class GameScreen implements Screen {
     Instant gameTime = Instant.now();
 
     // controls how fast the timer bar goes down (eg for chopping/baking)
-    float barStep;
+    public float barStep;
 
     // list of active orders
     ArrayList<Order> orders = new ArrayList<>();
@@ -127,7 +127,7 @@ public class GameScreen implements Screen {
     // stations
     ImageButton pantryClickable;
     ImageButton fryingClickable;
-    int fryingClicked = 0;
+    public static int fryingClicked = 0;
     boolean pattyAtFrying = false;
     boolean flippedTwice = false;
     Texture flipBtn = new Texture("flipBtn.png");
@@ -161,8 +161,8 @@ public class GameScreen implements Screen {
     Random rand = new Random();
     int upperbound = 15;
     int randomSpawnNumber;
-    float powerupDuration;
-    float powerupModifier;
+    public float powerupDuration;
+    public float powerupModifier;
     Boolean bonusMS = false;
     Boolean bonusPoints = false;
     Boolean freezeActive = false;
@@ -180,7 +180,7 @@ public class GameScreen implements Screen {
     //points
     int money = 0;
     // displayed using moneyFont
-    int earnings;
+    public int earnings;
 
     //timer for flips
     float flipTimer = 0;
@@ -971,8 +971,6 @@ public class GameScreen implements Screen {
 
 
                 if (customerNumber != 0) {
-
-
 
                     // check if the game is not in endless mode
                     if (customerCount != customerNumber - 1) {

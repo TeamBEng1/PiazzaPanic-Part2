@@ -136,6 +136,11 @@ public class CreditsScreen implements Screen{
         Gdx.input.setInputProcessor(gameStage);
         gameStage.draw();
     }
+
+    public ImageButton getBackBtn() {
+        return backBtn;
+    }
+
     /**
      * The resize method resizes the gameStage to fit the screen
      */
