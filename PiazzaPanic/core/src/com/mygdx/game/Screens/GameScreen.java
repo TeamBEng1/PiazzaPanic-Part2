@@ -118,6 +118,7 @@ public class GameScreen implements Screen {
     ImageButton fryingClickable;
     int fryingClicked = 0;
     boolean pattyAtFrying = false;
+    boolean flippedTwice = false;
     Texture flipBtn = new Texture("flipBtn.png");
     ImageButton bakingClickable;
     ImageButton cuttingClickable;
@@ -156,6 +157,7 @@ public class GameScreen implements Screen {
     Boolean freezeActive = false;
     Boolean bonusHaste = false;
     Boolean Invulnerability = false;
+    boolean burgerFlipped = false;
     float powerupLeft= 0;
     Boolean powerupSpawned = false;
     float powerupSpawnTime = 30f;
@@ -191,13 +193,15 @@ public class GameScreen implements Screen {
     Boolean showPantryScreen = false;
     Boolean showServingScreen = false;
     private int customerCount = 0;
+    // counts customers on screen
 
     /**
      * The initialiser and loader for the game
      * @param game the file to initialise the game window
      * @param port the viewport within the window to fit the game to the window size
-     * @param  customerNumber
-     * @param difficulty
+     * @param  customerNumber is the gamemode. 0 = infinite, otherwise the number of customers
+     *                        needed to serve to win
+     * @param difficulty how hard the game is. 1=easy, 2=medium, 3=hard
      */
     public GameScreen(PiazzaPanic game, FitViewport port, int customerNumber, int difficulty) {
         this.customerNumber = customerNumber;
@@ -274,6 +278,7 @@ public class GameScreen implements Screen {
         customers = new Array<Customer>();
         customers.add(new Customer(new Actor(), orderTime));
 
+
         // array of all progressbars created (used to update all of them in updateProgressBars function)
         bars = new HashMap<ProgressBar, Cook>();
 
@@ -290,6 +295,13 @@ public class GameScreen implements Screen {
         powerups[3] = powerupRed;
         powerups[4] = powerupRed2;
         powerups[5] = powerupYellow;
+
+        // blue = Freeze
+        // green = bonus points
+        // purple = bonus MS
+        // red = faster move
+        // red2 = regain heart
+        // yellow = invincible
 
 
 
@@ -400,10 +412,12 @@ public class GameScreen implements Screen {
                         }
                         if (!(selectedIngredient == null)) {
                             cooks.get(selected).isBusy = true;
+                            flippedTwice = false;
                             createProgressBar(24, 86, cooks.get(selected));
                             fryingClicked++;
                             // used for the flipping mechanism (the station has to be pressed twice for the patty to be prepared)
                             if ((fryingClicked) % 2 == 0) {
+                                burgerFlipped = true;
                                 ingredientDone = true;
                                 cooks.get(selected).CookStack.push(cookedPatty);
                                 pattyAtFrying = false;
@@ -413,9 +427,11 @@ public class GameScreen implements Screen {
                             }
                         } else {
                             // create message to indicate that there are no ingredients in the current cook's stack to be prepared
+
                             if (pattyAtFrying) {
                                 //throw new InterruptedException("IE error");
-                                System.out.println("Patty flipped!");
+                                //System.out.println("Patty flipped!");
+                                burgerFlipped = true;
 
                                 cooks.get(selected).isBusy = true;
                                 createProgressBar(24, 86, cooks.get(selected));
@@ -872,13 +888,16 @@ public class GameScreen implements Screen {
         } else if (customers.get(customerCount).orderComplete) {
             // make the customer leave
             customers.get(customerCount).move();
+
             if (customers.get(customerCount).body.getX() > 148) {
                 customers.get(customerCount).body.remove();
 
 
                 if (customerNumber != 0) {
 
-                    // check if the game is in endless mode or not
+
+
+                    // check if the game is not in endless mode
                     if (customerCount != customerNumber - 1) {
                         // spawn new customer
                         customers.add(new Customer(new Actor(), orderTime));
@@ -893,7 +912,11 @@ public class GameScreen implements Screen {
                     }
 
                 } else {
+                    // I am going to be honest idk when ths code runs
                     customers.add(new Customer(new Actor(), orderTime));
+                    System.out.println("One customer added");
+//                    customers.add(new Customer(new Actor(), orderTime));
+//                    System.out.println("Two customers added");
                     customerCount += 1;
                 }
             }
@@ -989,9 +1012,6 @@ public class GameScreen implements Screen {
 
             if ((customer.atCounter) && (!customer.orderComplete)) {
                 timeCount += dt;
-
-
-
 
                 //one second has passed
                 if(timeCount >= 1){
@@ -1194,6 +1214,40 @@ public class GameScreen implements Screen {
         bars.put(bar, selectedCook);
     }
 
+    private void checkBurning() {
+        float flipTimer = 1;
+        boolean flippedinTime = false;
+
+        System.out.println("FlipTimerStart");
+        while (flipTimer > 0f) {
+            if (burgerFlipped) {
+                System.out.println("Flipped!");
+                flippedinTime = true;
+                flippedTwice = true;
+                flipTimer = -5f;
+            } else {
+                flipTimer -= 0.0000001f;
+                //System.out.println(flipTimer);
+            }
+        }
+
+        if (!flippedinTime && !flippedTwice) {
+            System.out.println("Burger burnt! In theory it is removed");
+//            pattyAtFrying = false;
+//            fryingClicked = 0;
+//            cooks.get(selected).isBusy = false;
+//
+//            for (Ingredient ingredient : cooks.get(selected).CookStack) {
+//                if (ingredient.name.equals("patty")) {
+//                    System.out.println("Burger removed from inventory");
+//                    cooks.get(selected).CookStack.remove(ingredient);
+//                }
+//            }
+
+            //cooks.get(selected).CookStack.remove();
+        }
+    }
+
     private void updateProgressBars() {
         if (!bars.isEmpty()) {
             for (ProgressBar bar : bars.keySet()) {
@@ -1206,39 +1260,10 @@ public class GameScreen implements Screen {
 
                 if (bar.getValue() == 0) {
 
-//                    if (pattyAtFrying) {
-
-//               WORK IN PROGRESS
-
-//                        // If the timer goes to 0, AND patty hasn't
-//                        // been flipped, AND flip button hasn't been pressed
-//                        // fast enough, patty burns
-//
-//                        // what's fun here is that the button doesn't matter what MATTERS
-//                        // is clicking the frying station twice
-//                        // so clicking the station a second time needs to cause IE exception
-//
-//                        try {
-//
-//
-//                            if (fryingClicked % 2 == 0) {
-//                                throw new InterruptedException();
-//                            }
-//                            TimeUnit.SECONDS.sleep(1);
-//                            // this freezes the whole game and then burns the patty after 1 second anyway
-//
-//                            pattyAtFrying = false;
-//                            fryingClicked = 0;
-//
-//                            cooks.get(selected).isBusy = false;
-//                            //cooks.get(selected).CookStack.remove();
-//
-//                            System.out.println("Patty burnt!");
-//
-//                        } catch (InterruptedException ie) {
-//                            System.out.println("Sleep interrupted");
-//                        }
-//                      }
+                    if (pattyAtFrying && !Invulnerability) {
+                        System.out.println("Checking burning");
+                        checkBurning();
+                    }
 
                     gameStage.getActors().removeValue(bar, false);
                     //unbusy the cook
