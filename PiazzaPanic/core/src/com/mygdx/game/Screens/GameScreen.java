@@ -16,6 +16,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
@@ -71,12 +72,22 @@ public class GameScreen implements Screen {
     OrthogonalTiledMapRenderer renderer;
     OrthographicCamera gameCam;
 
+    FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("Odin Rounded - Bold.otf"));
+    FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
+    BitmapFont powerupLeftFont;
+    // font for the time left on a powerup's effect
+    BitmapFont powerupNameFont;
+    // font for the type of powerup
+    String powerupName = "";
+    BitmapFont moneyFont;
+    // font for money earnt from serving food
+
     //Start the game with 3 reputation points
     int Rep = 3;
     Texture RepLabel = new Texture("REP.png");
     Texture RepPoint = new Texture("REPHeart.png");
-    // customer number determines how many customers will spawn over the course of the game
-    // 0 means infinite
+
+    Texture Money = new Texture("money.png");
     public final Array<Cook> cooks;
     private final Array<Customer> customers;
     Integer orderTime;
@@ -161,11 +172,14 @@ public class GameScreen implements Screen {
 
     //Texture ashes = new Texture("ashes.png");
     float powerupLeft= 0;
+    // powerupLeft will be rounded to a whole number and displayed using
+    // powerupLeftFont
     Boolean powerupSpawned = false;
     float powerupSpawnTime = 30f;
 
     //points
     int money = 0;
+    // displayed using moneyFont
     int earnings;
 
 
@@ -250,9 +264,19 @@ public class GameScreen implements Screen {
         view.setWorldSize(192, 144);
         gameCam.position.set(view.getWorldWidth() / 2, view.getWorldHeight() / 2, 0);
 
-        //set order timer font color
+        //set font colours + sizes
         font.setColor(Color.BLACK);
         font.getData().setScale(0.5f);
+
+        parameter.size = 8;
+        parameter.color = Color.BLACK;
+
+        powerupLeftFont = generator.generateFont(parameter);
+        moneyFont = generator.generateFont(parameter);
+        powerupNameFont = generator.generateFont(parameter);
+
+
+
 
         // sprite information from the texture atlas
         TextureAtlas atlasIdle = new TextureAtlas(Gdx.files.internal("charIdle.txt"));
@@ -300,8 +324,8 @@ public class GameScreen implements Screen {
 
         // blue = Freeze
         // green = bonus points
-        // purple = bonus MS
-        // red = faster move
+        // purple = bonus move speed
+        // red = faster cook
         // red2 = regain heart
         // yellow = invincible
 
@@ -311,6 +335,8 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 hidePowerup(powerupBlue);
+                powerupName = "Timer freeze";
+                showPowerupName();
                 freezeActive = true;
                 powerupLeft = 15f;
             }
@@ -321,6 +347,8 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 hidePowerup(powerupGreen);
+                powerupName = "Bonus money";
+                showPowerupName();
                 bonusPoints = true;
                 powerupLeft = 15f;
             }
@@ -331,6 +359,8 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 hidePowerup(powerupPurple);
+                powerupName = "Faster move speed";
+                showPowerupName();
                 bonusMS = true;
                 powerupLeft = 15f;
             }
@@ -341,6 +371,8 @@ public class GameScreen implements Screen {
             @Override
             public void clicked(InputEvent event, float x, float y){
                 hidePowerup(powerupRed);
+                powerupName = "Faster cooking";
+                showPowerupName();
                 bonusHaste = true;
                 powerupLeft = 15f;
             }
@@ -352,6 +384,8 @@ public class GameScreen implements Screen {
             public void clicked(InputEvent event, float x, float y){
                 //When clicked gives rep to a max of 4
                 hidePowerup(powerupRed2);
+                powerupName = "Bonus life!";
+                showPowerupName();
                 if(Rep<4){
                     Rep+=1;
                 }
@@ -364,6 +398,8 @@ public class GameScreen implements Screen {
             public void clicked(InputEvent event, float x, float y){
                 hidePowerup(powerupYellow);
                 Invulnerability = true;
+                powerupName = "Invincibility";
+                showPowerupName();
                 powerupLeft = 15f;
             }
         });
@@ -852,9 +888,18 @@ public class GameScreen implements Screen {
         showStationScreens();
         showOrders(delta);
         showRepPoints();
+        showMoney();
+        showPowerupName();
         customerOperations();
         processInput();
         gameStage.draw();
+
+        // draw text
+        game.batch.begin();
+
+
+
+        game.batch.end();
 
         if (pattyAtFrying) {
             game.batch.begin();
@@ -883,6 +928,27 @@ public class GameScreen implements Screen {
         }
         game.batch.end();
     }
+
+    private void showMoney() {
+        game.batch.begin();
+        game.batch.draw(Money, 140, 110);
+        moneyFont.draw(game.batch, Integer.toString(money), 140, 130);
+        game.batch.end();
+    }
+
+    private void showPowerupLeft() {
+        game.batch.begin();
+        powerupLeftFont.draw(game.batch, Integer.toString(Math.round(powerupLeft)), 60,130);
+        game.batch.end();
+    }
+
+    private void showPowerupName() {
+        game.batch.begin();
+        powerupNameFont.draw(game.batch, powerupName, 50, 140);
+        game.batch.end();
+    }
+
+
     private void customerOperations() {
         // move the customers to the counter
         if (!customers.get(customerCount).atCounter) {
@@ -1148,6 +1214,9 @@ public class GameScreen implements Screen {
 
     public void hidePowerup(ImageButton powerup){
         //hides powerup on click and starts timer for the next one to spawn - Oli
+        //showPowerupName();
+        //System.out.println(powerupName + " summoned");
+
         powerup.setPosition(0, -1000);
         powerupSpawnTime = rand.nextInt(upperbound) + 15;
         powerupSpawned = false;
@@ -1159,7 +1228,33 @@ public class GameScreen implements Screen {
         int numberOfPowerups = powerups.length;
         int randomInt = rand.nextInt(numberOfPowerups - 1);
         ImageButton powerup = powerups[randomInt];
+
         powerup.setPosition(48,120);
+
+        //  purple is faster move speed, blue freezes the
+        //  counter, green is bonus points, light red makes
+        //  the bars go faster and dark red gives a life
+
+        // powerups[0] = powerupBlue;
+        //        powerups[1] = powerupGreen;
+        //        powerups[2] = powerupPurple;
+        //        powerups[3] = powerupRed;
+        //        powerups[4] = powerupRed2;
+        //        powerups[5] = powerupYellow;
+
+        if (randomInt == 0) {
+            powerupName = "Timer freeze";
+        } else if (randomInt == 1) {
+            powerupName = "Bonus money";
+        } else if (randomInt == 2) {
+            powerupName = "Faster movement";
+        } else if (randomInt == 3) {
+            powerupName = "Faster cooking";
+        } else if (randomInt == 4) {
+            powerupName = "Earn a life!";
+        } else {
+            powerupName = "Invincibility";
+        }
     }
 
     public void clearPowerups(){
@@ -1174,10 +1269,14 @@ public class GameScreen implements Screen {
     public void updatePowerups(){
         if (powerupLeft > 0){
             powerupLeft = powerupLeft - 0.017f;
+            showPowerupLeft();
+
             //System.out.println(String.valueOf(powerupLeft));
         }
         else{
             clearPowerups();
+            powerupName = "";
+            showPowerupName();
             //im like 99% convinced this is possibly the worst way of doing this but oh well
         }
     }
@@ -1190,6 +1289,7 @@ public class GameScreen implements Screen {
             money += earnings;
         }
         System.out.println(money);
+        showMoney();
     }
 
     public void powerupSpawnTimer(){
