@@ -1,5 +1,5 @@
 dependencies {
-    implementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    implementation 'org.junit.jupiter:junit-jupiter:5.9.2'
 }
 
 sourceCompatibility = 1.8

@@ -31,11 +31,11 @@ public class SettingsScreen implements Screen {
     // this font is large and doesn't change
     BitmapFont customerFont;
     // this font is small and *does* change depending on the number of customers chosen
-    BitmapFont diffFont;
+    public BitmapFont diffFont;
     // this font is large and changes based on selected difficulty
 
-    int customerNum = 5;
-    int diffInt = 2;
+    public int customerNum = 5;
+    public int diffInt = 2;
     String diffStr = "MED";
 
     PiazzaPanic game;
@@ -60,11 +60,11 @@ public class SettingsScreen implements Screen {
     // image buttons for Not hovering on them
     TextureRegion playBtnRegion;
     TextureRegionDrawable playBtnDrawable;
-    ImageButton playBtn;
+    public ImageButton playBtn;
 
     TextureRegion playBtnYellowRegion;
     TextureRegionDrawable playBtnYellowDrawable;
-    ImageButton playBtnYellow;
+    public ImageButton playBtnYellow;
 
     TextureRegion upBtnRegion;
     TextureRegionDrawable upBtnDrawable;
@@ -76,11 +76,11 @@ public class SettingsScreen implements Screen {
 
     TextureRegion rightBtnRegion;
     TextureRegionDrawable rightBtnDrawable;
-    ImageButton rightBtn;
+    public ImageButton rightBtn;
 
     TextureRegion leftBtnRegion;
     TextureRegionDrawable leftBtnDrawable;
-    ImageButton leftBtn;
+    public ImageButton leftBtn;
 
 
 
@@ -104,10 +104,7 @@ public class SettingsScreen implements Screen {
 
         parameter.size = 24;
         customerFont = generator.generateFont(parameter);
-
-
     }
-
     /**
      * Creates listeners for play, playYellow, and the up+down+l+r buttons
      */
