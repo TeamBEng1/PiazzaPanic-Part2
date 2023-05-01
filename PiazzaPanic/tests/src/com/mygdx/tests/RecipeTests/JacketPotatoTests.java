@@ -13,6 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * These tests check for everything to do with the Jacket Potato class
+ * @Author - Muaz
  */
 @RunWith(GdxTestRunner.class)
 public class JacketPotatoTests {
