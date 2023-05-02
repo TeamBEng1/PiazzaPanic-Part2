@@ -126,6 +126,18 @@ public class LeaderboardScreen implements Screen {
                 430, 380);
 
         game.batch.end();
+
+        leaderStage.getViewport().apply();
+
+        if (backBtn.isPressed()){
+            game.setScreen(new MainMenuScreen(game));
+        }
+        Gdx.input.setInputProcessor(leaderStage);
+        leaderStage.draw();
+    }
+
+    public ImageButton getBackBtn() {
+        return backBtn;
     }
 
     /**
