@@ -13,13 +13,16 @@ on:
   pull_request:
     branches: [ "main" ]
 
-permissions:
-  contents: read
-
 jobs:
   build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
 
-    runs-on: ubuntu-latest
+    runs-on: ${{  matrix.os }}
+
+    permissions:
+      contents: read
 
     steps:
     - uses: actions/checkout@v3
@@ -31,4 +34,14 @@ jobs:
     - name: Build with Gradle
       uses: gradle/gradle-build-action@67421db6bd0bf253fb4bd25b31ebb98943c375e1
       with:
-        arguments: build
+        arguments: build jacocoTestReport
+        build-root-directory: PiazzaPanic-Part2/PiazzaPanic
+    - name: Upload JaCoCo coverage report as a workflow artifact
+      uses: actions/upload-artifact@v3.1.1
+      with:
+        name: jacoco-report-${{ matrix.os }}
+        path: PiazzaPanic-Part2/PiazzaPanic/build/reports/jacoco/test/html/
+    - name: Upload library JAR
+      uses: actions/upload-artifact@v3.1.1
+        with:
+          name: lib-${{ matrix.os }}.jar
