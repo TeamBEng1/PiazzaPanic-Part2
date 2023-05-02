@@ -14,12 +14,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-
-    runs-on: ${{  matrix.os }}
+  build: 
+    runs-on: ubuntu-latest
 
     permissions:
       contents: read
@@ -39,9 +35,9 @@ jobs:
     - name: Upload JaCoCo coverage report as a workflow artifact
       uses: actions/upload-artifact@v3.1.1
       with:
-        name: jacoco-report-${{ matrix.os }}
+        name: jacoco-report
         path: PiazzaPanic-Part2/PiazzaPanic/build/reports/jacoco/test/html/
     - name: Upload library JAR
       uses: actions/upload-artifact@v3.1.1
       with:
-        name: lib-${{ matrix.os }}.jar
+        name: lib.jar
