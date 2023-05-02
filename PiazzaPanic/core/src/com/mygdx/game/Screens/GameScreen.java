@@ -2,6 +2,7 @@ package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
@@ -30,6 +31,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.Cook;
@@ -42,16 +44,13 @@ import com.mygdx.game.Food.Salad;
 import com.mygdx.game.Food.Pizza;
 import com.mygdx.game.Food.JacketPotato;
 
-import com.mygdx.game.GameManager;
 import com.mygdx.game.PiazzaPanic;
-import jdk.internal.net.http.common.SequentialScheduler;
 
-import java.io.Console;
+import java.io.*;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
 import java.util.Random;
 
 /**
@@ -59,7 +58,7 @@ import java.util.Random;
  */
 public class GameScreen implements Screen {
 
-    public GameManager manager;
+    private Preferences PREFS;
     // if customer number = 0, then endless mode
     private final int customerNumber;
     private final int difficulty;
@@ -1100,8 +1099,8 @@ public class GameScreen implements Screen {
               // return to main menu and save game
             /**
              * zac fix this
-             * manager.setSaveGame(this);
              **/
+            setSaveGame();
             game.setScreen(new MainMenuScreen(game));
             alienJazz.dispose();
         }
@@ -1124,6 +1123,13 @@ public class GameScreen implements Screen {
                 Duration timeSurvived = Duration.between(gameTime, Instant.now());
                 game.setScreen(new EndGameScreen(game, timeSurvived,Rep, customersServed, customerNumber));
             }
+        }
+        if (Gdx.input.isKeyPressed(Input.Keys.S)) {
+            // return to main menu and save game
+            /**
+             * zac fix this
+             **/
+            game.setScreen(loadSaveGame());
         }
     }
 
@@ -1522,5 +1528,41 @@ public class GameScreen implements Screen {
         game.batch.dispose();
         gameStage.dispose();
         alienJazz.dispose();
+    }
+
+    public void setSaveGame(){
+        try {
+            FileOutputStream fileWrite = new FileOutputStream(new File("save.txt"));
+            ObjectOutputStream objectWrite = new ObjectOutputStream(fileWrite);
+
+            objectWrite.writeObject(this);
+
+            objectWrite.close();
+            fileWrite.close();
+        } catch (FileNotFoundException e){
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        }
+    }
+
+    public GameScreen loadSaveGame() {
+        GameScreen loadGame = null;
+        try {
+            FileInputStream fileRead = new FileInputStream("save.txt");
+            ObjectInputStream objectRead = new ObjectInputStream(fileRead);
+
+            loadGame = (GameScreen) objectRead.readObject();
+
+            objectRead.close();
+            fileRead.close();
+        } catch (FileNotFoundException e){
+            System.out.println("File not found");
+        } catch (IOException e) {
+            System.out.println("Error initializing stream");
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return (loadGame);
     }
 }
