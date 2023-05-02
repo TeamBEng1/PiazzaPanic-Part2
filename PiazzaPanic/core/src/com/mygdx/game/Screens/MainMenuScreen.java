@@ -2,6 +2,7 @@ package com.mygdx.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -26,6 +27,7 @@ public class MainMenuScreen implements Screen {
     Texture exitBtnTexHover;
     Texture infoBtnTex;
     Texture infoBtnTexHover;
+    Texture instrBtnTex;
 
     FitViewport view;
     Stage gameStage;
@@ -42,6 +44,10 @@ public class MainMenuScreen implements Screen {
     TextureRegion infoBtnRegion;
     TextureRegionDrawable infoBtnDrawable;
     ImageButton infoBtn;
+
+    TextureRegion instrBtnRegion;
+    TextureRegionDrawable instrBtnDrawable;
+    ImageButton instrBtn;
 
     // image buttons for when hovering on the button
     TextureRegion playBtnRegionHover;
@@ -75,6 +81,7 @@ public class MainMenuScreen implements Screen {
         playBtnTex = new Texture("playBtn.png");
         exitBtnTex = new Texture("exitBtn.png");
         infoBtnTex = new Texture("infoBtn.png");
+        instrBtnTex = new Texture("instructionsBtn.png");
 
         // textures for hovered buttons
         infoBtnTexHover = new Texture("infoBtn2.png");
@@ -97,6 +104,10 @@ public class MainMenuScreen implements Screen {
         infoBtnRegion = new TextureRegion(infoBtnTex);
         infoBtnDrawable = new TextureRegionDrawable(infoBtnRegion);
         infoBtn = new ImageButton(infoBtnDrawable);
+
+        instrBtnRegion = new TextureRegion(instrBtnTex);
+        instrBtnDrawable = new TextureRegionDrawable(instrBtnRegion);
+        instrBtn = new ImageButton(instrBtnDrawable);
 
         // hovered buttons
         playBtnRegionHover = new TextureRegion(playBtnTexHover);
@@ -153,6 +164,18 @@ public class MainMenuScreen implements Screen {
                 infoBtn.setStyle(infoNormal.getStyle());
             }
         });
+
+        instrBtn.addListener(new ClickListener(){
+            @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Hand);
+            }
+
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                Gdx.graphics.setSystemCursor(Cursor.SystemCursor.Arrow);
+            }
+        });
     }
 
     /**
@@ -181,6 +204,10 @@ public class MainMenuScreen implements Screen {
         gameStage.addActor(infoBtn);
         infoBtn.setPosition(game.GAME_WIDTH - infoBtn.getWidth(), game.GAME_HEIGHT - infoBtn.getHeight());
 
+        gameStage.addActor(instrBtn);
+        instrBtn.setHeight(65);
+        instrBtn.setPosition(game.GAME_WIDTH - instrBtn.getWidth(), game.GAME_HEIGHT - instrBtn.getHeight() - infoBtn.getHeight());
+
         if (playBtn.isPressed()) {
 
             game.setScreen(new SettingsScreen(game, view));
@@ -193,6 +220,10 @@ public class MainMenuScreen implements Screen {
 
         if (infoBtn.isPressed()) {
             game.setScreen(new CreditsScreen(game));
+        }
+
+        if (instrBtn.isPressed()) {
+            game.setScreen(new InstructionsScreen(game));
         }
 
         Gdx.input.setInputProcessor(gameStage);
