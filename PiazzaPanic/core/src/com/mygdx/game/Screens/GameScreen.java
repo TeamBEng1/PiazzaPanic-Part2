@@ -90,6 +90,8 @@ public class GameScreen implements Screen {
     Texture Money = new Texture("money.png");
     public final Array<Cook> cooks;
     private final Array<Customer> customers;
+
+    int customersServed;
     public Integer orderTime;
 
     // sprite handling
@@ -968,6 +970,7 @@ public class GameScreen implements Screen {
 
             if (customers.get(customerCount).body.getX() > 148) {
                 customers.get(customerCount).body.remove();
+                customersServed += 1;
 
 
                 if (customerNumber != 0) {
@@ -982,7 +985,7 @@ public class GameScreen implements Screen {
                         // end game by taking the time at the game end and going to the time screen
                         Duration timeTaken = Duration.between(gameTime, Instant.now());
                         alienJazz.stop();
-                        game.setScreen(new EndGameScreen(game, timeTaken,Rep));
+                        game.setScreen(new EndGameScreen(game, timeTaken,Rep, customersServed, customerNumber));
 
                     }
 
@@ -1102,7 +1105,7 @@ public class GameScreen implements Screen {
                         if (Rep == 0) {
                             alienJazz.stop();
                             Duration timeSurvived = Duration.between(gameTime, Instant.now());
-                            game.setScreen(new EndGameScreen(game, timeSurvived,Rep));
+                            game.setScreen(new EndGameScreen(game, timeSurvived,Rep, customersServed, customerNumber));
                         }
                     }
                 }
@@ -1320,8 +1323,8 @@ public class GameScreen implements Screen {
                     cooks.get(selected).isBusy = false;
                     pattyAtFrying = false;
                     fryingClicked++;
-        
-                    cooks.get(selected).CookStack.add(ashes);}} 
+
+                    cooks.get(selected).CookStack.add(ashes);}}
 
 
     public void createProgressBar(float x, float y, Cook selectedCook) {
@@ -1343,7 +1346,7 @@ public class GameScreen implements Screen {
         boolean flippedinTime = false;
 
         System.out.println("FlipTimerStart");
-        
+
         while (flipTimer > 0f) {
             if (burgerFlipped) {
                 System.out.println("Flipped!");
@@ -1354,7 +1357,7 @@ public class GameScreen implements Screen {
                 flipTimer -= 0.0000001f;
                 //System.out.println(flipTimer);
             }
-            
+
     }
 
         if (!flippedinTime && !flippedTwice) {
@@ -1394,7 +1397,7 @@ public class GameScreen implements Screen {
                         //oli
                         flipTimer = burnTime;
                         burning = true;
-                        
+
                     }
 
                     gameStage.getActors().removeValue(bar, false);

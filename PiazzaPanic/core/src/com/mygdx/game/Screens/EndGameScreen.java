@@ -42,11 +42,13 @@ public class EndGameScreen implements Screen {
     TextureRegionDrawable restartBtnDrawable;
     TextureRegionDrawable restartBtnDrawableHover;
     int Rep;
+    int customersServed;
+    int gameMode;
     String levelTimeString;
 /**
  * The EndGameScreen constructor
  */
-    public EndGameScreen(PiazzaPanic game, Duration levelCompletedIn, int RepPoints) {
+    public EndGameScreen(PiazzaPanic game, Duration levelCompletedIn, int RepPoints, int customersServed, int gameMode) {
         // generate the styling information for the data given to this screen
         this.game = game;
         parameter.size = 48;
@@ -54,6 +56,8 @@ public class EndGameScreen implements Screen {
         font = generator.generateFont(parameter);
         levelTimeString = humanReadableFormat(levelCompletedIn);
         this.Rep = RepPoints;
+        this.customersServed = customersServed;
+        this.gameMode = gameMode;
     }
 
     /**
@@ -128,10 +132,20 @@ public class EndGameScreen implements Screen {
         game.batch.setProjectionMatrix(view.getCamera().combined);
         game.batch.begin();
         game.batch.draw(levelCompleteFrame, ((game.GAME_WIDTH / 2) - (levelCompleteFrame.getWidth() / 2)), 10);
-        font.draw(game.batch, "COMPLETED IN " + levelTimeString, 420, 480);
-        font.draw(game.batch, "REPUTATION:" + Rep, 420, 425);
-        game.batch.end();
 
+        if (gameMode == 0) {
+            // endless mode
+            // display time survived for and number of customers served
+            font.draw(game.batch, "SURVIVED FOR " + levelTimeString, 420, 480);
+            font.draw(game.batch, "PEOPLE SERVED: " + customersServed, 420, 425);
+        } else {
+            // scenario mode
+            // display how fast game was completed in, and remaining lives
+            font.draw(game.batch, "COMPLETED IN " + levelTimeString, 420, 480);
+            font.draw(game.batch, "REPUTATION:" + Rep, 420, 425);
+        }
+
+        game.batch.end();
         screenStage.getViewport().apply();
 
         if (restartBtn.isPressed()) {
