@@ -63,6 +63,8 @@ public class BurgerTests {
         patty.prepare();
         Ingredient lettuce = new Ingredient("lettuce",null,null);
         lettuce.prepare();
+        Ingredient tomato = new Ingredient("tomato",null,null);
+        tomato.prepare();
 
         ingredients.push(buns);
         ingredients.push(patty);
@@ -78,5 +80,24 @@ public class BurgerTests {
         assertTrue("Passes if the burger contains the above ingredients" ,
                 burger.has(ingredients));
 
+        //add incorrect ingredients and see if desired item is still produced
+        ingredients.clear();
+        ingredients.push(patty);
+        ingredients.push(lettuce);
+        ingredients.push(tomato);
+        assertFalse("Passes if the burger is not made from the above ingredients",
+                burger.has(ingredients));
+
+        //add some correct ingredients but not all and see if desired item is still produced
+        ingredients.clear();
+        ingredients.push(lettuce);
+        ingredients.push(buns);
+        assertFalse("Passes if the burger is not made from only the above ingredients",
+                burger.has(ingredients));
+
+        //add none of the ingredients and check if the desired item is produced
+        ingredients.clear();
+        assertFalse("Passes if the burger is not made, due to no ingredients",
+                burger.has(ingredients));
     }
 }

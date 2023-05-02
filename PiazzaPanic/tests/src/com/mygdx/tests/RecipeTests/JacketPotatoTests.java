@@ -63,6 +63,8 @@ public class JacketPotatoTests {
         cheese.prepare();
         Ingredient potato = new Ingredient("potato",null,null);
         potato.prepare();
+        Ingredient tomato = new Ingredient("tomato",null,null);
+        tomato.prepare();
 
         ingredients.push(cheese);
         ingredients.push(potato);
@@ -74,6 +76,24 @@ public class JacketPotatoTests {
         ingredients.push(potato);
         ingredients.push(cheese);
         assertTrue("Passes if the jacket potato contains the above ingredients" ,
+                jacketPotato.has(ingredients));
+
+        //add incorrect ingredients and see if desired item is still produced
+        ingredients.clear();
+        ingredients.push(potato);
+        ingredients.push(tomato);
+        assertFalse("Passes if the jacket potato is not made from the above ingredients",
+                jacketPotato.has(ingredients));
+
+        //add some correct ingredients but not all and see if desired item is still produced
+        ingredients.clear();
+        ingredients.push(potato);
+        assertFalse("Passes if the jacket potato is not made from only the above ingredients",
+                jacketPotato.has(ingredients));
+
+        //add none of the ingredients and check if the desired item is produced
+        ingredients.clear();
+        assertFalse("Passes if the jacket potato is not made, due to no ingredients",
                 jacketPotato.has(ingredients));
     }
 }

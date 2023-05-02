@@ -61,6 +61,8 @@ public class SaladTests {
         tomato.prepare();
         Ingredient lettuce = new Ingredient("lettuce",null,null);
         lettuce.prepare();
+        Ingredient potato = new Ingredient("potato",null,null);
+        potato.prepare();
 
         ingredients.push(tomato);
         ingredients.push(lettuce);
@@ -72,6 +74,24 @@ public class SaladTests {
         ingredients.push(lettuce);
         ingredients.push(tomato);
         assertTrue("Passes if the salad contains the above ingredients" ,
+                salad.has(ingredients));
+
+        //add incorrect ingredients and see if desired item is still produced
+        ingredients.clear();
+        ingredients.push(tomato);
+        ingredients.push(potato);
+        assertFalse("Passes if the salad is not made from the above ingredients",
+                salad.has(ingredients));
+
+        //add some correct ingredients but not all and see if desired item is still produced
+        ingredients.clear();
+        ingredients.push(tomato);
+        assertFalse("Passes if the salad is not made from only the above ingredients",
+                salad.has(ingredients));
+
+        //add none of the ingredients and check if the desired item is produced
+        ingredients.clear();
+        assertFalse("Passes if the salad is not made, due to no ingredients",
                 salad.has(ingredients));
     }
 }

@@ -64,6 +64,8 @@ public class PizzaTests {
         tomato.prepare();
         Ingredient base = new Ingredient("pizzaBase",null,null);
         base.prepare();
+        Ingredient potato = new Ingredient("potato",null,null);
+        potato.prepare();
 
         ingredients.push(cheese);
         ingredients.push(tomato);
@@ -77,6 +79,26 @@ public class PizzaTests {
         ingredients.push(tomato);
         ingredients.push(cheese);
         assertTrue("Passes if the pizza contains the above ingredients" ,
+                pizza.has(ingredients));
+
+        //add incorrect ingredients and see if desired item is still produced
+        ingredients.clear();
+        ingredients.push(base);
+        ingredients.push(tomato);
+        ingredients.push(potato);
+        assertFalse("Passes if the pizza is not made from the above ingredients",
+                pizza.has(ingredients));
+
+        //add some correct ingredients but not all and see if desired item is still produced
+        ingredients.clear();
+        ingredients.push(base);
+        ingredients.push(tomato);
+        assertFalse("Passes if the pizza is not made from only the above ingredients",
+                pizza.has(ingredients));
+
+        //add none of the ingredients and check if the desired item is produced
+        ingredients.clear();
+        assertFalse("Passes if the pizza is not made, due to no ingredients",
                 pizza.has(ingredients));
     }
 }
