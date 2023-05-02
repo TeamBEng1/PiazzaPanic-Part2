@@ -1,6 +1,23 @@
-sourceCompatibility = 1.7
+
+plugins {
+    id 'java'
+}
+
+ext {
+    gdxVersion = '1.10.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    implementation "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
+}
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 
 sourceSets.main.java.srcDirs = [ "src/" ]
 
 eclipse.project.name = appName + "-core"
+sourceCompatibility = 1.8
