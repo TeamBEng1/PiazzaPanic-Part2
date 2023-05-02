@@ -189,6 +189,14 @@ public class GameScreen implements Screen {
     float burnTime;
     boolean burning = false;
 
+    //Variables for buying recipes
+    public static Boolean burgerBought = false;
+    public static Boolean pizzaBought = false;
+    public static Boolean jacketPotatoBought = false;
+    ImageButton greyBurgerClickable;
+    ImageButton greyPizzaClickable;
+    ImageButton greyJacketPotatoClickable;
+
     ImageButton burgerClickable;
     ImageButton saladClickable;
     ImageButton pizzaClickable;
@@ -737,6 +745,54 @@ public class GameScreen implements Screen {
          /* Serving screen buttons
          The functions executes after clicking on any of the ingredient buttons on the serving screen
          Serves the item if all the required prepared ingredients are in the current cook's stack */
+         
+         //greyButtons for buying recipes
+         greyBurgerClickable = createImageClickable(new Texture("BurgerGreyScale.png"), 24, 24);
+         greyBurgerClickable.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                if(money>=8){
+                    burgerBought = true;
+                    money -= 8;
+                    greyBurgerClickable.setPosition(10000,-1);
+                    burgerClickable.setPosition(25,66);
+                }
+                else{
+                    System.out.println("Not enough money");
+                }
+            }
+         });
+
+         greyJacketPotatoClickable = createImageClickable(new Texture("JacketPotatoGreyScale.png"), 24, 24);
+         greyJacketPotatoClickable.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                if(money>=8){
+                    jacketPotatoBought = true;
+                    money -= 8;
+                    greyJacketPotatoClickable.setPosition(10000,-1);
+                    jacketPotatoClickable.setPosition(53,40);
+                }
+                else{
+                    System.out.println("Not enough money");
+                }
+            }
+         });
+         greyPizzaClickable = createImageClickable(new Texture("PizzaGreyScale.png"), 24, 24);
+         greyPizzaClickable.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y){
+                if(money>=8){
+                    pizzaBought = true;
+                    money -= 8;
+                }
+                else{
+                    System.out.println("Not enough money");
+                    greyPizzaClickable.setPosition(100000,-1);
+                    pizzaClickable.setPosition(25, 36);
+                }
+            }
+         });
 
         // burger button
         burgerClickable = createImageClickable(new Texture("burger.png"), 24, 24);
@@ -1160,13 +1216,23 @@ public class GameScreen implements Screen {
             gameStage.addActor(saladClickable);
             gameStage.addActor(pizzaClickable);
             gameStage.addActor(jacketPotatoClickable);
+            gameStage.addActor(greyBurgerClickable);
+            gameStage.addActor(greyJacketPotatoClickable);
+            gameStage.addActor(greyPizzaClickable);
+            
 
             servingScreenFrame.setPosition(10, 10);
             XbtnClickable.setPosition(7, 88);
-            burgerClickable.setPosition(25, 66);
+            if(burgerBought){
+            burgerClickable.setPosition(25, 66);}
+            else{greyBurgerClickable.setPosition(25, 66);}
             saladClickable.setPosition(53, 66);
-            pizzaClickable.setPosition(25, 36);
-            jacketPotatoClickable.setPosition(53, 40);
+            if(pizzaBought){
+            pizzaClickable.setPosition(25, 36);}
+            else{greyPizzaClickable.setPosition(25,36);}
+            if(jacketPotatoBought){
+            jacketPotatoClickable.setPosition(53, 40);}
+            else{greyJacketPotatoClickable.setPosition(53,40);}
 
             showServingScreen = false;
         }
@@ -1209,7 +1275,7 @@ public class GameScreen implements Screen {
         pattyClickable.setPosition(10000, -1);
         cheeseClickable.setPosition(10000, -1);
         baseClickable.setPosition(10000, -1);
-        potatoClickable.setPosition(10000, -1);
+        
     }
 
     private void hideServingScreen() {
@@ -1220,6 +1286,10 @@ public class GameScreen implements Screen {
         saladClickable.setPosition(10000, -1);
         pizzaClickable.setPosition(10000, -1);
         jacketPotatoClickable.setPosition(10000, -1);
+        potatoClickable.setPosition(10000, -1);
+        greyBurgerClickable.setPosition(10000,-1);
+        greyJacketPotatoClickable.setPosition(10000, -1);
+        greyPizzaClickable.setPosition(100000, -1);
     }
 
     public void hidePowerup(ImageButton powerup){

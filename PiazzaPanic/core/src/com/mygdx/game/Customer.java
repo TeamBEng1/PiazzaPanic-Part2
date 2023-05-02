@@ -9,6 +9,7 @@ import com.mygdx.game.Food.Order;
 import com.mygdx.game.Food.Salad;
 import com.mygdx.game.Food.Pizza;
 import com.mygdx.game.Food.JacketPotato;
+import com.mygdx.game.Screens.GameScreen;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,11 +38,13 @@ public class Customer {
         this.body.setHeight(23);
         this.body.setX(144);
         this.body.setY(80);
-
-        orderOptions.add(new Order("burger", new Texture("orderBurger.png"), new Burger(), orderTime));
+        if(GameScreen.burgerBought){
+        orderOptions.add(new Order("burger", new Texture("orderBurger.png"), new Burger(), orderTime));}
         orderOptions.add(new Order("salad", new Texture("orderSalad.png"), new Salad(), orderTime));
-        orderOptions.add(new Order("pizza", new Texture("orderPizza.png"), new Pizza(), orderTime));
-        orderOptions.add(new Order("jacketPotato", new Texture("orderJacketPotato.png"), new JacketPotato(), orderTime));
+        if(GameScreen.pizzaBought){
+        orderOptions.add(new Order("pizza", new Texture("orderPizza.png"), new Pizza(), orderTime));}
+        if(GameScreen.jacketPotatoBought){
+        orderOptions.add(new Order("jacketPotato", new Texture("orderJacketPotato.png"), new JacketPotato(), orderTime));}
 
         this.customerOrder = generateOrder();
     }
