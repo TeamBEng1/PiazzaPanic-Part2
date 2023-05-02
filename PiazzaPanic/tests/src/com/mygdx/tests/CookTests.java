@@ -12,19 +12,35 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
+/**
+ * These tests check for everything to do with the Cook class
+ */
 @RunWith(GdxTestRunner.class)
 public class CookTests {
 
+    /**
+     * This test checks the constructor method in the cook class
+     * It makes sure that the cook object is actually created
+     * Also that all of its elements, such as CookBody and CookStack, are not null
+     * It checks that at the start (when there are no orders), the cook is not busy
+     * @Author - Muaz
+     */
     @Test
     public void testCookConstructor() {
         Actor actor = new Actor();
         Cook cook = new Cook(actor);
-        assertNotNull(cook);
-        assertEquals(actor, cook.CookBody);
-        assertNotNull(cook.CookStack);
-        assertFalse(cook.isBusy);
+        assertNotNull("The cook object should not be empty" , cook);
+        assertEquals("The actor should be the same as the cookBody element of the cook" , actor, cook.CookBody);
+        assertNotNull("The cook stack should not be empty" , cook.CookStack);
+        assertFalse("The cook, once created, should not be busy" , cook.isBusy);
     }
 
+    /**
+     * This test checks that the cook moves to the right place
+     * The variable index is hardcoded as 3, to see if the cook will move to the third station
+     * At the end an assert statement is used to check if the cook is roughly in the right place
+     * @Author - Muaz
+     */
     @Test
     public void testCookMove() {
         Actor actor = new Actor();
@@ -54,14 +70,15 @@ public class CookTests {
         }
 
         //check if the cook has reached the target station
-        assertEquals(28f, actor.getY(),1f);
-        assertEquals(0f,actor.getX(),1f);
+        assertEquals(28f, actor.getY(),speedmodifier);
+        assertEquals(0f,actor.getX(),speedmodifier);
     }
 
 
     /**
      * This test does not work. It is meant to test whether the flip button on the frying station works
      * This is due to deprecated Gradle features
+     * @Author - Teddy
      */
     @Test
     public void testFlipButton() {

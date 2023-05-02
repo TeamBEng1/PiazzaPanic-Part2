@@ -24,7 +24,8 @@ public class SaladTests {
     @Test
     public void testGetRecipe() {
         Salad salad = new Salad();
-        assertEquals(2, salad.getRecipe().size());
+        assertEquals("Passes if the number of ingredients needed for salad is 2" ,
+                2, salad.getRecipe().size());
     }
 
     /**
@@ -33,7 +34,8 @@ public class SaladTests {
     @Test
     public void testGetTexture() {
         Salad salad = new Salad();
-        assertNotNull(salad.getTexture());
+        assertNotNull("Passes if the texture of the salad exists" ,
+                salad.getTexture());
     }
 
     /**
@@ -42,7 +44,8 @@ public class SaladTests {
     @Test
     public void testGetSpeechBubbleTexture() {
         Salad salad = new Salad();
-        assertNotNull((salad.getSpeechBubbleTexture()));
+        assertNotNull("Passes if the texture of the salad order speech bubble exists" ,
+                salad.getSpeechBubbleTexture());
     }
 
     /**
@@ -61,12 +64,14 @@ public class SaladTests {
 
         ingredients.push(tomato);
         ingredients.push(lettuce);
-        assertTrue(salad.has(ingredients));
+        assertTrue("Passes if the salad contains the above ingredients" ,
+                salad.has(ingredients));
 
         //add another test with ingredients in different order
         ingredients.clear();
         ingredients.push(lettuce);
         ingredients.push(tomato);
-        assertTrue(salad.has(ingredients));
+        assertTrue("Passes if the salad contains the above ingredients" ,
+                salad.has(ingredients));
     }
 }

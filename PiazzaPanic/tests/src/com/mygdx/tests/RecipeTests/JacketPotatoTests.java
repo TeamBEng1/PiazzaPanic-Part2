@@ -25,7 +25,8 @@ public class JacketPotatoTests {
     @Test
     public void testGetRecipe() {
         JacketPotato jacketPotato = new JacketPotato();
-        assertEquals(2, jacketPotato.getRecipe().size());
+        assertEquals("Passes if the number of ingredients needed for jacket potato is 2" ,
+                2, jacketPotato.getRecipe().size());
     }
 
 
@@ -35,7 +36,8 @@ public class JacketPotatoTests {
     @Test
     public void testGetTexture() {
         JacketPotato jacketPotato = new JacketPotato();
-        assertNotNull(jacketPotato.getTexture());
+        assertNotNull("Passes if the texture of the jacket potato exists" ,
+                jacketPotato.getTexture());
     }
 
     /**
@@ -44,7 +46,8 @@ public class JacketPotatoTests {
     @Test
     public void testGetSpeechBubbleTexture() {
         JacketPotato jacketPotato = new JacketPotato();
-        assertNotNull((jacketPotato.getSpeechBubbleTexture()));
+        assertNotNull("Passes if the texture of the jacket potato order speech bubble exists" ,
+                jacketPotato.getSpeechBubbleTexture());
     }
 
     /**
@@ -63,12 +66,14 @@ public class JacketPotatoTests {
 
         ingredients.push(cheese);
         ingredients.push(potato);
-        assertTrue(jacketPotato.has(ingredients));
+        assertTrue("Passes if the jacket potato contains the above ingredients" ,
+                jacketPotato.has(ingredients));
 
         //add another test with ingredients in different order
         ingredients.clear();
         ingredients.push(potato);
         ingredients.push(cheese);
-        assertTrue(jacketPotato.has(ingredients));
+        assertTrue("Passes if the jacket potato contains the above ingredients" ,
+                jacketPotato.has(ingredients));
     }
 }

@@ -25,7 +25,8 @@ public class PizzaTests {
     @Test
     public void testGetRecipe() {
         Pizza pizza = new Pizza();
-        assertEquals(3, pizza.getRecipe().size());
+        assertEquals("Passes if the number of ingredients needed for pizza is 3" ,
+                3, pizza.getRecipe().size());
     }
 
     /**
@@ -34,7 +35,8 @@ public class PizzaTests {
     @Test
     public void testGetTexture() {
         Pizza pizza = new Pizza();
-        assertNotNull(pizza.getTexture());
+        assertNotNull("Passes if the texture of the pizza exists" ,
+                pizza.getTexture());
     }
 
     /**
@@ -43,7 +45,8 @@ public class PizzaTests {
     @Test
     public void testGetSpeechBubbleTexture() {
         Pizza pizza = new Pizza();
-        assertNotNull((pizza.getSpeechBubbleTexture()));
+        assertNotNull("Passes if the texture of the pizza order speech bubble exists" ,
+                pizza.getSpeechBubbleTexture());
     }
 
     /**
@@ -65,14 +68,16 @@ public class PizzaTests {
         ingredients.push(cheese);
         ingredients.push(tomato);
         ingredients.push(base);
-        assertTrue(pizza.has(ingredients));
+        assertTrue("Passes if the pizza contains the above ingredients" ,
+                pizza.has(ingredients));
 
         //add another test with ingredients in different order
         ingredients.clear();
         ingredients.push(base);
         ingredients.push(tomato);
         ingredients.push(cheese);
-        assertTrue(pizza.has(ingredients));
+        assertTrue("Passes if the pizza contains the above ingredients" ,
+                pizza.has(ingredients));
     }
 }
 

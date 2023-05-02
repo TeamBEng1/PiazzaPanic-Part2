@@ -60,8 +60,6 @@ public class SettingsScreenTests {
 
         assertNotEquals("Test passes if after you hover on button, it lights up" , playYellowNormal,playYellowHover);
     }
-    private SettingsScreen settingsScreen;
-
 
     /**
      * This test tests if the game mode buttons are working properly
@@ -71,6 +69,7 @@ public class SettingsScreenTests {
     public void testDifficultySelection() {
         assert(true);
     }
+
     /**
      * This tests that the game runs on different difficulties
      * @author teddyseddon
@@ -114,7 +113,7 @@ public class SettingsScreenTests {
     }
 
     /**
-     * This test checks whether the difficulty buttons are working
+     * This test checks whether the scenario selection buttons are working
      * @Author - Teddy
      */
     @Test

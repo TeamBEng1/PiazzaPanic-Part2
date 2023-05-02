@@ -24,7 +24,8 @@ public class BurgerTests {
     @Test
     public void testGetRecipe() {
         Burger burger = new Burger();
-        assertEquals(3, burger.getRecipe().size());
+        assertEquals("Passes if the number of ingredients needed for burger is 3" ,
+                3, burger.getRecipe().size());
     }
 
     /**
@@ -33,7 +34,8 @@ public class BurgerTests {
     @Test
     public void testGetTexture() {
         Burger burger = new Burger();
-        assertNotNull(burger.getTexture());
+        assertNotNull("Passes if the texture of the burger exists" ,
+                burger.getTexture());
     }
 
     /**
@@ -42,7 +44,8 @@ public class BurgerTests {
     @Test
     public void testGetSpeechBubbleTexture() {
         Burger burger = new Burger();
-        assertNotNull((burger.getSpeechBubbleTexture()));
+        assertNotNull("Passes if the texture of the burger order speech bubble exists" ,
+                burger.getSpeechBubbleTexture());
     }
 
     /**
@@ -64,14 +67,16 @@ public class BurgerTests {
         ingredients.push(buns);
         ingredients.push(patty);
         ingredients.push(lettuce);
-        assertTrue(burger.has(ingredients));
+        assertTrue("Passes if the burger contains the above ingredients" ,
+                burger.has(ingredients));
 
         //add another test with ingredients in different order
         ingredients.clear();
         ingredients.push(patty);
         ingredients.push(lettuce);
         ingredients.push(buns);
-        assertTrue(burger.has(ingredients));
+        assertTrue("Passes if the burger contains the above ingredients" ,
+                burger.has(ingredients));
 
     }
 }
