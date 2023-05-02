@@ -93,5 +93,12 @@ public class SaladTests {
         ingredients.clear();
         assertFalse("Passes if the salad is not made, due to no ingredients",
                 salad.has(ingredients));
+
+        //testing with duplicate ingredients
+        ingredients.push(lettuce);
+        ingredients.push(tomato);
+        ingredients.push(lettuce);
+        assertTrue("Passes if the salad is made from the above ingredients",
+                salad.has(ingredients));
     }
 }

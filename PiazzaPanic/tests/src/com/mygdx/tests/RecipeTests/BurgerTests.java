@@ -99,5 +99,13 @@ public class BurgerTests {
         ingredients.clear();
         assertFalse("Passes if the burger is not made, due to no ingredients",
                 burger.has(ingredients));
+
+        //testing with duplicate ingredients
+        ingredients.push(patty);
+        ingredients.push(lettuce);
+        ingredients.push(buns);
+        ingredients.push(patty);
+        assertTrue("Passes if the burger is made from the above ingredients",
+                burger.has(ingredients));
     }
 }

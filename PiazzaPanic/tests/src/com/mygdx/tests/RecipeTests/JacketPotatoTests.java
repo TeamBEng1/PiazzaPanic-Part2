@@ -95,5 +95,12 @@ public class JacketPotatoTests {
         ingredients.clear();
         assertFalse("Passes if the jacket potato is not made, due to no ingredients",
                 jacketPotato.has(ingredients));
+
+        //testing with duplicate ingredients
+        ingredients.push(potato);
+        ingredients.push(cheese);
+        ingredients.push(cheese);
+        assertTrue("Passes if the jacket potato is made from the above ingredients",
+                jacketPotato.has(ingredients));
     }
 }

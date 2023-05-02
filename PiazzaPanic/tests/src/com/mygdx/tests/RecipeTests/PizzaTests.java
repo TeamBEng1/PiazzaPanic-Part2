@@ -100,6 +100,14 @@ public class PizzaTests {
         ingredients.clear();
         assertFalse("Passes if the pizza is not made, due to no ingredients",
                 pizza.has(ingredients));
+
+        //testing with duplicate ingredients
+        ingredients.push(base);
+        ingredients.push(tomato);
+        ingredients.push(cheese);
+        ingredients.push(tomato);
+        assertTrue("Passes if the pizza is made from the above ingredients",
+                pizza.has(ingredients));
     }
 }
 
