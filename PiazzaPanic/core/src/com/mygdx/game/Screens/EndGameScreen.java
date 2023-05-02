@@ -17,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.mygdx.game.PiazzaPanic;
+
+import java.io.*;
 import java.time.Duration;
 
 // screen which displays after the game finishes
@@ -45,6 +47,9 @@ public class EndGameScreen implements Screen {
     int customersServed;
     int gameMode;
     String levelTimeString;
+
+    long levelTime;
+
 /**
  * The EndGameScreen constructor
  */
@@ -55,6 +60,7 @@ public class EndGameScreen implements Screen {
         parameter.color = Color.BLACK;
         font = generator.generateFont(parameter);
         levelTimeString = humanReadableFormat(levelCompletedIn);
+        this.levelTime = levelCompletedIn.getSeconds();
         this.Rep = RepPoints;
         this.customersServed = customersServed;
         this.gameMode = gameMode;
@@ -138,11 +144,72 @@ public class EndGameScreen implements Screen {
             // display time survived for and number of customers served
             font.draw(game.batch, "SURVIVED FOR " + levelTimeString, 420, 480);
             font.draw(game.batch, "PEOPLE SERVED: " + customersServed, 420, 425);
+
+            try {
+                // save number of people served
+
+                File endlessFile = new File("endlessHighscore.txt");
+
+                if (endlessFile.createNewFile()) {
+                    // file doesn't already exist, make one
+                    FileWriter writer = new FileWriter("endlessHighscore.txt");
+
+                    writer.write(Long.toString(levelTime));
+                    writer.close();
+                } else {
+                    // file already exists, check highscore
+                    FileReader reader = new FileReader("endlessHighscore.txt");
+                    //System.out.println("Found file!");
+                    int prevCustomersServed = reader.read();
+
+                    if (customersServed >= prevCustomersServed) {
+                        FileWriter writer = new FileWriter("endlessHighscore.txt");
+                        writer.write(Integer.toString(customersServed));
+
+                        writer.close();
+                    }
+                    reader.close();
+                }
+            } catch (IOException ie) {
+                ie.printStackTrace();
+            }
+
+
         } else {
             // scenario mode
             // display how fast game was completed in, and remaining lives
             font.draw(game.batch, "COMPLETED IN " + levelTimeString, 420, 480);
             font.draw(game.batch, "REPUTATION:" + Rep, 420, 425);
+
+            try {
+                // save number of people served
+
+                File endlessFile = new File("scenarioHighscore.txt");
+
+                if (endlessFile.createNewFile()) {
+                    // file doesn't already exist, make one
+                    FileWriter writer = new FileWriter("scenarioHighscore.txt");
+
+                    writer.write(Long.toString(levelTime));
+                    writer.close();
+                } else {
+                    // file already exists, check highscore
+                    FileReader reader = new FileReader("scenarioHighscore.txt");
+                    //System.out.println("Found file!");
+                    long timeTaken = reader.read();
+
+                    if (levelTime >= timeTaken) {
+                        FileWriter writer = new FileWriter("scenarioHighscore.txt");
+
+                        writer.write(Long.toString(timeTaken));
+
+                        writer.close();
+                    }
+                    reader.close();
+                }
+            } catch (IOException ie) {
+                ie.printStackTrace();
+            }
         }
 
         game.batch.end();
