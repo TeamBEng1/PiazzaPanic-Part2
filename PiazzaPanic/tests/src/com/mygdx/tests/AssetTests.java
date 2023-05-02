@@ -42,7 +42,7 @@ public class AssetTests {
      */
     @Test
     public void BurgerTest() {
-        String[] burgerAssetPaths = {"lettuce", "prepdLettuce", "buns", "rawPatty", "prepdPatty", "burger"};
+        String[] burgerAssetPaths = {"lettuce", "prepdLettuce", "buns", "rawPatty", "prepdPatty", "burger","BurgerGreyScale","ashes"};
         boolean burgerAssetsExist = true;
         for (String path : burgerAssetPaths) {
             if (!Gdx.files.internal(path + ".png").exists()) {
@@ -58,7 +58,7 @@ public class AssetTests {
      */
     @Test
     public void PizzaTest() {
-        String[] pizzaAssetPaths = {"tomato", "prepdTomato", "cheese", "prepdCheese", "pizzaBase", "pizza"};
+        String[] pizzaAssetPaths = {"tomato", "prepdTomato", "cheese", "prepdCheese", "pizzaBase", "pizza", "PizzaGreyScale"};
         boolean pizzaAssetsExist = true;
         for (String path : pizzaAssetPaths) {
             if (!Gdx.files.internal(path + ".png").exists()) {
@@ -74,7 +74,7 @@ public class AssetTests {
      */
     @Test
     public void JacketPotatoTest() {
-        String[] jacketPotatoAssetPaths = {"cheese", "prepdCheese", "rawPotato", "prepdPotato", "jacketPotato"};
+        String[] jacketPotatoAssetPaths = {"cheese", "prepdCheese", "rawPotato", "prepdPotato", "jacketPotato", "JacketPotatoGreyScale"};
         boolean jacketPotatoAssetsExist = true;
         for (String path : jacketPotatoAssetPaths) {
             if (!Gdx.files.internal(path + ".png").exists()) {
