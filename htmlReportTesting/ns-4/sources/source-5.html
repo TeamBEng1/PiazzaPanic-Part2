@@ -1,0 +1,165 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > IngredientTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.mygdx.tests</a>
+</div>
+
+<h1>Coverage Summary for Class: IngredientTests (com.mygdx.tests)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">IngredientTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (19/19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.mygdx.tests;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.Texture;
+&nbsp;import com.mygdx.game.Food.Ingredient;
+&nbsp;import org.junit.Test;
+&nbsp;import org.junit.runner.RunWith;
+&nbsp;
+&nbsp;import static org.junit.Assert.*;
+&nbsp;
+&nbsp;/**
+&nbsp; * This class tests all methods in the ingredient class
+&nbsp; * @Author - Muaz
+&nbsp; */
+&nbsp;@RunWith(GdxTestRunner.class)
+<b class="fc">&nbsp;public class IngredientTests {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks both prepare() method and updateCurrentTexture() methods
+&nbsp;     * It checks to see whether the ingredient can be prepared by getting its state before and after
+&nbsp;     * It also compares the textures and checks whether the notPreparedTexture is converted to the preparedTexture
+&nbsp;     * after preparation
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testPrepare() {
+&nbsp;        //Create a new Ingredient object with a not prepared texture and a prepared texture
+<b class="fc">&nbsp;        Texture notPreparedTexture = new Texture(&quot;lettuce.png&quot;);</b>
+<b class="fc">&nbsp;        Texture preparedTexture = new Texture(&quot;prepdLettuce.png&quot;);</b>
+<b class="fc">&nbsp;        Ingredient ingredient = new Ingredient(&quot;lettuce&quot;, notPreparedTexture, preparedTexture);</b>
+&nbsp;
+&nbsp;        //Check that the initial state is not prepared
+<b class="fc">&nbsp;        assertFalse(&quot;Test passes if the initial state is not prepared&quot; , ingredient.getState());</b>
+&nbsp;
+&nbsp;        //Prepare the ingredient and check that the state is now prepared
+<b class="fc">&nbsp;        ingredient.prepare();</b>
+<b class="fc">&nbsp;        assertTrue(&quot;Test passes if the current state is now prepared&quot; , ingredient.getState());</b>
+&nbsp;
+&nbsp;        //Update the current texture and check that it is the prepared texture
+<b class="fc">&nbsp;        ingredient.updateCurrentTexture();</b>
+<b class="fc">&nbsp;        assertEquals(&quot;Test passes if the texture updates accordingly after preparation&quot; ,</b>
+<b class="fc">&nbsp;                preparedTexture, ingredient.getCurrentTexture());</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks that two of the same ingredients when one is prepared and the other is not are not equal
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testEquals() {
+&nbsp;        //Create two ingredient objects with the same name and not prepared texture
+<b class="fc">&nbsp;        Texture notPreparedTexture = new Texture(&quot;lettuce.png&quot;);</b>
+<b class="fc">&nbsp;        Texture preparedTexture = new Texture(&quot;prepdLettuce.png&quot;);</b>
+<b class="fc">&nbsp;        Ingredient ingredient1 = new Ingredient(&quot;lettuce&quot;, notPreparedTexture, preparedTexture);</b>
+<b class="fc">&nbsp;        Ingredient ingredient2 = new Ingredient(&quot;lettuce&quot;, notPreparedTexture, preparedTexture);</b>
+&nbsp;
+&nbsp;        //Check that the two ingredients are equal
+<b class="fc">&nbsp;        assertTrue(&quot;Test passes if both ingredients are equal&quot; , ingredient1.equals(ingredient2));</b>
+&nbsp;
+&nbsp;        //Prepare one of the ingredients and check that they are no longer equal
+<b class="fc">&nbsp;        ingredient1.prepare();</b>
+<b class="fc">&nbsp;        assertFalse(&quot;Test passes if both ingredients are now not equal&quot; , ingredient1.equals(ingredient2));</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-01 19:02</div>
+</div>
+</body>
+</html>

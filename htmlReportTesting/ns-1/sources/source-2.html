@@ -1,0 +1,191 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Customer</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.mygdx.game</a>
+</div>
+
+<h1>Coverage Summary for Class: Customer (com.mygdx.game)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Customer</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (33/33)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.mygdx.game;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.graphics.Texture;
+&nbsp;import com.badlogic.gdx.math.MathUtils;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.Actor;
+&nbsp;import com.mygdx.game.Food.Burger;
+&nbsp;import com.mygdx.game.Food.Order;
+&nbsp;import com.mygdx.game.Food.Salad;
+&nbsp;import com.mygdx.game.Food.Pizza;
+&nbsp;import com.mygdx.game.Food.JacketPotato;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;
+&nbsp;/**
+&nbsp; * The Customer class represents the non-playable customer character
+&nbsp; */
+&nbsp;public class Customer {
+&nbsp;    // god we love using arrays for dealing with this stuff
+<b class="fc">&nbsp;    private final ArrayList&lt;Order&gt; orderOptions = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;    private final float targetY = MathUtils.random(16, 48);</b>
+<b class="fc">&nbsp;    public boolean orderComplete = false;</b>
+<b class="fc">&nbsp;    public boolean atCounter = false;</b>
+&nbsp;    public Actor body;
+&nbsp;    public String name;
+&nbsp;    public Order customerOrder;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Customer constructor
+&nbsp;     */
+<b class="fc">&nbsp;    public Customer(Actor skin, int orderTime) {</b>
+<b class="fc">&nbsp;        String[] names = {&quot;Blue&quot;, &quot;Red&quot;, &quot;White&quot;, &quot;Yellow&quot;};</b>
+<b class="fc">&nbsp;        this.name = names[MathUtils.random(0, 3)];</b>
+<b class="fc">&nbsp;        this.body = skin;</b>
+<b class="fc">&nbsp;        this.body.setWidth(16);</b>
+<b class="fc">&nbsp;        this.body.setHeight(23);</b>
+<b class="fc">&nbsp;        this.body.setX(144);</b>
+<b class="fc">&nbsp;        this.body.setY(80);</b>
+&nbsp;
+<b class="fc">&nbsp;        orderOptions.add(new Order(&quot;burger&quot;, new Texture(&quot;orderBurger.png&quot;), new Burger(), orderTime));</b>
+<b class="fc">&nbsp;        orderOptions.add(new Order(&quot;salad&quot;, new Texture(&quot;orderSalad.png&quot;), new Salad(), orderTime));</b>
+<b class="fc">&nbsp;        orderOptions.add(new Order(&quot;pizza&quot;, new Texture(&quot;orderPizza.png&quot;), new Pizza(), orderTime));</b>
+<b class="fc">&nbsp;        orderOptions.add(new Order(&quot;jacketPotato&quot;, new Texture(&quot;orderJacketPotato.png&quot;), new JacketPotato(), orderTime));</b>
+&nbsp;
+<b class="fc">&nbsp;        this.customerOrder = generateOrder();</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;/**
+&nbsp; * The Move method is the same move method from Cook. It sets the target destination and moves the customer there in a straight line
+&nbsp; */
+&nbsp;    public void move() {
+&nbsp;        // method to move a cook from their current position to a station
+<b class="fc">&nbsp;        if (!atCounter) {</b>
+<b class="fc">&nbsp;            if (body.getY() != targetY) {</b>
+<b class="fc">&nbsp;                body.setY(body.getY() - 50 * Gdx.graphics.getDeltaTime());</b>
+<b class="fc">&nbsp;                if (Math.abs(body.getY() - targetY) &lt; 1) {</b>
+<b class="fc">&nbsp;                    body.setY(targetY);</b>
+&nbsp;                }
+&nbsp;            } else {
+&nbsp;                // once close enough to the target positions snap the customer to it
+<b class="fc">&nbsp;                if (body.getX() != 128) {</b>
+<b class="fc">&nbsp;                    body.setX(body.getX() - 1);</b>
+<b class="fc">&nbsp;                    if (Math.abs(body.getX() - 128) &lt; 1) {</b>
+<b class="fc">&nbsp;                        body.setX(128);</b>
+&nbsp;                    }
+&nbsp;                } else {
+<b class="fc">&nbsp;                    atCounter = true;</b>
+&nbsp;                }
+&nbsp;            }
+<b class="fc">&nbsp;        } else if (orderComplete) {</b>
+&nbsp;            // if an order is complete, move the customer offscreen to the right
+<b class="fc">&nbsp;            body.setX(body.getX() + 50 * Gdx.graphics.getDeltaTime());</b>
+&nbsp;        }
+<b class="fc">&nbsp;    }</b>
+&nbsp;/**
+&nbsp; * Generates a random number for the order
+&nbsp; * @return the random number
+&nbsp; */
+&nbsp;    public Order generateOrder() {
+<b class="fc">&nbsp;        return orderOptions.get(MathUtils.random(0, orderOptions.size() - 1));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;Order&gt; getOrderOptions() {
+<b class="fc">&nbsp;        return orderOptions;</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-01 19:02</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,248 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > AssetTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.mygdx.tests</a>
+</div>
+
+<h1>Coverage Summary for Class: AssetTests (com.mygdx.tests)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AssetTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/54)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.mygdx.tests;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import org.junit.Test;
+&nbsp;import org.junit.runner.RunWith;
+&nbsp;
+&nbsp;import static org.junit.Assert.*;
+&nbsp;
+&nbsp;/**
+&nbsp; * These tests check for everything to do with the assets used in the game
+&nbsp; */
+&nbsp;@RunWith(GdxTestRunner.class)
+<b class="nc">&nbsp;public class AssetTests {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test is always true
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void alwaysTrueTest() {
+<b class="nc">&nbsp;        assertTrue(&quot;This test will always pass&quot; , true);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks for all assets (ingredients and final) related to salad
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void SaladTest() {
+<b class="nc">&nbsp;        String[] saladAssetPaths = {&quot;lettuce&quot;, &quot;prepdLettuce&quot;, &quot;tomato&quot;, &quot;prepdTomato&quot;, &quot;salad&quot;};</b>
+<b class="nc">&nbsp;        boolean saladAssetsExist = true;</b>
+<b class="nc">&nbsp;        for (String path : saladAssetPaths) {</b>
+<b class="nc">&nbsp;            if (!Gdx.files.internal(path + &quot;.png&quot;).exists()) {</b>
+<b class="nc">&nbsp;                saladAssetsExist = false;</b>
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        assertTrue(&quot;This test will pass if all assets related to salad exist&quot; , saladAssetsExist);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks for all assets (ingredients and final) related to burger
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void BurgerTest() {
+<b class="nc">&nbsp;        String[] burgerAssetPaths = {&quot;lettuce&quot;, &quot;prepdLettuce&quot;, &quot;buns&quot;, &quot;rawPatty&quot;, &quot;prepdPatty&quot;, &quot;burger&quot;};</b>
+<b class="nc">&nbsp;        boolean burgerAssetsExist = true;</b>
+<b class="nc">&nbsp;        for (String path : burgerAssetPaths) {</b>
+<b class="nc">&nbsp;            if (!Gdx.files.internal(path + &quot;.png&quot;).exists()) {</b>
+<b class="nc">&nbsp;                burgerAssetsExist = false;</b>
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        assertTrue(&quot;This test will pass if all assets related to burger will pass&quot; , burgerAssetsExist);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks for all assets (ingredients and final) related to pizza--
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void PizzaTest() {
+<b class="nc">&nbsp;        String[] pizzaAssetPaths = {&quot;tomato&quot;, &quot;prepdTomato&quot;, &quot;cheese&quot;, &quot;prepdCheese&quot;, &quot;pizzaBase&quot;, &quot;pizza&quot;};</b>
+<b class="nc">&nbsp;        boolean pizzaAssetsExist = true;</b>
+<b class="nc">&nbsp;        for (String path : pizzaAssetPaths) {</b>
+<b class="nc">&nbsp;            if (!Gdx.files.internal(path + &quot;.png&quot;).exists()) {</b>
+<b class="nc">&nbsp;                pizzaAssetsExist = false;</b>
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        assertTrue(&quot;This test will pass if all assets related to pizza will pass&quot; , pizzaAssetsExist);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks for all assets (ingredients and final) related to jacket potato
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void JacketPotatoTest() {
+<b class="nc">&nbsp;        String[] jacketPotatoAssetPaths = {&quot;cheese&quot;, &quot;prepdCheese&quot;, &quot;rawPotato&quot;, &quot;prepdPotato&quot;, &quot;jacketPotato&quot;};</b>
+<b class="nc">&nbsp;        boolean jacketPotatoAssetsExist = true;</b>
+<b class="nc">&nbsp;        for (String path : jacketPotatoAssetPaths) {</b>
+<b class="nc">&nbsp;            if (!Gdx.files.internal(path + &quot;.png&quot;).exists()) {</b>
+<b class="nc">&nbsp;                jacketPotatoAssetsExist = false;</b>
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        assertTrue(&quot;This test will pass if all assets related to jacket potato will pass&quot; , jacketPotatoAssetsExist);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks for all assets relating to ordering any of the above items
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void orderAssetTest() {
+<b class="nc">&nbsp;        String[] orderAssetPaths = {&quot;Burger&quot;, &quot;BurgerBubble&quot;, &quot;JacketPotato&quot;, &quot;JacketPotatoBubble&quot;, &quot;Pizza&quot;, &quot;PizzaBubble&quot;, &quot;Salad&quot;, &quot;SaladBubble&quot;};</b>
+<b class="nc">&nbsp;        boolean orderAssetsExist = true;</b>
+<b class="nc">&nbsp;        for (String path : orderAssetPaths) {</b>
+<b class="nc">&nbsp;            if (!Gdx.files.internal(&quot;order&quot; + path + &quot;.png&quot;).exists()) {</b>
+<b class="nc">&nbsp;                orderAssetsExist = false;</b>
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        assertTrue(&quot;This test will pass if all assets related to order will pass&quot; , orderAssetsExist);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks for the music asset
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void musicAssetTest() {
+<b class="nc">&nbsp;        assertTrue(&quot;This test will pass if the asset for the music file is present&quot; ,</b>
+<b class="nc">&nbsp;                Gdx.files.internal(&quot;Alien_Jazz_Ridley_Coyte.mp3&quot;).exists());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks for all the assets relating to powerups
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void powerUpAssetTests() {
+<b class="nc">&nbsp;        String[] powerUpAssetPaths = {&quot;&quot;, &quot;Blue&quot;, &quot;Green&quot;, &quot;Purple&quot;, &quot;Red&quot;, &quot;Red2&quot;, &quot;Yellow&quot;};</b>
+<b class="nc">&nbsp;        boolean powerUpAssetsExist = true;</b>
+<b class="nc">&nbsp;        for (String path : powerUpAssetPaths) {</b>
+<b class="nc">&nbsp;            if (!Gdx.files.internal(&quot;powerUp&quot; + path + &quot;.png&quot;).exists()) {</b>
+<b class="nc">&nbsp;                powerUpAssetsExist = false;</b>
+<b class="nc">&nbsp;                break;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="nc">&nbsp;        assertTrue(&quot;This test will pass if all assets related to order will pass&quot; , powerUpAssetsExist);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks for other general assets used within the game
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void otherAssetTests() {
+<b class="nc">&nbsp;        assertTrue(&quot;This test will pass if the bin asset exists&quot; ,</b>
+<b class="nc">&nbsp;                Gdx.files.internal(&quot;bin.png&quot;).exists());</b>
+<b class="nc">&nbsp;        assertTrue(&quot;This test will pass if the reputation points asset exists&quot; ,</b>
+<b class="nc">&nbsp;                Gdx.files.internal(&quot;REPHeart.png&quot;).exists());</b>
+<b class="nc">&nbsp;        assertTrue(&quot;This test will pass if the cook cursor asset exists&quot; ,</b>
+<b class="nc">&nbsp;                Gdx.files.internal(&quot;selected.png&quot;).exists());</b>
+<b class="nc">&nbsp;        assertTrue(&quot;This test will pass if the money asset exists&quot; ,</b>
+<b class="nc">&nbsp;                Gdx.files.internal(&quot;money.png&quot;).exists());</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-01 19:02</div>
+</div>
+</body>
+</html>

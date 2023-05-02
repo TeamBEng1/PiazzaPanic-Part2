@@ -1,0 +1,181 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > PizzaTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.mygdx.tests.RecipeTests</a>
+</div>
+
+<h1>Coverage Summary for Class: PizzaTests (com.mygdx.tests.RecipeTests)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">PizzaTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.mygdx.tests.RecipeTests;
+&nbsp;
+&nbsp;import com.mygdx.game.Food.Ingredient;
+&nbsp;import com.mygdx.game.Food.Pizza;
+&nbsp;import com.mygdx.tests.GdxTestRunner;
+&nbsp;import org.junit.Test;
+&nbsp;import org.junit.runner.RunWith;
+&nbsp;
+&nbsp;import java.util.Stack;
+&nbsp;
+&nbsp;import static org.junit.Assert.*;
+&nbsp;import static org.junit.Assert.assertTrue;
+&nbsp;
+&nbsp;/**
+&nbsp; * These tests check for everything to do with the Pizza class
+&nbsp; * @Author - Muaz
+&nbsp; */
+&nbsp;@RunWith(GdxTestRunner.class)
+<b class="nc">&nbsp;public class PizzaTests {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks for the number of ingredients required to make a pizza
+&nbsp;     * For a pizza, there are 3 ingredients (cheese, tomato and pizzaBase) and we assertEquals to 3
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testGetRecipe() {
+<b class="nc">&nbsp;        Pizza pizza = new Pizza();</b>
+<b class="nc">&nbsp;        assertEquals(3, pizza.getRecipe().size());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks that the texture for the pizza is present, and thus not null
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testGetTexture() {
+<b class="nc">&nbsp;        Pizza pizza = new Pizza();</b>
+<b class="nc">&nbsp;        assertNotNull(pizza.getTexture());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks that the texture for ordering of the pizza is present, and thus not null
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testGetSpeechBubbleTexture() {
+<b class="nc">&nbsp;        Pizza pizza = new Pizza();</b>
+<b class="nc">&nbsp;        assertNotNull((pizza.getSpeechBubbleTexture()));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks that the three ingredients combined (cheese, tomato and pizzaBase) make a pizza
+&nbsp;     * We also checked to see if they are pushed in a different order (pizzaBase, tomato and cheese) and if it would
+&nbsp;     * still assemble the pizza
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testHasPizza() {
+<b class="nc">&nbsp;        Pizza pizza = new Pizza();</b>
+<b class="nc">&nbsp;        Stack&lt;Ingredient&gt; ingredients = new Stack&lt;&gt;();</b>
+<b class="nc">&nbsp;        Ingredient cheese = new Ingredient(&quot;cheese&quot;,null,null);</b>
+<b class="nc">&nbsp;        cheese.prepare();</b>
+<b class="nc">&nbsp;        Ingredient tomato = new Ingredient(&quot;tomato&quot;,null,null);</b>
+<b class="nc">&nbsp;        tomato.prepare();</b>
+<b class="nc">&nbsp;        Ingredient base = new Ingredient(&quot;pizzaBase&quot;,null,null);</b>
+<b class="nc">&nbsp;        base.prepare();</b>
+&nbsp;
+<b class="nc">&nbsp;        ingredients.push(cheese);</b>
+<b class="nc">&nbsp;        ingredients.push(tomato);</b>
+<b class="nc">&nbsp;        ingredients.push(base);</b>
+<b class="nc">&nbsp;        assertTrue(pizza.has(ingredients));</b>
+&nbsp;
+&nbsp;        //add another test with ingredients in different order
+<b class="nc">&nbsp;        ingredients.clear();</b>
+<b class="nc">&nbsp;        ingredients.push(base);</b>
+<b class="nc">&nbsp;        ingredients.push(tomato);</b>
+<b class="nc">&nbsp;        ingredients.push(cheese);</b>
+<b class="nc">&nbsp;        assertTrue(pizza.has(ingredients));</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-01 19:02</div>
+</div>
+</body>
+</html>

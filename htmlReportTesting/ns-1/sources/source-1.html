@@ -1,0 +1,169 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Cook</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.mygdx.game</a>
+</div>
+
+<h1>Coverage Summary for Class: Cook (com.mygdx.game)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Cook</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    95.7%
+  </span>
+  <span class="absValue">
+    (22/23)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.mygdx.game;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.Actor;
+&nbsp;import com.mygdx.game.Food.Ingredient;
+&nbsp;import com.mygdx.game.Screens.GameScreen;
+&nbsp;
+&nbsp;import java.sql.Array;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Stack;
+&nbsp;
+&nbsp;// it would probably be a good idea to move a lot of the code from GameScreen to here
+&nbsp;/**
+&nbsp; * The class Cook represents the playable characters in the game
+&nbsp; */
+&nbsp;
+&nbsp;public class Cook {
+&nbsp;    public Stack&lt;Ingredient&gt; CookStack;
+&nbsp;    public Actor CookBody;
+<b class="fc">&nbsp;    public float[][] locations = {{0, 64}, {32, 64}, {64, 64}, {0, 32}, {48, 28}, {80, 48}};</b>
+<b class="fc">&nbsp;    public boolean isBusy = false;</b>
+<b class="fc">&nbsp;    private boolean hasReached = false;</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Cook constructor
+&nbsp;     */
+<b class="fc">&nbsp;    public Cook(Actor skin) {</b>
+<b class="fc">&nbsp;        this.CookBody = skin;</b>
+<b class="fc">&nbsp;        this.CookStack = new Stack&lt;&gt;();</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * move method moves the cook between the workstations
+&nbsp;     */
+&nbsp;    public void move(int index, Actor cook, ArrayList&lt;Integer&gt; stations, Float speedModifier) {
+<b class="fc">&nbsp;        for (int station : stations) {</b>
+<b class="fc">&nbsp;            if (index != station) {</b>
+&nbsp;                // method to move a cook from their current position to a station
+<b class="fc">&nbsp;                if (cook.getX() != locations[index][0] || cook.getY() != locations[index][1]) {</b>
+&nbsp;                    // calculate the difference between 2 points to move the sprite towards
+<b class="fc">&nbsp;                    float pathX = locations[index][0] - cook.getX();</b>
+<b class="fc">&nbsp;                    float pathY = locations[index][1] - cook.getY();</b>
+&nbsp;                    // use Pythagoras to find the distance between current position and final position
+<b class="fc">&nbsp;                    float distance = (float) Math.sqrt(pathX * pathX + pathY * pathY);</b>
+<b class="fc">&nbsp;                    float directionX = pathX / distance;</b>
+<b class="fc">&nbsp;                    float directionY = pathY / distance;</b>
+&nbsp;                    // stop cook from moving once close enough to the station
+&nbsp;                    float speed;
+<b class="fc">&nbsp;                    if (distance &lt; 1) {</b>
+<b class="nc">&nbsp;                        speed = 0f;</b>
+&nbsp;                        //hasReached = true;
+&nbsp;                    }
+&nbsp;                    else {
+<b class="fc">&nbsp;                        speed = 50f * speedModifier;</b>
+&nbsp;                    }
+&nbsp;
+<b class="fc">&nbsp;                    cook.setX(cook.getX() + directionX * (speed * Gdx.graphics.getDeltaTime()));</b>
+<b class="fc">&nbsp;                    cook.setY(cook.getY() + directionY * (speed * Gdx.graphics.getDeltaTime()));</b>
+&nbsp;                }
+&nbsp;            }
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;    public float[][] getLocations() {
+<b class="fc">&nbsp;        return locations;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-01 19:02</div>
+</div>
+</body>
+</html>

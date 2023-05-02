@@ -1,0 +1,174 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Ingredient</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.mygdx.game.Food</a>
+</div>
+
+<h1>Coverage Summary for Class: Ingredient (com.mygdx.game.Food)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Ingredient</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    89.5%
+  </span>
+  <span class="absValue">
+    (17/19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.mygdx.game.Food;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.Texture;
+&nbsp;
+&nbsp;// class for an ingredient
+&nbsp;public class Ingredient {
+&nbsp;    private final Texture prepdTex;
+&nbsp;    private final Texture notPrepdTex;
+&nbsp;    // patty, buns, lettuce, tomato
+&nbsp;    public String name;
+&nbsp;    private Texture currentTex;
+<b class="fc">&nbsp;    private Boolean prepared = false;</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructor for the Ingredient class
+&nbsp;     */
+<b class="fc">&nbsp;    public Ingredient(String name, Texture notPreparedTexture, Texture preparedTexture) {</b>
+<b class="fc">&nbsp;        this.name = name;</b>
+<b class="fc">&nbsp;        this.prepdTex = preparedTexture;</b>
+<b class="fc">&nbsp;        this.notPrepdTex = notPreparedTexture;</b>
+<b class="fc">&nbsp;        currentTex = this.notPrepdTex;</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Getter function to return if ingredient is prepared
+&nbsp;     * @return the boolean value for whether the ingredient is prepared or not
+&nbsp;     */
+&nbsp;    public boolean getState() {
+<b class="fc">&nbsp;        return prepared;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Prepares an ingredient
+&nbsp;     * @return the true boolean value for the ingredient being prepared
+&nbsp;     */
+&nbsp;    public void prepare() {
+<b class="fc">&nbsp;        this.prepared = true;</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Function to update the texture to either look prepared or not depending on whether the ingredient is prepared or not
+&nbsp;     */
+&nbsp;    public void updateCurrentTexture() {
+<b class="fc">&nbsp;        if (prepared) {</b>
+<b class="fc">&nbsp;            currentTex = this.prepdTex;</b>
+&nbsp;        } else {
+<b class="nc">&nbsp;            currentTex = this.notPrepdTex;</b>
+&nbsp;        }
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Check function to check if ingredient matches required ingredient
+&nbsp;     * @return the boolean value for whether the ingredient matches the required ingredient
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public boolean equals(Object ingredient) {
+<b class="fc">&nbsp;        Ingredient compare = (Ingredient) ingredient;</b>
+<b class="fc">&nbsp;        if (this.name == compare.name) {</b>
+<b class="fc">&nbsp;            return this.prepared == compare.prepared;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return false;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Getter function to return the current texture of the ingredient
+&nbsp;     * @return the texture for ingredient
+&nbsp;     */
+&nbsp;    public Texture getCurrentTexture() {
+<b class="fc">&nbsp;        return currentTex;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-01 19:02</div>
+</div>
+</body>
+</html>

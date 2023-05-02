@@ -1,0 +1,199 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > Pizza</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.mygdx.game.Food</a>
+</div>
+
+<h1>Coverage Summary for Class: Pizza (com.mygdx.game.Food)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Pizza</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    20%
+  </span>
+  <span class="absValue">
+    (1/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    40%
+  </span>
+  <span class="absValue">
+    (14/35)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.mygdx.game.Food;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.Texture;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Stack;
+&nbsp;
+&nbsp;
+&nbsp;/**
+&nbsp; * TODO:
+&nbsp; * Add ability to grate cheese?
+&nbsp; * Cook pizza (currently you just collect all raw ingredients)
+&nbsp; */
+&nbsp;
+&nbsp;public class Pizza implements Recipe{
+&nbsp;    ArrayList&lt;Ingredient&gt; pizzaRecipe;
+&nbsp;    Texture pizzaTexture;
+&nbsp;    Texture speechBubble;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Constructor for Pizza class
+&nbsp;     */
+&nbsp;
+<b class="fc">&nbsp;    public Pizza() {</b>
+<b class="fc">&nbsp;        this.pizzaRecipe = new ArrayList&lt;Ingredient&gt;();</b>
+<b class="fc">&nbsp;        Ingredient cheese = new Ingredient(&quot;cheese&quot;, new Texture(&quot;cheese.png&quot;), new Texture(&quot;cheese.png&quot;));</b>
+<b class="fc">&nbsp;        cheese.prepare();</b>
+<b class="fc">&nbsp;        pizzaRecipe.add(cheese);</b>
+&nbsp;
+<b class="fc">&nbsp;        Ingredient tomato = new Ingredient(&quot;tomato&quot;, new Texture(&quot;tomato.png&quot;), new Texture(&quot;prepdTomato.png&quot;));</b>
+<b class="fc">&nbsp;        tomato.prepare();</b>
+<b class="fc">&nbsp;        pizzaRecipe.add(tomato);</b>
+&nbsp;
+<b class="fc">&nbsp;        Ingredient base = new Ingredient(&quot;pizzaBase&quot;, new Texture(&quot;pizzaBase.png&quot;), new Texture(&quot;pizzaBase.png&quot;));</b>
+<b class="fc">&nbsp;        base.prepare();</b>
+<b class="fc">&nbsp;        pizzaRecipe.add(base);</b>
+&nbsp;
+<b class="fc">&nbsp;        this.pizzaTexture = new Texture(&quot;pizza.png&quot;);</b>
+<b class="fc">&nbsp;        this.speechBubble = new Texture(&quot;orderPizzaBubble.png&quot;);</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Getter function for pizzaRecipe
+&nbsp;     * @return recipe array
+&nbsp;     */
+&nbsp;    @Override
+<b class="nc">&nbsp;    public ArrayList&lt;Ingredient&gt; getRecipe() { return pizzaRecipe; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Setter for pizzaTexture
+&nbsp;     * @return texture
+&nbsp;     */
+&nbsp;
+&nbsp;    @Override
+<b class="nc">&nbsp;    public Texture getTexture() { return pizzaTexture; }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Getter function for the speechBubble attribute
+&nbsp;     * @return the speech bubble
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public Texture getSpeechBubbleTexture() {
+<b class="nc">&nbsp;        return speechBubble;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * Checks if chef has all ingredients to make pizza
+&nbsp;     * @return True if so, otherwise false
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public Boolean has(Stack&lt;Ingredient&gt; ingredients) {
+<b class="nc">&nbsp;        boolean foundCheese = false;</b>
+<b class="nc">&nbsp;        boolean foundTomato = false;</b>
+<b class="nc">&nbsp;        boolean foundBase = false;</b>
+&nbsp;
+<b class="nc">&nbsp;        Ingredient cheese = new Ingredient(&quot;cheese&quot;, null, null);</b>
+<b class="nc">&nbsp;        cheese.prepare();</b>
+<b class="nc">&nbsp;        Ingredient tomato = new Ingredient(&quot;tomato&quot;, null, null);</b>
+<b class="nc">&nbsp;        tomato.prepare();</b>
+<b class="nc">&nbsp;        Ingredient base = new Ingredient(&quot;pizzaBase&quot;, null, null);</b>
+<b class="nc">&nbsp;        base.prepare();</b>
+&nbsp;
+<b class="nc">&nbsp;        for(Ingredient ingredient : ingredients) {</b>
+<b class="nc">&nbsp;            if(ingredient.equals(cheese)) {</b>
+<b class="nc">&nbsp;                foundCheese = true;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            if(ingredient.equals(tomato)) {</b>
+<b class="nc">&nbsp;                foundTomato = true;</b>
+&nbsp;            }
+<b class="nc">&nbsp;            if(ingredient.equals(base)) {</b>
+<b class="nc">&nbsp;                foundBase = true;</b>
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+<b class="nc">&nbsp;        return foundCheese &amp;&amp; foundTomato &amp;&amp; foundBase;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-01 19:02</div>
+</div>
+</body>
+</html>

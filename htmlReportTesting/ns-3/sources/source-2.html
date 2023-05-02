@@ -1,0 +1,340 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > EndGameScreen</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.mygdx.game.Screens</a>
+</div>
+
+<h1>Coverage Summary for Class: EndGameScreen (com.mygdx.game.Screens)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">EndGameScreen</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/55)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">EndGameScreen$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">EndGameScreen$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/5)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/65)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.mygdx.game.Screens;
+&nbsp;
+&nbsp;import com.badlogic.gdx.Gdx;
+&nbsp;import com.badlogic.gdx.Screen;
+&nbsp;import com.badlogic.gdx.graphics.Color;
+&nbsp;import com.badlogic.gdx.graphics.Texture;
+&nbsp;import com.badlogic.gdx.graphics.g2d.BitmapFont;
+&nbsp;import com.badlogic.gdx.graphics.g2d.TextureRegion;
+&nbsp;import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+&nbsp;import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.Actor;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.InputEvent;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.Stage;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+&nbsp;import com.badlogic.gdx.utils.ScreenUtils;
+&nbsp;import com.badlogic.gdx.utils.viewport.FitViewport;
+&nbsp;import com.mygdx.game.PiazzaPanic;
+&nbsp;import java.time.Duration;
+&nbsp;
+&nbsp;// screen which displays after the game finishes
+&nbsp;/**
+&nbsp; * The EndGameScreen class inherits from Screen and represents the screen that displays after the game is finished
+&nbsp; */
+&nbsp;public class EndGameScreen implements Screen {
+<b class="nc">&nbsp;    FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal(&quot;Odin Rounded - Bold.otf&quot;));</b>
+<b class="nc">&nbsp;    FreeTypeFontParameter parameter = new FreeTypeFontParameter();</b>
+&nbsp;    BitmapFont font;
+&nbsp;    public PiazzaPanic game;
+&nbsp;    FitViewport view;
+&nbsp;    Stage screenStage;
+<b class="nc">&nbsp;    Texture levelCompleteFrame = new Texture(&quot;LevelCompleteFrame.png&quot;);</b>
+&nbsp;    Texture exitBtnTex;
+&nbsp;    Texture exitBtnTexHover;
+&nbsp;    ImageButton exitBtn;
+&nbsp;    Texture restartBtnTex;
+&nbsp;    Texture restartBtnTexHover;
+&nbsp;    ImageButton restartBtn;
+&nbsp;    TextureRegionDrawable exitBtnDrawable;
+&nbsp;    TextureRegionDrawable exitBtnDrawableHover;
+&nbsp;    TextureRegionDrawable restartBtnDrawable;
+&nbsp;    TextureRegionDrawable restartBtnDrawableHover;
+&nbsp;    int Rep;
+&nbsp;    String levelTimeString;
+&nbsp;/**
+&nbsp; * The EndGameScreen constructor
+&nbsp; */
+<b class="nc">&nbsp;    public EndGameScreen(PiazzaPanic game, Duration levelCompletedIn, int RepPoints) {</b>
+&nbsp;        // generate the styling information for the data given to this screen
+<b class="nc">&nbsp;        this.game = game;</b>
+<b class="nc">&nbsp;        parameter.size = 48;</b>
+<b class="nc">&nbsp;        parameter.color = Color.BLACK;</b>
+<b class="nc">&nbsp;        font = generator.generateFont(parameter);</b>
+<b class="nc">&nbsp;        levelTimeString = humanReadableFormat(levelCompletedIn);</b>
+<b class="nc">&nbsp;        this.Rep = RepPoints;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The show method creates listeners for the restart and exit buttons after loading their textures
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void show() {
+&nbsp;        // size information
+<b class="nc">&nbsp;        view = new FitViewport(game.GAME_WIDTH, game.GAME_HEIGHT);</b>
+<b class="nc">&nbsp;        view.getCamera().position.set(game.GAME_WIDTH / 2, game.GAME_HEIGHT / 2, 1f);</b>
+<b class="nc">&nbsp;        screenStage = new Stage(view, game.batch);</b>
+&nbsp;
+&nbsp;        // draw buttons
+<b class="nc">&nbsp;        exitBtnTex = new Texture(&quot;exitBtn.png&quot;);</b>
+<b class="nc">&nbsp;        exitBtnTexHover = new Texture(&quot;exitBtn2.png&quot;);</b>
+<b class="nc">&nbsp;        restartBtnTex = new Texture(&quot;RestartBtn.png&quot;);</b>
+<b class="nc">&nbsp;        restartBtnTexHover = new Texture(&quot;RestartBtn2.png&quot;);</b>
+&nbsp;
+<b class="nc">&nbsp;        exitBtnDrawable = new TextureRegionDrawable(new TextureRegion(exitBtnTex));</b>
+<b class="nc">&nbsp;        exitBtnDrawableHover = new TextureRegionDrawable(new TextureRegion(exitBtnTexHover));</b>
+<b class="nc">&nbsp;        exitBtn = new ImageButton(exitBtnDrawable);</b>
+<b class="nc">&nbsp;        exitBtn.addListener(new ClickListener() {</b>
+<b class="nc">&nbsp;            final ImageButton normal = new ImageButton(exitBtnDrawable);</b>
+<b class="nc">&nbsp;            final ImageButton hover = new ImageButton(exitBtnDrawableHover);</b>
+&nbsp;
+&nbsp;            @Override
+&nbsp;            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+<b class="nc">&nbsp;                exitBtn.setStyle(hover.getStyle());</b>
+&nbsp;            }
+&nbsp;
+&nbsp;            @Override
+&nbsp;            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+<b class="nc">&nbsp;                exitBtn.setStyle(normal.getStyle());</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;
+<b class="nc">&nbsp;        restartBtnDrawable = new TextureRegionDrawable(new TextureRegion(restartBtnTex));</b>
+<b class="nc">&nbsp;        restartBtnDrawableHover = new TextureRegionDrawable(new TextureRegion(restartBtnTexHover));</b>
+<b class="nc">&nbsp;        restartBtn = new ImageButton(restartBtnDrawable);</b>
+<b class="nc">&nbsp;        restartBtn.addListener(new ClickListener() {</b>
+<b class="nc">&nbsp;            final ImageButton normal = new ImageButton(restartBtnDrawable);</b>
+<b class="nc">&nbsp;            final ImageButton hover = new ImageButton(restartBtnDrawableHover);</b>
+&nbsp;
+&nbsp;            @Override
+&nbsp;            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+<b class="nc">&nbsp;                restartBtn.setStyle(hover.getStyle());</b>
+&nbsp;            }
+&nbsp;
+&nbsp;            @Override
+&nbsp;            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+<b class="nc">&nbsp;                restartBtn.setStyle(normal.getStyle());</b>
+&nbsp;            }
+&nbsp;        });
+&nbsp;
+<b class="nc">&nbsp;        screenStage.addActor(exitBtn);</b>
+<b class="nc">&nbsp;        exitBtn.setPosition(game.GAME_WIDTH / 2 - exitBtn.getWidth() / 2, game.GAME_HEIGHT / 2 - exitBtn.getHeight() / 2 - 250);</b>
+<b class="nc">&nbsp;        screenStage.addActor(restartBtn);</b>
+<b class="nc">&nbsp;        restartBtn.setPosition(game.GAME_WIDTH / 2 - restartBtn.getWidth() / 2, game.GAME_HEIGHT / 2 - restartBtn.getHeight() / 2 - 100);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    /**
+&nbsp;     * The render method draws/renders the credit screen
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void render(float delta) {
+<b class="nc">&nbsp;        screenStage.act();</b>
+&nbsp;
+<b class="nc">&nbsp;        ScreenUtils.clear(1, 1, 1, 1);</b>
+<b class="nc">&nbsp;        view.apply();</b>
+<b class="nc">&nbsp;        Gdx.input.setInputProcessor(screenStage);</b>
+&nbsp;
+<b class="nc">&nbsp;        game.batch.setProjectionMatrix(view.getCamera().combined);</b>
+<b class="nc">&nbsp;        game.batch.begin();</b>
+<b class="nc">&nbsp;        game.batch.draw(levelCompleteFrame, ((game.GAME_WIDTH / 2) - (levelCompleteFrame.getWidth() / 2)), 10);</b>
+<b class="nc">&nbsp;        font.draw(game.batch, &quot;COMPLETED IN &quot; + levelTimeString, 420, 480);</b>
+<b class="nc">&nbsp;        font.draw(game.batch, &quot;REPUTATION:&quot; + Rep, 420, 425);</b>
+<b class="nc">&nbsp;        game.batch.end();</b>
+&nbsp;
+<b class="nc">&nbsp;        screenStage.getViewport().apply();</b>
+&nbsp;
+<b class="nc">&nbsp;        if (restartBtn.isPressed()) {</b>
+<b class="nc">&nbsp;            game.setScreen(new SettingsScreen(game, view));</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        if (exitBtn.isPressed()) {</b>
+<b class="nc">&nbsp;            dispose();</b>
+<b class="nc">&nbsp;            game.setScreen(new MainMenuScreen(game));</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        screenStage.draw();</b>
+&nbsp;    }
+&nbsp;    /**
+&nbsp;     * The resize method resizes the gameStage to fit the screen
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void resize(int width, int height) {
+<b class="nc">&nbsp;        screenStage.getViewport().update(width, height);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void pause() {
+&nbsp;        // TODO Auto-generated method stub
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void resume() {
+&nbsp;        // TODO Auto-generated method stub
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void hide() {
+&nbsp;        // TODO Auto-generated method stub
+&nbsp;
+<b class="nc">&nbsp;    }</b>
+&nbsp;    /**
+&nbsp;     * The dispose method releases all resources from the levelCompleteFrame and screenStage objects
+&nbsp;     */
+&nbsp;    @Override
+&nbsp;    public void dispose() {
+<b class="nc">&nbsp;        levelCompleteFrame.dispose();</b>
+<b class="nc">&nbsp;        screenStage.dispose();</b>
+&nbsp;    }
+&nbsp;/**
+&nbsp; * Formats the time information
+&nbsp; */
+&nbsp;    private String humanReadableFormat(Duration duration) {
+&nbsp;        // format the time information
+<b class="nc">&nbsp;        return (String.format(&quot;%sm %ss&quot;,</b>
+<b class="nc">&nbsp;                duration.toMinutesPart(),</b>
+<b class="nc">&nbsp;                duration.toSecondsPart()));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-01 19:02</div>
+</div>
+</body>
+</html>

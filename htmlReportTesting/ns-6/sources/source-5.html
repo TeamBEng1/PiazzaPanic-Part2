@@ -1,0 +1,231 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > SettingsScreenTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.mygdx.tests.ScreenTests</a>
+</div>
+
+<h1>Coverage Summary for Class: SettingsScreenTests (com.mygdx.tests.ScreenTests)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SettingsScreenTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    54.3%
+  </span>
+  <span class="absValue">
+    (25/46)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.mygdx.tests.ScreenTests;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.Texture;
+&nbsp;import com.badlogic.gdx.graphics.g2d.TextureRegion;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.InputEvent;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+&nbsp;import com.badlogic.gdx.utils.viewport.FitViewport;
+&nbsp;import com.mygdx.game.PiazzaPanic;
+&nbsp;import com.mygdx.game.Screens.SettingsScreen;
+&nbsp;import com.mygdx.tests.GdxTestRunner;
+&nbsp;import org.junit.Test;
+&nbsp;import org.junit.runner.RunWith;
+&nbsp;import org.mockito.Mockito;
+&nbsp;
+&nbsp;
+&nbsp;import static org.junit.Assert.assertEquals;
+&nbsp;import static org.junit.Assert.assertNotEquals;
+&nbsp;
+&nbsp;/**
+&nbsp; * This class will test any methods in the settings screen class
+&nbsp; */
+&nbsp;@RunWith(GdxTestRunner.class)
+<b class="fc">&nbsp;public class SettingsScreenTests {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks for the difference in buttons on the settings screen (once hovered upon)
+&nbsp;     * @Author - Muaz
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testPlayBtnClickListener() {
+&nbsp;        //Create the play button and its drawables
+<b class="fc">&nbsp;        Drawable playBtnDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(&quot;playBtn.png&quot;)));</b>
+<b class="fc">&nbsp;        Drawable playBtnDrawableHover = new TextureRegionDrawable(new TextureRegion(new Texture(&quot;playBtn2.png&quot;)));</b>
+&nbsp;
+<b class="fc">&nbsp;        final ImageButton playNormal = new ImageButton(playBtnDrawable);</b>
+<b class="fc">&nbsp;        final ImageButton playHover = new ImageButton(playBtnDrawableHover);</b>
+&nbsp;
+<b class="fc">&nbsp;        assertNotEquals(&quot;Test passes if after you hover on button, it lights up&quot; , playNormal,playHover);</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks for the difference in buttons on the settings screen (once hovered upon)
+&nbsp;     * @Author - Muaz
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testPlayBtnYellowClickListener() {
+&nbsp;        //Create the play button yellow and its drawables
+<b class="fc">&nbsp;        Drawable playBtnYellowDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(&quot;playBtnYellow.png&quot;)));</b>
+<b class="fc">&nbsp;        Drawable playBtnYellowDrawableHover = new TextureRegionDrawable(new TextureRegion(new Texture(&quot;playBtn2Yellow.png&quot;)));</b>
+&nbsp;
+<b class="fc">&nbsp;        final ImageButton playYellowNormal = new ImageButton(playBtnYellowDrawable);</b>
+<b class="fc">&nbsp;        final ImageButton playYellowHover = new ImageButton(playBtnYellowDrawableHover);</b>
+&nbsp;
+<b class="fc">&nbsp;        assertNotEquals(&quot;Test passes if after you hover on button, it lights up&quot; , playYellowNormal,playYellowHover);</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;    private SettingsScreen settingsScreen;
+&nbsp;
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test tests if the game mode buttons are working properly
+&nbsp;     * @Author - Teddy
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testGameModeButtons() {
+&nbsp;        //Create a mock game instance and view instance
+<b class="fc">&nbsp;        PiazzaPanic game = Mockito.mock(PiazzaPanic.class);</b>
+<b class="fc">&nbsp;        FitViewport view = Mockito.mock(FitViewport.class);</b>
+&nbsp;
+&nbsp;        //Create the play button and its drawables
+<b class="fc">&nbsp;        Drawable playBtnDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(&quot;playBtn.png&quot;)));</b>
+<b class="fc">&nbsp;        Drawable playBtnDrawableHover = new TextureRegionDrawable(new TextureRegion(new Texture(&quot;playBtn2.png&quot;)));</b>
+<b class="fc">&nbsp;        final ImageButton playBtn = new ImageButton(playBtnDrawable, playBtnDrawableHover);</b>
+&nbsp;
+&nbsp;        //Create the play yellow button and its drawables
+<b class="fc">&nbsp;        Drawable playBtnYellowDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(&quot;playBtnYellow.png&quot;)));</b>
+<b class="fc">&nbsp;        Drawable playBtnYellowDrawableHover = new TextureRegionDrawable(new TextureRegion(new Texture(&quot;playBtn2Yellow.png&quot;)));</b>
+<b class="fc">&nbsp;        final ImageButton playBtnYellow = new ImageButton(playBtnYellowDrawable, playBtnYellowDrawableHover);</b>
+&nbsp;
+&nbsp;        //Create the SettingsScreen instance and set the buttons
+<b class="fc">&nbsp;        settingsScreen.playBtn = playBtn;</b>
+<b class="nc">&nbsp;        settingsScreen.playBtnYellow = playBtnYellow;</b>
+&nbsp;
+&nbsp;        //Click the play button
+<b class="nc">&nbsp;        playBtn.getClickListener().clicked(new InputEvent(), 0, 0);</b>
+&nbsp;
+&nbsp;        //Click the play yellow button
+<b class="nc">&nbsp;        playBtnYellow.getClickListener().clicked(new InputEvent(), 0, 0);</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks whether the difficulty buttons are working
+&nbsp;     * @Author - Teddy
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testDifficultyButtons() {
+<b class="fc">&nbsp;        PiazzaPanic game = new PiazzaPanic();</b>
+<b class="fc">&nbsp;        FitViewport view = new FitViewport(game.GAME_WIDTH, game.GAME_HEIGHT);</b>
+<b class="fc">&nbsp;        settingsScreen = new SettingsScreen(game, view);</b>
+<b class="nc">&nbsp;        int diffInt = 1;</b>
+<b class="nc">&nbsp;        String diffStr = &quot;EASY&quot;;</b>
+&nbsp;
+<b class="nc">&nbsp;        ClickListener rightBtnListener = settingsScreen.rightBtn.getClickListener();</b>
+<b class="nc">&nbsp;        rightBtnListener.clicked(new InputEvent(), 0, 0);</b>
+&nbsp;
+&nbsp;        // Verify that the difficulty value increments by 1
+<b class="nc">&nbsp;        assertEquals(&quot;Difficulty should be 2 after button click&quot;, 2, diffInt);</b>
+&nbsp;
+&nbsp;        // Verify that the difficulty value loops back to 1 after reaching 3
+<b class="nc">&nbsp;        rightBtnListener.clicked(new InputEvent(), 0, 0);</b>
+<b class="nc">&nbsp;        rightBtnListener.clicked(new InputEvent(), 0, 0);</b>
+<b class="nc">&nbsp;        rightBtnListener.clicked(new InputEvent(), 0, 0);</b>
+<b class="nc">&nbsp;        assertEquals(&quot;Difficulty should be 1 after three button clicks&quot;, 1, diffInt);</b>
+&nbsp;
+&nbsp;        // Verify that the difficulty string is set correctly for each difficulty value
+<b class="nc">&nbsp;        rightBtnListener.clicked(new InputEvent(), 0, 0);</b>
+<b class="nc">&nbsp;        assertEquals(&quot;Difficulty string should be MED for difficulty value 2&quot;, &quot;MED&quot;, diffStr);</b>
+<b class="nc">&nbsp;        rightBtnListener.clicked(new InputEvent(), 0, 0);</b>
+<b class="nc">&nbsp;        assertEquals(&quot;Difficulty string should be HARD for difficulty value 3&quot;, &quot;HARD&quot;, diffStr);</b>
+<b class="nc">&nbsp;        rightBtnListener.clicked(new InputEvent(), 0, 0);</b>
+<b class="nc">&nbsp;        assertEquals(&quot;Difficulty string should be EASY for difficulty value 1&quot;, &quot;EASY&quot;, diffStr);</b>
+&nbsp;
+&nbsp;        // Verify that the difficulty font is reset after each difficulty change
+<b class="nc">&nbsp;        Mockito.verify(settingsScreen.diffFont, Mockito.times(3)).dispose();</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-01 19:02</div>
+</div>
+</body>
+</html>

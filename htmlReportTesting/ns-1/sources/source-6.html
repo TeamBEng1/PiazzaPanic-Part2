@@ -1,0 +1,286 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > StartOnFirstThreadHelper</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.mygdx.game</a>
+</div>
+
+<h1>Coverage Summary for Class: StartOnFirstThreadHelper (com.mygdx.game)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StartOnFirstThreadHelper</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/49)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;/*
+&nbsp; * Copyright 2020 damios
+&nbsp; * 
+&nbsp; * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+&nbsp; * you may not use this file except in compliance with the License.
+&nbsp; * You may obtain a copy of the License at:
+&nbsp; * http://www.apache.org/licenses/LICENSE-2.0
+&nbsp; *  
+&nbsp; * Unless required by applicable law or agreed to in writing, software
+&nbsp; * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+&nbsp; * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+&nbsp; * See the License for the specific language governing permissions and
+&nbsp; * limitations under the License.
+&nbsp; */
+&nbsp;
+&nbsp; package com.mygdx.game;
+&nbsp;
+&nbsp; import org.lwjgl.system.macosx.LibC;
+&nbsp; 
+&nbsp; import java.io.BufferedReader;
+&nbsp; import java.io.File;
+&nbsp; import java.io.InputStreamReader;
+&nbsp; import java.lang.management.ManagementFactory;
+&nbsp; import java.util.ArrayList;
+&nbsp; 
+&nbsp; /**
+&nbsp;  * Adds some utilities to ensure that the JVM was started with the
+&nbsp;  * {@code -XstartOnFirstThread} argument, which is required on macOS for LWJGL 3
+&nbsp;  * to function.
+&nbsp;  * 
+&nbsp;  * @author damios
+&nbsp;  * @see &lt;a href=&quot;https://jvm-gaming.org/t/starting-jvm-on-mac-with-xstartonfirstthread-programmatically/57547&quot;&gt;Based on this java-gaming.org post by kappa&lt;/a&gt;
+&nbsp;  */
+&nbsp; public class StartOnFirstThreadHelper {
+&nbsp; 
+&nbsp;     private static final String JVM_RESTARTED_ARG = &quot;jvmIsRestarted&quot;;
+&nbsp; 
+<b class="nc">&nbsp;     private StartOnFirstThreadHelper() {</b>
+<b class="nc">&nbsp;         throw new UnsupportedOperationException();</b>
+&nbsp;     }
+&nbsp; 
+&nbsp;     /**
+&nbsp;      * Starts a new JVM if the application was started on macOS without the
+&nbsp;      * {@code -XstartOnFirstThread} argument. Returns whether a new JVM was
+&nbsp;      * started and thus no code should be executed.
+&nbsp;      * &lt;p&gt;
+&nbsp;      * &lt;u&gt;Usage:&lt;/u&gt;
+&nbsp;      * 
+&nbsp;      * &lt;pre&gt;
+&nbsp;      * public static void main(String... args) {
+&nbsp;      * 	if (StartOnFirstThreadHelper.startNewJvmIfRequired()) {
+&nbsp;      * 		return; // don&#39;t execute any code
+&nbsp;      * 	}
+&nbsp;      * 	// the actual main method code
+&nbsp;      * }
+&nbsp;      * &lt;/pre&gt;
+&nbsp;      * 
+&nbsp;      * @param redirectOutput
+&nbsp;      *            whether the output of the new JVM should be rerouted to the
+&nbsp;      *            new JVM, so it can be accessed in the same place; keeps the
+&nbsp;      *            old JVM running if enabled
+&nbsp;      * @return whether a new JVM was started and thus no code should be executed
+&nbsp;      *         in this one
+&nbsp;      */
+&nbsp;     public static boolean startNewJvmIfRequired(boolean redirectOutput) {
+<b class="nc">&nbsp;         if (!System.getProperty(&quot;os.name&quot;).toLowerCase().contains(&quot;mac&quot;)) {</b>
+<b class="nc">&nbsp;             return false;</b>
+&nbsp;         }
+&nbsp; 
+<b class="nc">&nbsp;         long pid = LibC.getpid();</b>
+&nbsp; 
+&nbsp;         // check whether -XstartOnFirstThread is enabled
+<b class="nc">&nbsp;         if (&quot;1&quot;.equals(System.getenv(&quot;JAVA_STARTED_ON_FIRST_THREAD_&quot; + pid))) {</b>
+<b class="nc">&nbsp;             return false;</b>
+&nbsp;         }
+&nbsp; 
+&nbsp;         // check whether the JVM was previously restarted
+&nbsp;         // avoids looping, but most certainly leads to a crash
+<b class="nc">&nbsp;         if (&quot;true&quot;.equals(System.getProperty(JVM_RESTARTED_ARG))) {</b>
+<b class="nc">&nbsp;             System.err.println(</b>
+&nbsp;                     &quot;There was a problem evaluating whether the JVM was started with the -XstartOnFirstThread argument.&quot;);
+<b class="nc">&nbsp;             return false;</b>
+&nbsp;         }
+&nbsp; 
+&nbsp;         // Restart the JVM with -XstartOnFirstThread
+<b class="nc">&nbsp;         ArrayList&lt;String&gt; jvmArgs = new ArrayList&lt;String&gt;();</b>
+<b class="nc">&nbsp;         String separator = System.getProperty(&quot;file.separator&quot;);</b>
+&nbsp;         // TODO Java 9: ProcessHandle.current().info().command();
+<b class="nc">&nbsp;         String javaExecPath = System.getProperty(&quot;java.home&quot;) + separator</b>
+&nbsp;                 + &quot;bin&quot; + separator + &quot;java&quot;;
+<b class="nc">&nbsp;         if (!(new File(javaExecPath)).exists()) {</b>
+<b class="nc">&nbsp;             System.err.println(</b>
+&nbsp;                     &quot;A Java installation could not be found. If you are distributing this app with a bundled JRE, be sure to set the -XstartOnFirstThread argument manually!&quot;);
+<b class="nc">&nbsp;             return false;</b>
+&nbsp;         }
+<b class="nc">&nbsp;         jvmArgs.add(javaExecPath);</b>
+<b class="nc">&nbsp;         jvmArgs.add(&quot;-XstartOnFirstThread&quot;);</b>
+<b class="nc">&nbsp;         jvmArgs.add(&quot;-D&quot; + JVM_RESTARTED_ARG + &quot;=true&quot;);</b>
+<b class="nc">&nbsp;         jvmArgs.addAll(ManagementFactory.getRuntimeMXBean().getInputArguments());</b>
+<b class="nc">&nbsp;         jvmArgs.add(&quot;-cp&quot;);</b>
+<b class="nc">&nbsp;         jvmArgs.add(System.getProperty(&quot;java.class.path&quot;));</b>
+<b class="nc">&nbsp;         String mainClass = System.getenv(&quot;JAVA_MAIN_CLASS_&quot; + pid);</b>
+<b class="nc">&nbsp;         if (mainClass == null) {</b>
+<b class="nc">&nbsp;             StackTraceElement[] trace = Thread.currentThread().getStackTrace();</b>
+<b class="nc">&nbsp;             if (trace.length &gt; 0) {</b>
+<b class="nc">&nbsp;                 mainClass = trace[trace.length - 1].getClassName();</b>
+&nbsp;             } else {
+<b class="nc">&nbsp;                 System.err.println(&quot;The main class could not be determined.&quot;);</b>
+<b class="nc">&nbsp;                 return false;</b>
+&nbsp;             }
+&nbsp;         }
+<b class="nc">&nbsp;         jvmArgs.add(mainClass);</b>
+&nbsp; 
+&nbsp;         try {
+<b class="nc">&nbsp;             if (!redirectOutput) {</b>
+<b class="nc">&nbsp;                 ProcessBuilder processBuilder = new ProcessBuilder(jvmArgs);</b>
+<b class="nc">&nbsp;                 processBuilder.start();</b>
+<b class="nc">&nbsp;             } else {</b>
+<b class="nc">&nbsp;                 Process process = (new ProcessBuilder(jvmArgs))</b>
+<b class="nc">&nbsp;                         .redirectErrorStream(true).start();</b>
+<b class="nc">&nbsp;                 BufferedReader processOutput = new BufferedReader(</b>
+<b class="nc">&nbsp;                         new InputStreamReader(process.getInputStream()));</b>
+&nbsp;                 String line;
+&nbsp; 
+<b class="nc">&nbsp;                 while ((line = processOutput.readLine()) != null) {</b>
+<b class="nc">&nbsp;                     System.out.println(line);</b>
+&nbsp;                 }
+&nbsp; 
+<b class="nc">&nbsp;                 process.waitFor();</b>
+&nbsp;             }
+<b class="nc">&nbsp;         } catch (Exception e) {</b>
+<b class="nc">&nbsp;             System.err.println(&quot;There was a problem restarting the JVM&quot;);</b>
+<b class="nc">&nbsp;             e.printStackTrace();</b>
+<b class="nc">&nbsp;         }</b>
+&nbsp; 
+<b class="nc">&nbsp;         return true;</b>
+&nbsp;     }
+&nbsp; 
+&nbsp;     /**
+&nbsp;      * Starts a new JVM if the application was started on macOS without the
+&nbsp;      * {@code -XstartOnFirstThread} argument. Returns whether a new JVM was
+&nbsp;      * started and thus no code should be executed. Redirects the output of the
+&nbsp;      * new JVM to the old one.
+&nbsp;      * &lt;p&gt;
+&nbsp;      * &lt;u&gt;Usage:&lt;/u&gt;
+&nbsp;      * 
+&nbsp;      * &lt;pre&gt;
+&nbsp;      * public static void main(String... args) {
+&nbsp;      * 	if (StartOnFirstThreadHelper.startNewJvmIfRequired()) return; // don&#39;t execute any code
+&nbsp;      * 	// the actual main method code
+&nbsp;      * }
+&nbsp;      * &lt;/pre&gt;
+&nbsp;      * 
+&nbsp;      * @return whether a new JVM was started and thus no code should be executed
+&nbsp;      *         in this one
+&nbsp;      */
+&nbsp;     public static boolean startNewJvmIfRequired() {
+<b class="nc">&nbsp;         return startNewJvmIfRequired(true);</b>
+&nbsp;     }
+&nbsp; 
+&nbsp;     /**
+&nbsp;      * Starts a new JVM if required; otherwise executes the main method code
+&nbsp;      * given as Runnable. When used with lambdas, this is allows for less
+&nbsp;      * verbose code than {@link #startNewJvmIfRequired()}:
+&nbsp;      * 
+&nbsp;      * &lt;pre&gt;
+&nbsp;      * public static void main(String... args) {
+&nbsp;      * 	StartOnFirstThreadHelper.executeIfJVMValid(() -&gt; {
+&nbsp;      * 		// the actual main method code
+&nbsp;      * 	});
+&nbsp;      * }
+&nbsp;      * &lt;/pre&gt;
+&nbsp;      * 
+&nbsp;      * @param mainMethodCode a Runnable or lambda containing the main method to run
+&nbsp;      */
+&nbsp;     public static void executeIfJVMValid(Runnable mainMethodCode) {
+<b class="nc">&nbsp;         if (startNewJvmIfRequired()) {</b>
+&nbsp;             return;
+&nbsp;         }
+<b class="nc">&nbsp;         mainMethodCode.run();</b>
+&nbsp;     }
+&nbsp; 
+&nbsp; }
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-01 19:02</div>
+</div>
+</body>
+</html>

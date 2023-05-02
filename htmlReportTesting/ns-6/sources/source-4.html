@@ -1,0 +1,173 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > MainMenuScreenTests</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.mygdx.tests.ScreenTests</a>
+</div>
+
+<h1>Coverage Summary for Class: MainMenuScreenTests (com.mygdx.tests.ScreenTests)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">MainMenuScreenTests</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (19/19)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.mygdx.tests.ScreenTests;
+&nbsp;
+&nbsp;import com.badlogic.gdx.graphics.Texture;
+&nbsp;import com.badlogic.gdx.graphics.g2d.TextureRegion;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.InputEvent;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+&nbsp;import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+&nbsp;import com.mygdx.tests.GdxTestRunner;
+&nbsp;import org.junit.Test;
+&nbsp;import org.junit.runner.RunWith;
+&nbsp;
+&nbsp;import static org.junit.Assert.*;
+&nbsp;
+&nbsp;/**
+&nbsp; * This class will test any methods in the main menu screen class
+&nbsp; * @Author - Muaz
+&nbsp; */
+&nbsp;@RunWith(GdxTestRunner.class)
+<b class="fc">&nbsp;public class MainMenuScreenTests {</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks for the difference in buttons on the main menu screen (once hovered upon)
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testPlayBtnClickListener() {
+&nbsp;        //Create the play button and its drawables
+<b class="fc">&nbsp;        Drawable playBtnDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(&quot;playBtn.png&quot;)));</b>
+<b class="fc">&nbsp;        Drawable playBtnDrawableHover = new TextureRegionDrawable(new TextureRegion(new Texture(&quot;playBtn2.png&quot;)));</b>
+&nbsp;
+<b class="fc">&nbsp;        final ImageButton playNormal = new ImageButton(playBtnDrawable);</b>
+<b class="fc">&nbsp;        final ImageButton playHover = new ImageButton(playBtnDrawableHover);</b>
+&nbsp;
+<b class="fc">&nbsp;        assertNotEquals(&quot;Test passes if after you hover on button, it lights up&quot; , playNormal,playHover);</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks for the difference in buttons on the main menu screen (once hovered upon)
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testExitBtnClickListener() {
+&nbsp;        //Create the exit button and its drawables
+<b class="fc">&nbsp;        Drawable exitBtnDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(&quot;exitBtn.png&quot;)));</b>
+<b class="fc">&nbsp;        Drawable exitBtnDrawableHover = new TextureRegionDrawable(new TextureRegion(new Texture(&quot;exitBtn2.png&quot;)));</b>
+&nbsp;
+<b class="fc">&nbsp;        final ImageButton exitNormal = new ImageButton(exitBtnDrawable);</b>
+<b class="fc">&nbsp;        final ImageButton exitHover = new ImageButton(exitBtnDrawableHover);</b>
+&nbsp;
+<b class="fc">&nbsp;        assertNotEquals(&quot;Test passes if after you hover on button, it lights up&quot; , exitNormal,exitHover);</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    /**
+&nbsp;     * This test checks for the difference in buttons on the main menu screen (once hovered upon)
+&nbsp;     */
+&nbsp;    @Test
+&nbsp;    public void testInfoBtnClickListener() {
+&nbsp;        //Create the info button and its drawables
+<b class="fc">&nbsp;        Drawable infoBtnDrawable = new TextureRegionDrawable(new TextureRegion(new Texture(&quot;infoBtn.png&quot;)));</b>
+<b class="fc">&nbsp;        Drawable infoBtnDrawableHover = new TextureRegionDrawable(new TextureRegion(new Texture(&quot;infoBtn2.png&quot;)));</b>
+&nbsp;
+<b class="fc">&nbsp;        final ImageButton infoNormal = new ImageButton(infoBtnDrawable);</b>
+<b class="fc">&nbsp;        final ImageButton infoHover = new ImageButton(infoBtnDrawableHover);</b>
+&nbsp;
+<b class="fc">&nbsp;        assertNotEquals(&quot;Test passes if after you hover on button, it lights up&quot; , infoNormal,infoHover);</b>
+<b class="fc">&nbsp;    }</b>
+&nbsp;
+&nbsp;
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-05-01 19:02</div>
+</div>
+</body>
+</html>
