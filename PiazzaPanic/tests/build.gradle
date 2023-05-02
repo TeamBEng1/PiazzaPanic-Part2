@@ -12,4 +12,5 @@ project.ext.assetsDir = new File("../assets")
 
 test {
     jvmArgs += "--add-opens=java.base/java.lang=ALL-UNNAMED"
+
 }

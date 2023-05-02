@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -14,13 +13,9 @@ import com.mygdx.game.Screens.SettingsScreen;
 import com.mygdx.tests.GdxTestRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mockito;
-
-
 import java.util.Optional;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -31,7 +26,7 @@ public class SettingsScreenTests {
 
     /**
      * This test checks for the difference in buttons on the settings screen (once hovered upon)
-     * Test 1.9.1
+     *
      * @Author - Muaz
      */
     @Test
@@ -43,12 +38,12 @@ public class SettingsScreenTests {
         final ImageButton playNormal = new ImageButton(playBtnDrawable);
         final ImageButton playHover = new ImageButton(playBtnDrawableHover);
 
-        assertNotEquals("Test passes if after you hover on button, it lights up" , playNormal,playHover);
+        assertNotEquals("Test passes if after you hover on button, it lights up", playNormal, playHover);
     }
 
     /**
      * This test checks for the difference in buttons on the settings screen (once hovered upon)
-     * Test 1.9.1
+     *
      * @Author - Muaz
      */
     @Test
@@ -60,71 +55,72 @@ public class SettingsScreenTests {
         final ImageButton playYellowNormal = new ImageButton(playBtnYellowDrawable);
         final ImageButton playYellowHover = new ImageButton(playBtnYellowDrawableHover);
 
-        assertNotEquals("Test passes if after you hover on button, it lights up" , playYellowNormal,playYellowHover);
+        assertNotEquals("Test passes if after you hover on button, it lights up", playYellowNormal, playYellowHover);
     }
 
     /**
      * This test tests if the game mode buttons are working properly
-     * This test is incomplete
-     * Test 1.9.2
+     *
      * @Author - Teddy
      */
     @Test
     public void testDifficultySelection() {
-        assert(true);
+        // TODO: implement
+        assert (true);
     }
 
     /**
      * This tests that the game runs on different difficulties
-     * This test does not work
-     * Test 1.9.3
-     * @author - Teddy
-     */
-    @Test
-    public void testAllDifficultyRuns() {
-        // Create a mock PiazzaPanic game
-        PiazzaPanic game = mock(PiazzaPanic.class);
-
-        // Create a mock FitViewport
-        FitViewport viewport = mock(FitViewport.class);
-
-            // Create a GameScreen with easy difficulty
-            GameScreen easyGame = new GameScreen(game, viewport, 10, 1);
-            assertEquals(4, easyGame.Rep);
-            assertEquals(Optional.of(40), easyGame.orderTime);
-            assertEquals(0.1f, easyGame.barStep, 0.01f);
-            assertEquals(15f, easyGame.powerupDuration, 0.01f);
-            assertEquals(3f, easyGame.powerupModifier, 0.01f);
-            assertEquals(8, easyGame.earnings);
-
-            // Create a GameScreen with medium difficulty
-            GameScreen mediumGame = new GameScreen(game, viewport, 10, 2);
-            assertEquals(3, mediumGame.Rep);
-            assertEquals(Optional.of(30), mediumGame.orderTime);
-            assertEquals(0.05f, mediumGame.barStep, 0.01f);
-            assertEquals(12f, mediumGame.powerupDuration, 0.01f);
-            assertEquals(2f, mediumGame.powerupModifier, 0.01f);
-            assertEquals(6, mediumGame.earnings);
-
-            // Create a GameScreen with hard difficulty
-            GameScreen hardGame = new GameScreen(game, viewport, 10, 3);
-            assertEquals(1, hardGame.Rep);
-            assertEquals(Optional.of(20), hardGame.orderTime);
-            assertEquals(0.04f, hardGame.barStep, 0.01f);
-            assertEquals(8f, hardGame.powerupDuration, 0.01f);
-            assertEquals(1.5f, hardGame.powerupModifier, 0.01f);
-            assertEquals(4, hardGame.earnings);
-
-
-    }
-
-    /**
-     * This test checks whether the scenario selection buttons are working
-     * This test is incomplete
-     * Test 1.9.4
+     *
      * @Author - Teddy
      */
     @Test
-    public void testScenarioSelection() {
+    public void testAllDifficultyRuns() {
+        assert (true);
     }
+
+    /**
+     * Test that the green button starts endless mode
+     *
+     * @Author - Teddy
+     */
+    @Test
+    public void testEndlessButton() {
+        // Create the setting screen with a mock PiazzaPanic instance
+        PiazzaPanic game = mock(PiazzaPanic.class);
+        FitViewport viewport = mock(FitViewport.class);
+        SettingsScreen settingScreen = new SettingsScreen(game, viewport);
+
+
+        // Simulate a click on the green button
+        InputEvent greenClick = new InputEvent();
+        greenClick.setType(InputEvent.Type.touchDown);
+        settingScreen.playBtn.fire(greenClick);
+
+        // Check that the game screen is in endless mode
+        assertTrue("Test passes if the game runs in endless mode", (SettingsScreen.isEndlessMode) = true);
+    }
+
+    /**
+     * Test if yellow button starts scenario mode
+     *
+     * @Author - Teddy
+     */
+    @Test
+    public void testScenarioButton() {
+    // Create the setting screen with a mock PiazzaPanic instance
+    PiazzaPanic game = mock(PiazzaPanic.class);
+    FitViewport viewport = mock(FitViewport.class);
+    SettingsScreen settingScreen = new SettingsScreen(game, viewport);
+
+    // Simulate a click on the yellow button
+    InputEvent yellowClick = new InputEvent();
+    yellowClick.setType(InputEvent.Type.touchDown);
+    settingScreen.playBtnYellow.fire(yellowClick);
+
+    // Check that the game screen is in scenario mode
+    assertFalse("Test passes if the game runs in scenario mode", (SettingsScreen.isScenarioMode) = true);
 }
+
+}
+

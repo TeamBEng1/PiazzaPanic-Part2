@@ -33,6 +33,8 @@ public class SettingsScreen implements Screen {
     // this font is small and *does* change depending on the number of customers chosen
     public BitmapFont diffFont;
     // this font is large and changes based on selected difficulty
+    public static boolean isEndlessMode = false;
+    public static boolean isScenarioMode = false;
 
     public int customerNum = 5;
     public int diffInt = 2;
@@ -298,11 +300,13 @@ public class SettingsScreen implements Screen {
 
         if (playBtn.isPressed()){
             // Play endless mode
+            isEndlessMode = true;
             game.setScreen(new GameScreen(game, view, 0, diffInt));
         }
 
         if (playBtnYellow.isPressed()) {
             // play scenario mode
+            isScenarioMode = true;
             game.setScreen(new GameScreen(game, view, customerNum, diffInt));
         }
 

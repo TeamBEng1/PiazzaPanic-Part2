@@ -59,8 +59,8 @@ import java.util.Random;
 public class GameScreen implements Screen {
 
     // if customer number = 0, then endless mode
-    private final int customerNumber;
-    private final int difficulty;
+    public final int customerNumber;
+    public final int difficulty;
     PiazzaPanic game;
     FitViewport view;
     Stage gameStage;
