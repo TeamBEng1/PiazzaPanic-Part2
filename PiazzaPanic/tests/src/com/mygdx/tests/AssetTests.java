@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 
 /**
  * These tests check for everything to do with the assets used in the game
+ * Test 3.0
  */
 @RunWith(GdxTestRunner.class)
 public class AssetTests {
