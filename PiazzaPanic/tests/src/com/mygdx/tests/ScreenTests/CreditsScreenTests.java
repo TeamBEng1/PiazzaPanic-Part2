@@ -34,6 +34,7 @@ public class CreditsScreenTests {
 
     /**
      * This test checks for the difference in buttons on the credits screen (once hovered upon)
+     * Test 1.12.1
      */
     @Test
     public void testBackBtnClickListener() {
@@ -50,6 +51,7 @@ public class CreditsScreenTests {
     /**
      * This test checks whether once the back button is clicked, we return to the main menu screen
      * This test does not work
+     * Test 1.12.2
      */
     @Test
     public void testBackBtnClick() {
@@ -73,6 +75,7 @@ public class CreditsScreenTests {
     /**
      * This test checks the getter method of the back button
      * This test does not work
+     * Test 1.12.3
      */
     @Test
     public void testGetBackButton() {

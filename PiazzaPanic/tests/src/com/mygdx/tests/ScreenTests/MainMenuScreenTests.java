@@ -22,6 +22,7 @@ public class MainMenuScreenTests {
 
     /**
      * This test checks for the difference in buttons on the main menu screen (once hovered upon)
+     * Test 1.10.1
      */
     @Test
     public void testPlayBtnClickListener() {
@@ -37,6 +38,7 @@ public class MainMenuScreenTests {
 
     /**
      * This test checks for the difference in buttons on the main menu screen (once hovered upon)
+     * Test 1.10.2
      */
     @Test
     public void testExitBtnClickListener() {
@@ -52,6 +54,7 @@ public class MainMenuScreenTests {
 
     /**
      * This test checks for the difference in buttons on the main menu screen (once hovered upon)
+     * Test 1.10.3
      */
     @Test
     public void testInfoBtnClickListener() {

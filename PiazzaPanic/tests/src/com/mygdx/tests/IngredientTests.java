@@ -19,6 +19,7 @@ public class IngredientTests {
      * It checks to see whether the ingredient can be prepared by getting its state before and after
      * It also compares the textures and checks whether the notPreparedTexture is converted to the preparedTexture
      * after preparation
+     * Test 1.7.1
      */
     @Test
     public void testPrepare() {
@@ -43,6 +44,7 @@ public class IngredientTests {
 
     /**
      * This test checks that two of the same ingredients when one is prepared and the other is not are not equal
+     * Test 1.7.2
      */
     @Test
     public void testEquals() {

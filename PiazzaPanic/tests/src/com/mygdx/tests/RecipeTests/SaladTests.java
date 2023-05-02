@@ -20,6 +20,7 @@ public class SaladTests {
     /**
      * This test checks for the number of ingredients required to make a salad
      * For a salad, there are 2 ingredients (tomato and lettuce) and we assertEquals to 2
+     * Test 1.4.1
      */
     @Test
     public void testGetRecipe() {
@@ -30,6 +31,7 @@ public class SaladTests {
 
     /**
      * This test checks that the texture for the salad is present, and thus not null
+     * Test 1.4.2
      */
     @Test
     public void testGetTexture() {
@@ -40,6 +42,7 @@ public class SaladTests {
 
     /**
      * This test checks that the texture for ordering of the salad is present, and thus not null
+     * Test 1.4.3
      */
     @Test
     public void testGetSpeechBubbleTexture() {
@@ -52,6 +55,7 @@ public class SaladTests {
      * This test checks that the two ingredients combined (tomato and lettuce) make a salad
      * We also checked to see if they are pushed in a different order (lettuce and tomato) and if it would
      * still assemble the salad
+     * Test 1.4.4
      */
     @Test
     public void testHasSalad() {

@@ -23,6 +23,7 @@ public class CookTests {
      * It makes sure that the cook object is actually created
      * Also that all of its elements, such as CookBody and CookStack, are not null
      * It checks that at the start (when there are no orders), the cook is not busy
+     * Test 1.5.1
      * @Author - Muaz
      */
     @Test
@@ -39,6 +40,7 @@ public class CookTests {
      * This test checks that the cook moves to the right place
      * The variable index is hardcoded as 3, to see if the cook will move to the third station
      * At the end an assert statement is used to check if the cook is roughly in the right place
+     * Test 1.5.2
      * @Author - Muaz
      */
     @Test
@@ -78,6 +80,7 @@ public class CookTests {
     /**
      * This test does not work. It is meant to test whether the flip button on the frying station works
      * This is due to deprecated Gradle features
+     * Test 1.5.3
      * @Author - Teddy
      */
 //    @Test

@@ -36,6 +36,7 @@ public class CustomerTests {
      * It makes sure that the customer object is actually created
      * Also that all of its elements, such as customerOrder and customerBody and customerName, are not null
      * It checks that the order is not complete at time of creation and that the customer is not yet at counter
+     * Test 1.6.1
      * @Author - Muaz
      */
     @Test
@@ -53,6 +54,7 @@ public class CustomerTests {
 
     /**
      * This test checks whether the customer actually reaches the counter after the move method is implemented
+     * Test 1.6.2
      */
     @Test
     public void testMoveToCounter() {
@@ -70,6 +72,7 @@ public class CustomerTests {
     /**
      * This test checks to see whether after the order is complete, the customer will actually move off the screen
      * We have assumed 500 as an arbitrary value for moving off the screen
+     * Test 1.6.3
      */
     @Test
     public void testMoveOffScreen() {
@@ -97,6 +100,7 @@ public class CustomerTests {
 
     /**
      * This test checks if the GenerateOrder method of the customer object returns a valid order
+     * Test 1.6.4
      */
     @Test
     public void testGenerateOrder() {

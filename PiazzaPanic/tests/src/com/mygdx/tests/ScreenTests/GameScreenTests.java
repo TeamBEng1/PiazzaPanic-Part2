@@ -38,6 +38,7 @@ public class GameScreenTests {
     /**
      * This test does not work.
      * The code is correct but due to the structure of the GameScreen class and lack of lazy evaluation it will not run
+     * Test 1.8.1
      */
     @Test
     public void testSpawnCooks() {
@@ -62,6 +63,7 @@ public class GameScreenTests {
     /**
      * This test checks the input to see how to change the cook selected
      * Once again this code will not work due to lack of lazy evaluation and inability to run in headless
+     * Test 1.8.2
      */
     @Test
     public void testProcessInput() {

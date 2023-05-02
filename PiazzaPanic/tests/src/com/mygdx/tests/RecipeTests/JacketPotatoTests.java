@@ -21,6 +21,7 @@ public class JacketPotatoTests {
     /**
      * This test checks for the number of ingredients required to make a jacket potato
      * For a jacket potato, there are 2 ingredients (cheese and potato) and we assertEquals to 2
+     * Test 1.2.1
      */
     @Test
     public void testGetRecipe() {
@@ -32,6 +33,7 @@ public class JacketPotatoTests {
 
     /**
      * This test checks that the texture for the jacket potato is present, and thus not null
+     * Test 1.2.2
      */
     @Test
     public void testGetTexture() {
@@ -42,6 +44,7 @@ public class JacketPotatoTests {
 
     /**
      * This test checks that the texture for ordering of the jacket potato is present, and thus not null
+     * Test 1.2.3
      */
     @Test
     public void testGetSpeechBubbleTexture() {
@@ -54,6 +57,7 @@ public class JacketPotatoTests {
      * This test checks that the two ingredients combined (cheese and potato) make a jacket potato
      * We also checked to see if they are pushed in a different order (potato and cheese) and if it would
      * still assemble the jacket potato
+     * Test 1.2.4
      */
     @Test
     public void testHasJacketPotato() {

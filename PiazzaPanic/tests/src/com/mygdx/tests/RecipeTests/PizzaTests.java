@@ -21,6 +21,7 @@ public class PizzaTests {
     /**
      * This test checks for the number of ingredients required to make a pizza
      * For a pizza, there are 3 ingredients (cheese, tomato and pizzaBase) and we assertEquals to 3
+     * Test 1.3.1
      */
     @Test
     public void testGetRecipe() {
@@ -31,6 +32,7 @@ public class PizzaTests {
 
     /**
      * This test checks that the texture for the pizza is present, and thus not null
+     * Test 1.3.2
      */
     @Test
     public void testGetTexture() {
@@ -41,6 +43,7 @@ public class PizzaTests {
 
     /**
      * This test checks that the texture for ordering of the pizza is present, and thus not null
+     * Test 1.3.3
      */
     @Test
     public void testGetSpeechBubbleTexture() {
@@ -53,6 +56,7 @@ public class PizzaTests {
      * This test checks that the three ingredients combined (cheese, tomato and pizzaBase) make a pizza
      * We also checked to see if they are pushed in a different order (pizzaBase, tomato and cheese) and if it would
      * still assemble the pizza
+     * Test 1.3.4
      */
     @Test
     public void testHasPizza() {
