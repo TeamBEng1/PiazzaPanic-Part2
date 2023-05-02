@@ -197,9 +197,22 @@ public class EndGameScreen implements Screen {
  */
     private String humanReadableFormat(Duration duration) {
         // format the time information
+        String returnValue;
+        /*
         return (String.format("%sm %ss",
-                duration.toMinutesPart(),
-                duration.toSecondsPart()));
+                duration.getSeconds(),
+                duration.toMinutes()));*/
+        Long seconds = duration.getSeconds();
+        if(seconds >= 60){
+            Long minutes = seconds / 60;
+            seconds = seconds % 60;
+            returnValue = (Long.toString(minutes) + "m" + Long.toString(seconds) + "s");
+        }
+        else{
+            returnValue = (Long.toString(seconds) + "s");
+        }
+        return (returnValue);
+
     }
 
 }

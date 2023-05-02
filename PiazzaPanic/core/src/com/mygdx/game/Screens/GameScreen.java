@@ -1117,6 +1117,14 @@ public class GameScreen implements Screen {
             //debug - Oli
             spawnPowerup();
         }
+        if(Gdx.input.isKeyPressed(Input.Keys.P)){
+            Rep -= 1;
+            if(Rep == 0){
+                alienJazz.stop();
+                Duration timeSurvived = Duration.between(gameTime, Instant.now());
+                game.setScreen(new EndGameScreen(game, timeSurvived,Rep, customersServed, customerNumber));
+            }
+        }
     }
 
     //update the cooks on the screen
