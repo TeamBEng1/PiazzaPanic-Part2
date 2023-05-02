@@ -21,7 +21,7 @@ public class EndGameScreenTests {
 
     /**
      * This test checks for the difference in buttons on the end screen (once hovered upon)
-     * Test 1.11.1
+     * Test 1.9.1
      */
     @Test
     public void testExitBtnClickListener() {
@@ -37,7 +37,7 @@ public class EndGameScreenTests {
 
     /**
      * This test checks for the difference in buttons on the end screen (once hovered upon)
-     * Test 1.11.2
+     * Test 1.9.1
      */
     @Test
     public void testRestartBtnClickListener() {

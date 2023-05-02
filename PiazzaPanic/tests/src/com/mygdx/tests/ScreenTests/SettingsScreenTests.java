@@ -48,7 +48,7 @@ public class SettingsScreenTests {
 
     /**
      * This test checks for the difference in buttons on the settings screen (once hovered upon)
-     * Test 1.9.2
+     * Test 1.9.1
      * @Author - Muaz
      */
     @Test
@@ -66,7 +66,7 @@ public class SettingsScreenTests {
     /**
      * This test tests if the game mode buttons are working properly
      * This test is incomplete
-     * Test 1.9.3
+     * Test 1.9.2
      * @Author - Teddy
      */
     @Test
@@ -77,7 +77,7 @@ public class SettingsScreenTests {
     /**
      * This tests that the game runs on different difficulties
      * This test does not work
-     * Test 1.9.4
+     * Test 1.9.3
      * @author - Teddy
      */
     @Test
@@ -121,7 +121,7 @@ public class SettingsScreenTests {
     /**
      * This test checks whether the scenario selection buttons are working
      * This test is incomplete
-     * Test 1.9.5
+     * Test 1.9.4
      * @Author - Teddy
      */
     @Test
