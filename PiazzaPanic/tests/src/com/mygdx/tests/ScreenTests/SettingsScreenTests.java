@@ -63,6 +63,7 @@ public class SettingsScreenTests {
 
     /**
      * This test tests if the game mode buttons are working properly
+     * This test is incomplete
      * @Author - Teddy
      */
     @Test
@@ -72,6 +73,7 @@ public class SettingsScreenTests {
 
     /**
      * This tests that the game runs on different difficulties
+     * This test does not work
      * @author teddyseddon
      */
     @Test
@@ -114,6 +116,7 @@ public class SettingsScreenTests {
 
     /**
      * This test checks whether the scenario selection buttons are working
+     * This test is incomplete
      * @Author - Teddy
      */
     @Test
