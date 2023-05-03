@@ -56,26 +56,6 @@ public class SettingsScreenTests {
         assertNotEquals("Test passes if after you hover on button, it lights up", playYellowNormal, playYellowHover);
     }
 
-    /**
-     * This test tests if the game mode buttons are working properly
-     *
-     * @Author - Teddy
-     */
-    @Test
-    public void testDifficultySelection() {
-        // TODO: implement
-        assert (true);
-    }
-
-    /**
-     * This tests that the game runs on different difficulties
-     *
-     * @Author - Teddy
-     */
-    @Test
-    public void testAllDifficultyRuns() {
-        assert (true);
-    }
 
     /**
      * Test that the green button starts endless mode
